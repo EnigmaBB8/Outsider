@@ -25,20 +25,22 @@ public class PantallaLucha1 extends Pantalla {
     public void show() {
         fondoNivel1 = new Texture("fondos/fondoMenu.JPG");
         crearNivel1();
-
-
     }
 
     private void crearNivel1() {
         escenaNivel1 = new Stage(vista);
         //Boton de regreso
-        Texture btnNuevaPartida = new Texture("botones/botonNP.png");
+        Texture btnNuevaPartida = new Texture("botones/botonR.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
+
         //Inverso de boton de rgreso
         Texture btnNuevaPartidaInv = new Texture("botones/botonNPInv.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
+
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+
         btnNP.setPosition(ANCHO * .85f, ALTO * .96F, Align.topLeft);
+
         btnNP.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
