@@ -11,69 +11,46 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 
-public class PantallaMenu extends Pantalla  {
-
+public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
-    private Texture fondomenu;
-    private Stage escenaMenu;
+    private Stage escenaNivel1;
 
+    private Texture fondoNivel1;
 
-    public PantallaMenu(Juego juego) {
+    public PantallaLucha1(Juego juego) {
         this.juego = juego;
     }
 
     @Override
     public void show() {
-        fondomenu = new Texture("fondos/fondomenu.JPG");
-        crearMenu();
+        fondoNivel1 = new Texture("fondos/fondoMenu.JPG");
+        crearNivel1();
+
+
     }
 
-    private void crearMenu() {
-        escenaMenu = new Stage(vista);
-        //Boton de Nueva Partida
+    private void crearNivel1() {
+        escenaNivel1 = new Stage(vista);
+        //Boton de regreso
         Texture btnNuevaPartida = new Texture("botones/botonNP.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
-
-        //Boton de Reanudar
-        Texture btnReanudar = new Texture("botones/botonR.png");
-        TextureRegionDrawable trdBtnReanudar = new TextureRegionDrawable(new TextureRegion(btnReanudar));
-
-        //Inverso de boton de Nueva Partida
+        //Inverso de boton de rgreso
         Texture btnNuevaPartidaInv = new Texture("botones/botonNPInv.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
-
-        //Inverso de boton de Reanudar
-        Texture btnReanudarInv = new Texture("botones/botonRInv.png");
-        TextureRegionDrawable trdBtnReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
-
-
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
-        ImageButton btnR = new ImageButton(trdBtnReanudar, trdBtnReanudarInv);
-        btnNP.setPosition(ANCHO * .65f, ALTO * .75F, Align.topLeft);
-        btnR.setPosition(ANCHO * .65f, ALTO * .60F, Align.topLeft);
-        //evento de click
+        btnNP.setPosition(ANCHO * .85f, ALTO * .96F, Align.topLeft);
         btnNP.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //Cambiamos de pantalla
-                juego.setScreen(new PantallaLucha1(juego));
-
+                juego.setScreen(new PantallaMenu(juego));
             }
         });
-        btnR.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.setScreen(new PantallaLucha1(juego));
-            }
-        });
-        escenaMenu.addActor(btnNP);
-        escenaMenu.addActor(btnR);
 
-        Gdx.input.setInputProcessor(escenaMenu);
+
+        escenaNivel1.addActor(btnNP);
+        Gdx.input.setInputProcessor(escenaNivel1);
     }
-
 
     @Override
     public void render(float delta) {
@@ -81,10 +58,11 @@ public class PantallaMenu extends Pantalla  {
         batch.setProjectionMatrix(camara.combined);
 
         batch.begin();
-        batch.draw(fondomenu, 0, 0);
+        batch.draw(fondoNivel1, 0, 0);
         batch.end();
 
-        escenaMenu.draw();
+        escenaNivel1.draw();
+
     }
 
     @Override
@@ -99,7 +77,8 @@ public class PantallaMenu extends Pantalla  {
 
     @Override
     public void dispose() {
-        fondomenu.dispose();
+        fondoNivel1.dispose();
         batch.dispose();
+
     }
 }
