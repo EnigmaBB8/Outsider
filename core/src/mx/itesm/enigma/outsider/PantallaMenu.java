@@ -110,6 +110,7 @@ public class PantallaMenu extends Pantalla  {
         escenaMenu.addActor(btnAy);
 
         Gdx.input.setInputProcessor(escenaMenu);
+
         boolean b = btnNP.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -122,6 +123,22 @@ public class PantallaMenu extends Pantalla  {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaAcercaDe(juego));
+            }
+        });
+
+        btnC.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaConfiguracion(juego));
+            }
+        });
+
+        btnAy.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAyuda(juego));
             }
         });
     }
