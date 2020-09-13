@@ -29,17 +29,17 @@ public class PantallaAcercaDe extends Pantalla {
 
     private void crearPantallaAD() {
         escenaAcercaDe = new Stage(vista);
-        //Boton de regreso
-        Texture btnNuevaPartida = new Texture("botones/botonR.png");
+        ///Boton de regreso a menu
+        Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
-        //Inverso de boton de rgreso
-        Texture btnNuevaPartidaInv = new Texture("botones/botonNPInv.png");
+        //Inverso de boton de regreso a menu
+        Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
-        btnNP.setPosition(ANCHO * .05f, ALTO * .96F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .86f, ALTO * .17F, Align.topLeft);
 
         btnNP.addListener(new ClickListener() {
             @Override
@@ -48,7 +48,6 @@ public class PantallaAcercaDe extends Pantalla {
                 juego.setScreen(new PantallaMenu(juego));
             }
         });
-
 
         escenaAcercaDe.addActor(btnNP);
         Gdx.input.setInputProcessor(escenaAcercaDe);

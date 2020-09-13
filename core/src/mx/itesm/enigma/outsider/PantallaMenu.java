@@ -95,19 +95,19 @@ public class PantallaMenu extends Pantalla  {
         /*
         Presentacion de los botones
          */
-        btnL.setPosition(ANCHO*.5f,ALTO*.93F, Align.topRight);
-        btnNP.setPosition(ANCHO*.65f,ALTO*.78F, Align.topLeft);
-        btnR.setPosition(ANCHO*.65f,ALTO*.66F, Align.topLeft);
-        btnAD.setPosition(ANCHO*.65f,ALTO*.54F, Align.topLeft);
-        btnAy.setPosition(ANCHO*.68f,ALTO*.40F, Align.topLeft);
-        btnC.setPosition(ANCHO*.77f,ALTO*.43F, Align.topLeft);
+        btnL.setPosition(ANCHO*.5f,ALTO*.9f, Align.topRight);
+        btnNP.setPosition(ANCHO*.60f,ALTO*.9F, Align.topLeft);
+        btnR.setPosition(ANCHO*.6f,ALTO*.74F, Align.topLeft);
+        btnAD.setPosition(ANCHO*.6f,ALTO*.58F, Align.topLeft);
+        btnC.setPosition(ANCHO*.6f,ALTO*.42F, Align.topLeft);
+        btnAy.setPosition(ANCHO*.6f,ALTO*.26F, Align.topLeft);
 
         escenaMenu.addActor(btnNP);
         escenaMenu.addActor(btnR);
         escenaMenu.addActor(btnL);
         escenaMenu.addActor(btnAD);
-        escenaMenu.addActor(btnAy);
         escenaMenu.addActor(btnC);
+        escenaMenu.addActor(btnAy);
 
         Gdx.input.setInputProcessor(escenaMenu);
         boolean b = btnNP.addListener(new ClickListener() {
@@ -117,7 +117,13 @@ public class PantallaMenu extends Pantalla  {
                 juego.setScreen(new PantallaLucha1(juego));
             }
         });
-
+        boolean a = btnAD.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAcercaDe(juego));
+            }
+        });
     }
 
     @Override
@@ -148,3 +154,4 @@ public class PantallaMenu extends Pantalla  {
         batch.dispose();
     }
 }
+
