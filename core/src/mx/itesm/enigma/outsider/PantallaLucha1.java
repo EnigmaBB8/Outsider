@@ -29,19 +29,19 @@ public class PantallaLucha1 extends Pantalla {
 
     private void crearNivel1() {
         escenaNivel1 = new Stage(vista);
-        //Boton de regreso
-        Texture btnNuevaPartida = new Texture("botones/botonR.png");
-        TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
+        //Boton de regreso a menu
+        Texture btnFlechaAtras = new Texture("botones/flechaAtras.png");
+        TextureRegionDrawable trdBtnFlechaAtras = new TextureRegionDrawable(new TextureRegion(btnFlechaAtras));
 
-        //Inverso de boton de rgreso
-        Texture btnNuevaPartidaInv = new Texture("botones/botonNPInv.png");
-        TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
+        //Inverso de boton de regreso a menu
+        Texture btnFlechaAtrasInv = new Texture("botones/flechaAtras.png");
+        TextureRegionDrawable trdBtnFlechaAtrasInv = new TextureRegionDrawable(new TextureRegion(btnFlechaAtrasInv));
 
-        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        ImageButton btnFA = new ImageButton(trdBtnFlechaAtras, trdBtnFlechaAtrasInv);
 
-        btnNP.setPosition(ANCHO * .85f, ALTO * .96F, Align.topLeft);
+        btnFA.setPosition(ANCHO * .75f, ALTO * .3F, Align.topLeft);
 
-        btnNP.addListener(new ClickListener() {
+        btnFA.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -50,7 +50,7 @@ public class PantallaLucha1 extends Pantalla {
         });
 
 
-        escenaNivel1.addActor(btnNP);
+        escenaNivel1.addActor(btnFA);
         Gdx.input.setInputProcessor(escenaNivel1);
     }
 

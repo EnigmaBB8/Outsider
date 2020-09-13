@@ -55,7 +55,7 @@ public class PantallaMenu extends Pantalla  {
         TextureRegionDrawable trdBtnConf = new TextureRegionDrawable(new TextureRegion(btnConf));
 
         /*
-        Botones inversos a los anteriores
+        Botones inversos a los anterioires
          */
 
         //Logo
@@ -102,28 +102,6 @@ public class PantallaMenu extends Pantalla  {
         btnAy.setPosition(ANCHO*.68f,ALTO*.40F, Align.topLeft);
         btnC.setPosition(ANCHO*.77f,ALTO*.43F, Align.topLeft);
 
-        /*
-        Listeners
-         */
-
-        //Listener Nivel 1
-        boolean b = btnNP.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.setScreen(new PantallaLucha1(juego));
-            }
-        });
-
-        // Listener Acerca de
-        btnAD.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDe(juego));
-            }
-        });
-
         escenaMenu.addActor(btnNP);
         escenaMenu.addActor(btnR);
         escenaMenu.addActor(btnL);
@@ -132,6 +110,14 @@ public class PantallaMenu extends Pantalla  {
         escenaMenu.addActor(btnC);
 
         Gdx.input.setInputProcessor(escenaMenu);
+        boolean b = btnNP.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaLucha1(juego));
+            }
+        });
+
     }
 
     @Override
