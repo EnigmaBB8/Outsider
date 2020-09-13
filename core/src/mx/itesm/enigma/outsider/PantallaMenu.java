@@ -55,7 +55,7 @@ public class PantallaMenu extends Pantalla  {
         TextureRegionDrawable trdBtnConf = new TextureRegionDrawable(new TextureRegion(btnConf));
 
         /*
-        Botones inversos a los anterioires
+        Botones inversos a los anteriores
          */
 
         //Logo
@@ -102,14 +102,11 @@ public class PantallaMenu extends Pantalla  {
         btnAy.setPosition(ANCHO*.68f,ALTO*.40F, Align.topLeft);
         btnC.setPosition(ANCHO*.77f,ALTO*.43F, Align.topLeft);
 
-        escenaMenu.addActor(btnNP);
-        escenaMenu.addActor(btnR);
-        escenaMenu.addActor(btnL);
-        escenaMenu.addActor(btnAD);
-        escenaMenu.addActor(btnAy);
-        escenaMenu.addActor(btnC);
+        /*
+        Listeners
+         */
 
-        Gdx.input.setInputProcessor(escenaMenu);
+        //Listener Nivel 1
         boolean b = btnNP.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -118,6 +115,23 @@ public class PantallaMenu extends Pantalla  {
             }
         });
 
+        // Listener Acerca de
+        btnAD.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAcercaDe(juego));
+            }
+        });
+
+        escenaMenu.addActor(btnNP);
+        escenaMenu.addActor(btnR);
+        escenaMenu.addActor(btnL);
+        escenaMenu.addActor(btnAD);
+        escenaMenu.addActor(btnAy);
+        escenaMenu.addActor(btnC);
+
+        Gdx.input.setInputProcessor(escenaMenu);
     }
 
     @Override
