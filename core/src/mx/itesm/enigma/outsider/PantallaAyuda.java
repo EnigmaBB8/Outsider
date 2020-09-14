@@ -23,7 +23,7 @@ public class PantallaAyuda extends Pantalla {
 
     @Override
     public void show() {
-        fondoAyuda = new Texture("fondos/fondomenu.JPG");
+        fondoAyuda = new Texture("fondos/fondoayuda.png");
         crearpantallaAyuda();
     }
 

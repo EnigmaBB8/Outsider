@@ -23,7 +23,7 @@ public class PantallaAcercaDe extends Pantalla {
 
     @Override
     public void show() {
-        fondoAcercaDe = new Texture("fondos/fondomenu.JPG");
+        fondoAcercaDe = new Texture("fondos/fondoacercade.png");
         crearPantallaAD();
     }
 

@@ -23,7 +23,7 @@ public class PantallaConfiguracion extends Pantalla {
 
     @Override
     public void show() {
-        fondoConf = new Texture("fondos/fondomenu.JPG");
+        fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
     }
 

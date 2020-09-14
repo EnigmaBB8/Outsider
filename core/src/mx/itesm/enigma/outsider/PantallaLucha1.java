@@ -14,7 +14,8 @@ import com.badlogic.gdx.utils.Align;
 public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
-
+    private Texture Kaim;
+    private Texture Titan1;
     private Texture fondoNivel1;
 
     public PantallaLucha1(Juego juego) {
@@ -23,8 +24,11 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void show() {
-        fondoNivel1 = new Texture("fondos/fondoMenu.JPG");
+        fondoNivel1 = new Texture("fondos/fondonivel1.JPG");
+        Kaim = new Texture("sprites/KAIM1.png");
+        Titan1 = new Texture("sprites/Titan1.png");
         crearNivel1();
+
     }
 
     private void crearNivel1() {
@@ -61,6 +65,8 @@ public class PantallaLucha1 extends Pantalla {
 
         batch.begin();
         batch.draw(fondoNivel1, 0, 0);
+        batch.draw(Kaim,100,115);
+        batch.draw(Titan1,800,100);
         batch.end();
 
         escenaNivel1.draw();
@@ -81,6 +87,5 @@ public class PantallaLucha1 extends Pantalla {
     public void dispose() {
         fondoNivel1.dispose();
         batch.dispose();
-
     }
 }

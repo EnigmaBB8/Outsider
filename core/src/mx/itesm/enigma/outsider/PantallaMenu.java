@@ -16,6 +16,7 @@ public class PantallaMenu extends Pantalla  {
     private final Juego juego;
     private Texture fondomenu;
     private Stage escenaMenu;
+    private Texture Kaim;
 
 
     public PantallaMenu(Juego juego) {
@@ -24,7 +25,7 @@ public class PantallaMenu extends Pantalla  {
 
     @Override
     public void show() {
-        fondomenu = new Texture("fondos/fondomenu.JPG");
+        fondomenu = new Texture("fondos/fondomenu.jpeg");
         crearMenu();
     }
 
@@ -95,7 +96,7 @@ public class PantallaMenu extends Pantalla  {
         /*
         Presentacion de los botones
          */
-        btnL.setPosition(ANCHO*.5f,ALTO*.9f, Align.topRight);
+        btnL.setPosition(ANCHO*.47f,ALTO*.98f, Align.topRight);
         btnNP.setPosition(ANCHO*.60f,ALTO*.9F, Align.topLeft);
         btnR.setPosition(ANCHO*.6f,ALTO*.74F, Align.topLeft);
         btnAD.setPosition(ANCHO*.6f,ALTO*.58F, Align.topLeft);
@@ -118,6 +119,15 @@ public class PantallaMenu extends Pantalla  {
                 juego.setScreen(new PantallaLucha1(juego));
             }
         });
+
+        boolean c = btnR.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaLucha1(juego));
+            }
+        });
+
         boolean a = btnAD.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
