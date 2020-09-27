@@ -42,9 +42,15 @@ public class PantallaLucha1 extends Pantalla {
         Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
-        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        //Boton Derechar
+        Texture bntDer =new Texture("botones/BtnMP.png");
+        TextureRegionDrawable trBntDer=new TextureRegionDrawable(new TextureRegion(bntDer));
 
-        btnNP.setPosition(ANCHO * .86f, ALTO * .17F, Align.topLeft);
+        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        ImageButton bntD=new ImageButton(trBntDer);
+
+        btnNP.setPosition(ANCHO * .86f, ALTO * .96F, Align.topLeft);
+        bntD.setPosition(ANCHO/2,ALTO/2,Align.center);
 
         btnNP.addListener(new ClickListener() {
             @Override
@@ -53,6 +59,8 @@ public class PantallaLucha1 extends Pantalla {
                 juego.setScreen(new PantallaMenu(juego));
             }
         });
+
+
 
         escenaNivel1.addActor(btnNP);
         Gdx.input.setInputProcessor(escenaNivel1);
