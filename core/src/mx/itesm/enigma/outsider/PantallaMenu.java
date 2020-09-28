@@ -124,7 +124,7 @@ public class PantallaMenu extends Pantalla  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaLucha1(juego));
+                juego.setScreen(new PantallaReanudar(juego));
             }
         });
 
