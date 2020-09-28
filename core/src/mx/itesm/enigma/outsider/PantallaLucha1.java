@@ -35,18 +35,18 @@ public class PantallaLucha1 extends Pantalla {
         escenaNivel1 = new Stage(vista);
 
         ///Boton de regreso a menu
-        //Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
-        //TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
+        Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
+        TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Inverso de boton de regreso a menu
         Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
-        //ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
-       // btnNP.setPosition(ANCHO * .86f, ALTO * .17F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .86f, ALTO * .17F, Align.topLeft);
 
-        /*btnNP.addListener(new ClickListener() {
+        btnNP.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -54,10 +54,7 @@ public class PantallaLucha1 extends Pantalla {
             }
         });
 
-
-         */
-
-        //escenaNivel1.addActor(btnNP);
+        escenaNivel1.addActor(btnNP);
         Gdx.input.setInputProcessor(escenaNivel1);
     }
 
@@ -68,8 +65,8 @@ public class PantallaLucha1 extends Pantalla {
 
         batch.begin();
         batch.draw(fondoNivel1, 0, 0);
-        batch.draw(Kaim,150,115);
-        batch.draw(Titan1,760,100);
+        batch.draw(Kaim,100,115);
+        batch.draw(Titan1,800,100);
         batch.end();
 
         escenaNivel1.draw();
