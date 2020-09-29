@@ -32,39 +32,75 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearNivel1() {
-        escenaNivel1 = new Stage(vista);
 
-        ///Boton de regreso a menu
-        Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
-        TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
-
-        //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
-        TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
-
-        //Boton Derechar
-        Texture bntDer =new Texture("botones/BtnMP.png");
-        TextureRegionDrawable trBntDer=new TextureRegionDrawable(new TextureRegion(bntDer));
-
-        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
-        ImageButton bntD=new ImageButton(trBntDer);
-
-        btnNP.setPosition(ANCHO * .86f, ALTO * .96F, Align.topLeft);
-        bntD.setPosition(ANCHO/2,ALTO/2,Align.center);
-
-        btnNP.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.setScreen(new PantallaMenu(juego));
-            }
-        });
+            escenaNivel1 = new Stage(vista);
+            ///Boton de regreso a menu
+            Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
+            TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
+            //Boton Izquierda
+            Texture bntIz = new Texture("botones/BotonIzquierda.png");
+            TextureRegionDrawable trBntIz = new TextureRegionDrawable(new TextureRegion(bntIz));
+            //Boton Derecha
+            Texture bntDer = new Texture("botones/BotonDerecha.png");
+            TextureRegionDrawable trBntDer = new TextureRegionDrawable(new TextureRegion(bntDer));
+            //Boton Saltar
+            Texture bntSaltar = new Texture("botones/BotonSaltar.png");
+            TextureRegionDrawable trBntSaltar = new TextureRegionDrawable(new TextureRegion(bntSaltar));
+            // Boton Disparar
+            Texture bntDispara = new Texture("botones/BotonDisparar.png");
+            TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
 
+            //Inverso de boton de regreso a menu
+            Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
+            TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
-        escenaNivel1.addActor(btnNP);
-        Gdx.input.setInputProcessor(escenaNivel1);
-    }
+            //Inverso de Boton Izquierda
+            Texture btnIzIn = new Texture("botones/BotonIzquierdaInv.png");
+            TextureRegionDrawable trdBtnIzIn = new TextureRegionDrawable(new TextureRegion(btnIzIn));
+
+            //Inverso de Boton Derecha
+            Texture bntDerIn = new Texture("botones/BotonDerechaInv.png");
+            TextureRegionDrawable trdBtnDeIn = new TextureRegionDrawable(new TextureRegion(bntDerIn));
+
+            //Inverso de boton Saltar
+            Texture bntSaltarIn = new Texture("botones/BotonSaltarInv.png");
+            TextureRegionDrawable trBntSaltarIn = new TextureRegionDrawable(new TextureRegion(bntSaltarIn));
+
+            //Inverso de Boton Disparar
+            Texture bntDisparaIn = new Texture("botones/BotonDispararInv.png");
+            TextureRegionDrawable trBntDispararInv = new TextureRegionDrawable(new TextureRegion(bntDisparaIn));
+
+
+
+            ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+            ImageButton btnIzquierda = new ImageButton(trBntIz,trdBtnIzIn);
+            ImageButton bntDerecha = new ImageButton(trBntDer,trdBtnDeIn);
+            ImageButton bntSalta = new ImageButton(trBntSaltar,trBntSaltarIn);
+            ImageButton bntDisparas = new ImageButton(trTirar,trBntDispararInv);
+
+            btnNP.setPosition(ANCHO * .86f, ALTO * .96F, Align.topLeft);
+            btnIzquierda.setPosition(ANCHO*.05f,ALTO*.148f,Align.topLeft);
+            bntDerecha.setPosition(ANCHO*.15f,ALTO*.14f,Align.topLeft);
+            bntSalta.setPosition(ANCHO*.70f,ALTO*.15f, Align.topLeft);
+            bntDisparas.setPosition(ANCHO*.85f,ALTO*.15f,Align.topLeft);
+
+            btnNP.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    juego.setScreen(new PantallaMenu(juego));
+                }
+            });
+
+
+            escenaNivel1.addActor(btnNP);
+            escenaNivel1.addActor(btnIzquierda);
+            escenaNivel1.addActor(bntDerecha);
+            escenaNivel1.addActor(bntSalta);
+            escenaNivel1.addActor(bntDisparas);
+            Gdx.input.setInputProcessor(escenaNivel1);
+        }
 
     @Override
     public void render(float delta) {
