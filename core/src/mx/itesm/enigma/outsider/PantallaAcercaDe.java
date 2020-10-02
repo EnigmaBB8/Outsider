@@ -29,17 +29,77 @@ public class PantallaAcercaDe extends Pantalla {
 
     private void crearPantallaAD() {
         escenaAcercaDe = new Stage(vista);
+        /*
+        Botones de acción
+         */
+
         ///Boton de regreso a menu
-        Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
+        Texture btnNuevaPartida = new Texture("botones/BtnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
+        //Boton acerca de Karla
+        Texture btnADKarla = new Texture("botones/AD_Karla1.png");
+        TextureRegionDrawable trdBtnADKarla = new TextureRegionDrawable(new TextureRegion(btnADKarla));
+
+        //Boton acerca de Manuel
+        Texture btnADManuel = new Texture("botones/AD_Manuel1.png");
+        TextureRegionDrawable trdBtnManuel = new TextureRegionDrawable(new TextureRegion(btnADManuel));
+
+        //Boton acerca de Itzel
+        Texture btnADItzel = new Texture("botones/AD_Itzel1.png");
+        TextureRegionDrawable trdBtnItzel = new TextureRegionDrawable(new TextureRegion(btnADItzel));
+
+        //Boton acerca de Abraham
+        Texture btnADAbraham = new Texture("botones/AD_Abraham1.png");
+        TextureRegionDrawable trdBtnAbraham = new TextureRegionDrawable(new TextureRegion(btnADAbraham));
+
+        /*
+        Botones inversos de accion
+         */
+
         //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
+        Texture btnNuevaPartidaInv = new Texture("botones/BtnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
-        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        //Inverso de boton de Acerca de Karla
+        Texture btnADKarlaInv = new Texture("botones/AD_Karla.png");
+        TextureRegionDrawable trdBtnADKarlaInv = new TextureRegionDrawable(new TextureRegion(btnADKarlaInv));
 
-        btnNP.setPosition(ANCHO * .86f, ALTO * .17F, Align.topLeft);
+        //Inverso de boton de Acerca de Manuel
+        Texture btnADManuelInv = new Texture("botones/AD_Manuel.png");
+        TextureRegionDrawable trdBtnManuelInv = new TextureRegionDrawable(new TextureRegion(btnADManuelInv));
+
+        //Inverso de boton de Acerca de Itzel
+        Texture btnADItzelInv = new Texture("botones/AD_Itzel.png");
+        TextureRegionDrawable trdBtnItzelInv = new TextureRegionDrawable(new TextureRegion(btnADItzelInv));
+
+        //Inverso de boton de Acerca de Abraham
+        Texture btnADAbrahamInv = new Texture("botones/AD_Abraham.png");
+        TextureRegionDrawable trdBtnAbrahmInv = new TextureRegionDrawable(new TextureRegion(btnADAbrahamInv));
+
+        /*
+        Botones y su inicializacion
+         */
+
+        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        ImageButton btnK = new ImageButton(trdBtnADKarla, trdBtnADKarlaInv);
+        ImageButton btnM = new ImageButton(trdBtnManuel, trdBtnManuelInv);
+        ImageButton btnI = new ImageButton(trdBtnItzel, trdBtnItzelInv);
+        ImageButton btnA = new ImageButton(trdBtnAbraham, trdBtnAbrahmInv);
+
+        /*
+        Posicion e inicializacion de los botones
+         */
+
+        btnNP.setPosition(ANCHO * .8f, ALTO * .25F, Align.topLeft);
+        btnK.setPosition(ANCHO*.15f,ALTO*.55f, Align.center);
+        btnM.setPosition(ANCHO*.45f,ALTO*.55f, Align.center);
+        btnI.setPosition(ANCHO*.15f,ALTO*.15f, Align.center);
+        btnA.setPosition(ANCHO*.45f,ALTO*.15f, Align.center);
+
+        /*
+        Accion al darles click a los botones
+         */
 
         btnNP.addListener(new ClickListener() {
             @Override
@@ -49,7 +109,47 @@ public class PantallaAcercaDe extends Pantalla {
             }
         });
 
+        btnM.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAcercaDeManuel(juego));
+            }
+        });
+
+        btnK.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAcercaDeKarla(juego));
+            }
+        });
+
+        btnI.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAcercaDeItzel(juego));
+            }
+        });
+
+        btnA.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaAcercaDeAbraham(juego));
+            }
+        });
+
+        /*
+        Representación en escena de los botones
+         */
+
         escenaAcercaDe.addActor(btnNP);
+        escenaAcercaDe.addActor(btnK);
+        escenaAcercaDe.addActor(btnM);
+        escenaAcercaDe.addActor(btnI);
+        escenaAcercaDe.addActor(btnA);
         Gdx.input.setInputProcessor(escenaAcercaDe);
     }
 
