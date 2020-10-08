@@ -23,11 +23,11 @@ public class PantallaAyuda extends Pantalla {
 
     @Override
     public void show() {
-        fondoAyuda = new Texture("fondos/fondoayuda.png");
-        crearpantallaAyuda();
+        fondoAyuda = new Texture("fondos/fondoPantallaAyuda.png");
+        crearPantallaAyuda();
     }
 
-    private void crearpantallaAyuda() {
+    private void crearPantallaAyuda() {
         escenaAyuda = new Stage(vista);
         ///Boton de regreso a menu
         Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
