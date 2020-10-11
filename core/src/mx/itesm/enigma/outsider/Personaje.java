@@ -10,10 +10,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Personaje extends Objeto{
     private Animation<TextureRegion> animacion;
     private float timerAnimacion;
+
     //Caminar
     private float Dx=2;
-    private EstadoKAIM estado;
     private EstadoCaminando estadoCaminando;
+
+    // Salto
+    private float yBase;
+    private float tAire;
+    private final float V0 = 100;
+    private final float G = 20;
+    private float tVuelo;
+    private EstadoKAIM estado;
 
     public Personaje(Texture textura, float x, float y){
         TextureRegion region=new TextureRegion(textura);
@@ -30,11 +38,18 @@ public class Personaje extends Objeto{
         timerAnimacion=0;
 
         //Salto
+        yBase = y;
         estado = EstadoKAIM.CAMINANDO;
 
         //Dirección de desplazamiento
         estadoCaminando = EstadoCaminando.QUIETO;
 
+    }
+
+    public void saltar() {
+        estado = EstadoKAIM.SALTANDO;
+        tAire = 0;
+        tVuelo = 2*V0/G;
     }
 
     public EstadoKAIM getEstado() {
@@ -59,6 +74,15 @@ public class Personaje extends Objeto{
                 frame.flip(false,false);
             }
             batch.draw(frame,sprite.getX(),sprite.getY());
+        } else {
+            tAire += 10*delta;
+            float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
+            sprite.setY(y);
+            super.render(batch);
+            if (tAire >= tVuelo) {
+                sprite.setY(yBase);
+                estado = EstadoKAIM.CAMINANDO;
+            }
         }
     }
 

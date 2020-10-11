@@ -118,6 +118,17 @@ public class PantallaLucha1 extends Pantalla {
                     }
             });
 
+            bntSalta.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                        personaje.saltar();
+                        //efectoSalto.play(); Solo por si tiene sonido el salto
+                    }
+                }
+            });
+
             escenaNivel1.addActor(btnNP);
             escenaNivel1.addActor(btnIzquierda);
             escenaNivel1.addActor(bntDerecha);
