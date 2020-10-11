@@ -10,37 +10,35 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Personaje extends Objeto{
     private Animation<TextureRegion> animacion;
     private float timerAnimacion;
-
     //Caminar
-    private EstadoCaminado estados;
-    private float Dx=10;
-
-    //Salto
-    private EstadosPersonaje estadoPersonaje;
+    private float Dx=2;
+    private EstadoKAIM estado;
+    private EstadoCaminando estadoCaminando;
 
     public Personaje(Texture textura, float x, float y){
         TextureRegion region=new TextureRegion(textura);
         TextureRegion[][] texturasFrame=region.split(80,125);
+
         //Quieto
         sprite=new Sprite(texturasFrame[0][0]);
         sprite.setPosition(x,y);
+
         //Animación
-        TextureRegion[] arrFrame={texturasFrame[0][3],texturasFrame[0][2],texturasFrame[0][1]};
+        TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.1f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
 
         //Salto
-        estadoPersonaje=EstadosPersonaje.CAMINANDO;
+        estado = EstadoKAIM.CAMINANDO;
 
         //Dirección de desplazamiento
-        estados=EstadoCaminado.quieto;
-
+        estadoCaminando = EstadoCaminando.QUIETO;
 
     }
 
-    public EstadosPersonaje getEstadoPersonaje() {
-        return estadoPersonaje;
+    public EstadoKAIM getEstado() {
+        return estado;
     }
 
 
@@ -48,14 +46,14 @@ public class Personaje extends Objeto{
         actualizar();
         float delta= Gdx.graphics.getDeltaTime();
         timerAnimacion +=delta;//calcula
-        if(estadoPersonaje==EstadosPersonaje.CAMINANDO) {
+        if(estado == EstadoKAIM.CAMINANDO) {
             TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
             //derecha e izquierda
-            if(estados==EstadoCaminado.derecha && frame.isFlipX()){
+            if(estadoCaminando == EstadoCaminando.DERECHA && frame.isFlipX()){
                 frame.flip(true,false);
 
-            }else if(estados==EstadoCaminado.izquierda && frame.isFlipX()){
-                frame.flip(false,true);
+            }else if(estadoCaminando == EstadoCaminando.IZQUIERDA && !frame.isFlipX()){
+                frame.flip(true,false);
 
             }else{
                 frame.flip(false,false);
@@ -65,10 +63,10 @@ public class Personaje extends Objeto{
     }
 
     private void actualizar() {
-        if(estados==EstadoCaminado.derecha){
+        if(estadoCaminando == EstadoCaminando.DERECHA){
             mover(Dx);
 
-        }else if(estados==EstadoCaminado.izquierda){
+        }else if(estadoCaminando == EstadoCaminando.IZQUIERDA){
             mover(-Dx);
 
         }
@@ -79,7 +77,7 @@ public class Personaje extends Objeto{
         sprite.setX(sprite.getX()+dx);
     }
 
-    public void setEstadosCaminando(EstadoCaminado nuevoEstados) {
-        this.estados = nuevoEstados;
+    public void setEstadoCaminando(EstadoCaminando nuevoEstado) {
+        estadoCaminando = nuevoEstado;
     }
 }

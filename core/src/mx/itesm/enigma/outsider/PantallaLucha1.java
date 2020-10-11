@@ -38,7 +38,7 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearPersonaje() {
-        texturaPersonaje=new Texture("sprites/personaje.jpg");
+        texturaPersonaje=new Texture("sprites/personaje.png");
         personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,128);
     }
 
@@ -103,21 +103,20 @@ public class PantallaLucha1 extends Pantalla {
                     juego.setScreen(new PantallaMenu(juego));
                 }
             });
-            bntDerecha.addListener(new ClickListener(){
-                public void clicked(InputEvent event,float x, float y){
+
+            bntDerecha.addListener(new ClickListener() {
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
+                    }
+                });
+
+            btnIzquierda.addListener(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    personaje.sprite.setX(personaje.sprite.getX()+10);
-                }
+                    personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
+                    }
             });
-        btnIzquierda.addListener(new ClickListener(){
-            public void clicked(InputEvent event,float x, float y){
-                super.clicked(event, x, y);
-                personaje.sprite.setX(personaje.sprite.getX()-10);
-
-
-            }
-        });
-
 
             escenaNivel1.addActor(btnNP);
             escenaNivel1.addActor(btnIzquierda);

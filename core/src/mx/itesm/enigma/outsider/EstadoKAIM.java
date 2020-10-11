@@ -1,6 +1,6 @@
 package mx.itesm.enigma.outsider;
 
-public enum EstadosPersonaje {
+public enum EstadoKAIM {
     CAMINANDO,
     SALTANDO
 }
