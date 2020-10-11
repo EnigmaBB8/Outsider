@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,15 +13,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 
 public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
     private Texture Titan1;
     private Texture fondoNivel1;
+
     //Personaje
     private Personaje personaje;
     private Texture texturaPersonaje;
+
+    //Bolas de Fuego
+    private Array<BolasDeFuego> arrBolasFuego;
+    private float timerCrearBola;
+    private float TIEMPO_CREA_BOLA = 1;
+    private float tiempoBola = 1;
+    private Texture texturaBolas;
 
 
     public PantallaLucha1(Juego juego) {
@@ -33,8 +43,12 @@ public class PantallaLucha1 extends Pantalla {
         Titan1 = new Texture("sprites/Titan1.png");
         crearNivel1();
         crearPersonaje();
+        crearBolasFuego();
+    }
 
-
+    private void crearBolasFuego() {
+        texturaBolas = new Texture("Enemigos/BolaDeFuego.png");
+        arrBolasFuego = new Array<>();
     }
 
     private void crearPersonaje() {
@@ -81,7 +95,6 @@ public class PantallaLucha1 extends Pantalla {
             //Inverso de Boton Disparar
             Texture bntDisparaIn = new Texture("botones/BotonDispararInv.png");
             TextureRegionDrawable trBntDispararInv = new TextureRegionDrawable(new TextureRegion(bntDisparaIn));
-
 
 
             ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
@@ -139,17 +152,43 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void render(float delta) {
-        borrarPantalla();
+        borrarPantalla(0, 0, 0.5f);
         batch.setProjectionMatrix(camara.combined);
 
         batch.begin();
         batch.draw(fondoNivel1, 0, 0);
         batch.draw(Titan1,800,100);
         personaje.render(batch);
+        escenaNivel1.draw();
+        dibujarBolasFuego();
         batch.end();
 
-        escenaNivel1.draw();
 
+    }
+
+    private void dibujarBolasFuego() {
+        for (BolasDeFuego bola :
+                arrBolasFuego) {
+            bola.render(batch);
+            bola.atacar();
+        }
+    }
+
+    private void actualizar(){
+        actualizarBolasFuego();
+    }
+
+    private void actualizarBolasFuego() {
+        timerCrearBola += Gdx.graphics.getDeltaTime();
+        if (timerCrearBola>=TIEMPO_CREA_BOLA) {
+            timerCrearBola = 0;
+            TIEMPO_CREA_BOLA = tiempoBola + MathUtils.random()*2;
+            if (tiempoBola>0) {
+                tiempoBola -= 0.01f;
+            }
+            BolasDeFuego bola = new BolasDeFuego(texturaBolas, ANCHO/2, 60);  // 60, 120, 180
+            arrBolasFuego.add(bola);
+        }
     }
 
     @Override
