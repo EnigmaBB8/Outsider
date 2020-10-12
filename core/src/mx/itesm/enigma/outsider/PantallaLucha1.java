@@ -164,6 +164,7 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void render(float delta) {
+        actualizar();
         borrarPantalla(0, 0, 0.5f);
         batch.setProjectionMatrix(camara.combined);
 
@@ -195,10 +196,10 @@ public class PantallaLucha1 extends Pantalla {
         if (timerCrearBola>=TIEMPO_CREA_BOLA) {
             timerCrearBola = 0;
             TIEMPO_CREA_BOLA = tiempoBola + MathUtils.random()*2;
-            if (tiempoBola>0) {
-                tiempoBola -= 0.01f;
+            if (tiempoBola>2) {
+                tiempoBola -= 1;
             }
-            BolasDeFuego bola = new BolasDeFuego(texturaBolas, ANCHO/2, 60);  // 60, 120, 180
+            BolasDeFuego bola = new BolasDeFuego(texturaBolas, 900, 220+MathUtils.random(1,3)*100);
             arrBolasFuego.add(bola);
         }
     }
