@@ -118,17 +118,29 @@ public class PantallaLucha1 extends Pantalla {
             });
 
             bntDerecha.addListener(new ClickListener() {
-                    public void clicked(InputEvent event, float x, float y) {
-                        super.clicked(event, x, y);
-                        personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
-                    }
-                });
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
+                    return true;
+                }
 
-            btnIzquierda.addListener(new ClickListener() {
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
-                    }
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO);
+                }
+            });
+
+        btnIzquierda.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadoCaminando(EstadoCaminando.QUIETO);
+            }
             });
 
             bntSalta.addListener(new ClickListener() {

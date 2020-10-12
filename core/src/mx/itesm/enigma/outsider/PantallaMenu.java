@@ -32,7 +32,7 @@ public class PantallaMenu extends Pantalla  {
     public void show() {
         fondomenu = new Texture("fondos/fondomenu.jpeg");
         crearMenu();
-        crearAudio();
+        //crearAudio();
     }
 
     private void crearAudio() {
