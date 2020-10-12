@@ -2,6 +2,9 @@ package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,6 +21,8 @@ public class PantallaMenu extends Pantalla  {
     private Stage escenaMenu;
     private Texture Kaim;
 
+    // Música / Efectos de sonido
+    private Music musicaFondo;
 
     public PantallaMenu(Juego juego) {
         this.juego = juego;
@@ -27,6 +32,17 @@ public class PantallaMenu extends Pantalla  {
     public void show() {
         fondomenu = new Texture("fondos/fondomenu.jpeg");
         crearMenu();
+        crearAudio();
+    }
+
+    private void crearAudio() {
+        AssetManager manager = new AssetManager();
+        manager.load("Musica/musicaMenu.mp3", Music.class);  // programa la carga
+        manager.finishLoading();    // ESPERA
+        musicaFondo = manager.get("Musica/musicaMenu.mp3");
+        musicaFondo.setVolume(0.1f);
+        musicaFondo.setLooping(true);
+        musicaFondo.play();
     }
 
     private void crearMenu() {
