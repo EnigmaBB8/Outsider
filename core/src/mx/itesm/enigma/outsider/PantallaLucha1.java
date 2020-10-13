@@ -77,7 +77,7 @@ public class PantallaLucha1 extends Pantalla {
 
 
             //Inverso de boton de regreso a menu
-            Texture btnNuevaPartidaInv = new Texture("botones/BtnMP.png");
+            Texture btnNuevaPartidaInv = new Texture("botones/BtnMP1.png");
             TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
             //Inverso de Boton Izquierda
@@ -114,6 +114,7 @@ public class PantallaLucha1 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaMenu(juego));
+                    juego.detenerMusica();
                 }
             });
 

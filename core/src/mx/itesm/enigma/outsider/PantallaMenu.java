@@ -26,6 +26,7 @@ public class PantallaMenu extends Pantalla  {
 
     public PantallaMenu(Juego juego) {
         this.juego = juego;
+        juego.reproducirMusica();
     }
 
     @Override
@@ -37,7 +38,7 @@ public class PantallaMenu extends Pantalla  {
 
     private void crearAudio() {
         AssetManager manager = new AssetManager();
-        manager.load("Musica/musicaMenu.mp3", Music.class);  // programa la carga
+        manager.load("Musica/musicaMenu.mp3", Music.class);
         manager.finishLoading();    // ESPERA
         musicaFondo = manager.get("Musica/musicaMenu.mp3");
         musicaFondo.setVolume(0.1f);
