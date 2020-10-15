@@ -123,7 +123,7 @@ public class PantallaLucha1 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaMenu(juego));
+                    juego.setScreen(new PantallaPausa(juego));
                     juego.detenerMusica();
                 }
             });
