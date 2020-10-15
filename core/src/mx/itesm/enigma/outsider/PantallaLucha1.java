@@ -18,11 +18,8 @@ import com.badlogic.gdx.utils.Array;
 public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
+    private Texture Titan1;
     private Texture fondoNivel1;
-
-    //Villano ฅ•ω•ฅ
-    private Villano villano;
-    private Texture texturaVillano;
 
     //Personaje
     private Personaje personaje;
@@ -39,6 +36,11 @@ public class PantallaLucha1 extends Pantalla {
     private Texture texturaProyectil;
     private Array<Proyectil> arrProyectil;
 
+    //Texto
+    private Texto texto;
+    private float bateria=100;
+
+
 
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
@@ -47,12 +49,16 @@ public class PantallaLucha1 extends Pantalla {
     @Override
     public void show() {
         fondoNivel1 = new Texture("fondos/fondonivel1.JPG");
-        //Titan1 = new Texture("sprites/Titan1.png");
+        Titan1 = new Texture("sprites/Titan1.png");
         crearNivel1();
         crearPersonaje();
         crearBolasFuego();
         crearProyectil();
-        crearVillano();
+        crearTexto();
+    }
+
+    private void crearTexto() {
+        texto=new Texto("Texto/game.fnt");
     }
 
     private void crearProyectil() {
@@ -68,10 +74,6 @@ public class PantallaLucha1 extends Pantalla {
     private void crearPersonaje() {
         texturaPersonaje=new Texture("sprites/personaje.png");
         personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,128);
-    }
-    private void crearVillano() {
-        texturaVillano=new Texture("sprites/Titan1.PNG");
-        villano=new Villano(texturaVillano);
     }
 
     private void crearNivel1() {
@@ -202,14 +204,20 @@ public class PantallaLucha1 extends Pantalla {
 
         batch.begin();
         batch.draw(fondoNivel1, 0, 0);
-        villano.render(batch);
+        batch.draw(Titan1,800,100);
         personaje.render(batch);
         escenaNivel1.draw();
         dibujarBolasFuego();
         dibujarProyectil();
+        dibujarTexto();
         batch.end();
 
 
+    }
+
+    private void dibujarTexto() {
+        int VidaInt=(int)bateria;
+        texto.mostrarMensaje(batch,VidaInt+"%",ANCHO*0.1f,ALTO*0.95f);
     }
 
     private void dibujarProyectil() {
