@@ -28,7 +28,7 @@ public class Villano extends Objeto{
         timerAnimacion=0;
         estado = EstadoVillano.ATACANDO;
 
-        //Muerto
+        //Muerto OWO
         estado = EstadoVillano.MUERTO;
 
 
