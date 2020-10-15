@@ -15,11 +15,11 @@ public class Villano extends Objeto{
 
     public Villano(Texture textura){
         TextureRegion region=new TextureRegion(textura);
-        TextureRegion[][] texturasFrame=region.split(360,425);
+        TextureRegion[][] texturasFrame=region.split(423,500);
 
         //Inicio oWo
-        sprite=new Sprite(texturasFrame[0][0]);
-        estado= EstadoVillano.ATACANDO;
+        sprite = new Sprite(texturasFrame[0][0]);
+        estado = EstadoVillano.ATACANDO;
         sprite.setPosition(900,110);
         //Animación atacando (=‘ｘ‘=)
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};

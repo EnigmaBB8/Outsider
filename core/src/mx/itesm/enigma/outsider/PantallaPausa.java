@@ -15,13 +15,15 @@ public class PantallaPausa extends Pantalla{
     private final Juego juego;
     private Texture fondoPausa;
     private Stage escenaPausa;
+
     public PantallaPausa(Juego juego) {
         this.juego=juego;
+        juego.detenerMusicaAll();
     }
 
     @Override
     public void show() {
-        fondoPausa = new Texture("fondos/fondomenu.jpeg");
+        fondoPausa = new Texture("fondos/fondoPausaN1.png");
         crearPausa();
 
     }
@@ -29,38 +31,41 @@ public class PantallaPausa extends Pantalla{
     private void crearPausa() {
         escenaPausa=new Stage(vista);
 
-        ///Boton de Reinicio
-        Texture btnReinicio = new Texture("botones/BtnMP.png");
+        ///Boton de Reanudar
+        Texture btnReinicio = new Texture("botones/BtnReanudarN1.png");
         TextureRegionDrawable trdBtReinicio = new TextureRegionDrawable(new TextureRegion(btnReinicio));
+
         //Boton Menu
-        Texture bntMenu = new Texture("botones/BotonIzquierda.png");
+        Texture bntMenu = new Texture("botones/BtnMenuN1.png");
         TextureRegionDrawable trBntMenu= new TextureRegionDrawable(new TextureRegion(bntMenu));
+
         //Boton Musica
-        Texture bntMusica = new Texture("botones/BotonDerecha.png");
+        Texture bntMusica = new Texture("botones/BtnMusicN1.png");
         TextureRegionDrawable trBntMusica = new TextureRegionDrawable(new TextureRegion(bntMusica));
+
         //Boton Sonido
-        Texture bntSonido = new Texture("botones/BotonSaltar.png");
+        Texture bntSonido = new Texture("botones/BtnSonidoN1.png");
         TextureRegionDrawable trBntsonido = new TextureRegionDrawable(new TextureRegion(bntSonido));
 
          /*
         Botones inversos a los anterioires
          */
 
-
-        //Inverso de boton de Reinicio
-        Texture btnReinicioInv = new Texture("botones/BtnMP1.png");
+        //Inverso de boton de Reanudar
+        Texture btnReinicioInv = new Texture("botones/BtnReanudarN1Inv.png");
         TextureRegionDrawable trdBtReinicioInv = new TextureRegionDrawable(new TextureRegion(btnReinicioInv));
 
         //Inverso de Boton Menu
-        Texture btnMenuIn = new Texture("botones/BotonIzquierdaInv.png");
+        Texture btnMenuIn = new Texture("botones/BtnMenuN1Inv.png");
         TextureRegionDrawable trdBtnMenuIn = new TextureRegionDrawable(new TextureRegion(btnMenuIn));
 
         //Inverso de Boton Musica
-        Texture bntMusicaIn = new Texture("botones/BotonDerechaInv.png");
+        Texture bntMusicaIn = new Texture("botones/BtnMusicN1Inv.png");
         TextureRegionDrawable trdBtnMusicaIn = new TextureRegionDrawable(new TextureRegion(bntMusicaIn));
+        juego.detenerMusicaAll();
 
         //Inverso de boton Sonido
-        Texture bntSonidoIn = new Texture("botones/BotonSaltarInv.png");
+        Texture bntSonidoIn = new Texture("botones/BtnSonidoN1Inv.png");
         TextureRegionDrawable trBntSonidoIn = new TextureRegionDrawable(new TextureRegion(bntSonidoIn));
 
         /*
@@ -74,10 +79,10 @@ public class PantallaPausa extends Pantalla{
         /*
         Presentacion de los botones
          */
-        btnRe.setPosition(ANCHO*.29f,ALTO/2, Align.topRight);
-        btnMe.setPosition(ANCHO*.39f,ALTO/2, Align.topLeft);
-        btnMu.setPosition(ANCHO*.59f,ALTO/2, Align.topLeft);
-        btnSo.setPosition(ANCHO*.79f,ALTO/2, Align.topLeft);
+        btnRe.setPosition(ANCHO*.25f,ALTO*.56f, Align.topRight);
+        btnMe.setPosition(ANCHO*.33f,ALTO*.56f, Align.topLeft);
+        btnMu.setPosition(ANCHO*.53f,ALTO*.56f, Align.topLeft);
+        btnSo.setPosition(ANCHO*.74f,ALTO*.56f, Align.topLeft);
 
         btnRe.addListener(new ClickListener() {
             @Override

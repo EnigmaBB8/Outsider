@@ -2,6 +2,9 @@ package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -44,26 +47,39 @@ public class PantallaLucha1 extends Pantalla {
     private Texto texto;
     private float bateria=100;
 
+    //Sonidos
+    private Sound efectoSalto;
+
 
 
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
+        juego.detenerMusica();
+        juego.reproducirMusicaNivel1();
     }
 
     @Override
     public void show() {
         fondoNivel1 = new Texture("fondos/fondonivel1.JPG");
-        Titan1 = new Texture("sprites/Titan1.png");
+        Titan1 = new Texture("Enemigos/Titan1.png");
         crearNivel1();
         crearPersonaje();
         crearBolasFuego();
         crearProyectil();
         crearTexto();
         crearVillano();
+        crearSonido();
+    }
+
+    private void crearSonido() {
+        AssetManager manager = new AssetManager();
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.finishLoading();
+        efectoSalto = manager.get("Efectos/salto.mp3");
     }
 
     private void crearVillano() {
-        texturaVillano=new Texture("sprites/Titan1.PNG");
+        texturaVillano=new Texture("Enemigos/Titan1.png");
         villano=new Villano(texturaVillano);
     }
 
@@ -92,15 +108,19 @@ public class PantallaLucha1 extends Pantalla {
             ///Boton de regreso a menu
             Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
             TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
+
             //Boton Izquierda
             Texture bntIz = new Texture("botones/BotonIzquierda.png");
             TextureRegionDrawable trBntIz = new TextureRegionDrawable(new TextureRegion(bntIz));
+
             //Boton Derecha
             Texture bntDer = new Texture("botones/BotonDerecha.png");
             TextureRegionDrawable trBntDer = new TextureRegionDrawable(new TextureRegion(bntDer));
+
             //Boton Saltar
             Texture bntSaltar = new Texture("botones/BotonSaltar.png");
             TextureRegionDrawable trBntSaltar = new TextureRegionDrawable(new TextureRegion(bntSaltar));
+
             // Boton Disparar
             Texture bntDispara = new Texture("botones/BotonDisparar.png");
             TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
@@ -180,7 +200,7 @@ public class PantallaLucha1 extends Pantalla {
                     super.clicked(event, x, y);
                     if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
                         personaje.saltar();
-                        //efectoSalto.play(); Solo por si tiene sonido el salto
+                        efectoSalto.play();
                     }
                 }
             });
@@ -221,8 +241,6 @@ public class PantallaLucha1 extends Pantalla {
         dibujarProyectil();
         dibujarTexto();
         batch.end();
-
-
     }
 
     private void dibujarTexto() {
