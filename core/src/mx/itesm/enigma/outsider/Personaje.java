@@ -33,7 +33,7 @@ public class Personaje extends Objeto{
 
         //Animación
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
-        animacion=new Animation<TextureRegion>(0.1f,arrFrame);
+        animacion=new Animation<TextureRegion>(0.25f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
 
