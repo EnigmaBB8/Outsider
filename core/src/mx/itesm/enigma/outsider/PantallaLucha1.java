@@ -165,11 +165,12 @@ public class PantallaLucha1 extends Pantalla {
                 }
             });
 
+            // Disparo
             bntDisparas.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    if (arrProyectil.size < 10) {
+                    if (arrProyectil.size < 5) {
                         Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
                                 personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
                         arrProyectil.add(proyectil);
@@ -227,6 +228,7 @@ public class PantallaLucha1 extends Pantalla {
         for (int i=arrProyectil.size-1; i>=0; i--) {
             Proyectil proyectil = arrProyectil.get(i);
             proyectil.moverDerecha();
+            proyectil.caida();
             if (proyectil.sprite.getX()>ANCHO) {
                 arrProyectil.removeIndex(i);
             }
