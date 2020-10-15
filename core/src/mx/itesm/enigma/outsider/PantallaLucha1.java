@@ -174,7 +174,6 @@ public class PantallaLucha1 extends Pantalla {
                     personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
                     return true;
                 }
-
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     personaje.setEstadoCaminando(EstadoCaminando.QUIETO);
@@ -187,23 +186,22 @@ public class PantallaLucha1 extends Pantalla {
                 personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
                 return true;
             }
-
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadoCaminando(EstadoCaminando.QUIETO);
             }
             });
 
-            bntSalta.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
-                        personaje.saltar();
-                        efectoSalto.play();
-                    }
+        bntSalta.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.saltar();
+                    efectoSalto.play();
                 }
-            });
+            }
+        });
 
             // Disparo
             bntDisparas.addListener(new ClickListener() {
