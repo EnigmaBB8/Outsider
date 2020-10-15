@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import java.lang.reflect.Array;
+
 
 public class Villano extends Objeto{
     private Animation<TextureRegion> animacion;
@@ -17,13 +17,13 @@ public class Villano extends Objeto{
         TextureRegion region=new TextureRegion(textura);
         TextureRegion[][] texturasFrame=region.split(360,425);
 
-        //Inicio
+        //Inicio oWo
         sprite=new Sprite(texturasFrame[0][0]);
         estado= EstadoVillano.ATACANDO;
         sprite.setPosition(900,110);
         //Animación atacando (=‘ｘ‘=)
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
-        animacion=new Animation<TextureRegion>(0.2f,arrFrame);
+        animacion=new Animation<TextureRegion>(0.15f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
         estado = EstadoVillano.ATACANDO;

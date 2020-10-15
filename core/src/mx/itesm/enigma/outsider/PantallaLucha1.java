@@ -25,6 +25,10 @@ public class PantallaLucha1 extends Pantalla {
     private Personaje personaje;
     private Texture texturaPersonaje;
 
+    //Villano
+    private Villano villano;
+    private Texture texturaVillano;
+
     //Bolas de Fuego
     private Array<BolasDeFuego> arrBolasFuego;
     private float timerCrearBola;
@@ -55,6 +59,12 @@ public class PantallaLucha1 extends Pantalla {
         crearBolasFuego();
         crearProyectil();
         crearTexto();
+        crearVillano();
+    }
+
+    private void crearVillano() {
+        texturaVillano=new Texture("sprites/Titan1.PNG");
+        villano=new Villano(texturaVillano);
     }
 
     private void crearTexto() {
@@ -204,7 +214,7 @@ public class PantallaLucha1 extends Pantalla {
 
         batch.begin();
         batch.draw(fondoNivel1, 0, 0);
-        batch.draw(Titan1,800,100);
+        villano.render(batch);
         personaje.render(batch);
         escenaNivel1.draw();
         dibujarBolasFuego();
