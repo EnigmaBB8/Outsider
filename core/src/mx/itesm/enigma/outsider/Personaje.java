@@ -74,7 +74,17 @@ public class Personaje extends Objeto{
                 frame.flip(false,false);
             }
             batch.draw(frame,sprite.getX(),sprite.getY());
-        } else {
+        } else if (estado == EstadoKAIM.SALTANDO){
+            TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
+
+            if(estadoCaminando == EstadoCaminando.SALTA_DERECHA && frame.isFlipX()){
+                frame.flip(true,false);
+
+            }else if(estadoCaminando == EstadoCaminando.SALTA_IZQUIERDA && !frame.isFlipX()){
+                frame.flip(true,false);
+
+            }
+            batch.draw(frame,sprite.getX(),sprite.getY());
             tAire += 10*delta;
             float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
             sprite.setY(y);

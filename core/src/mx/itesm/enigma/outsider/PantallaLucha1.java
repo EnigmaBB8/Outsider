@@ -32,6 +32,10 @@ public class PantallaLucha1 extends Pantalla {
     private float tiempoBola = 1;
     private Texture texturaBolas;
 
+    // Proyectil
+    private Texture texturaProyectil;
+    private Array<Proyectil> arrProyectil;
+
 
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
@@ -44,6 +48,12 @@ public class PantallaLucha1 extends Pantalla {
         crearNivel1();
         crearPersonaje();
         crearBolasFuego();
+        crearProyectil();
+    }
+
+    private void crearProyectil() {
+        texturaProyectil = new Texture("Proyectiles/piedra.png");
+        arrProyectil = new Array<>();
     }
 
     private void crearBolasFuego() {
@@ -155,6 +165,18 @@ public class PantallaLucha1 extends Pantalla {
                 }
             });
 
+            bntDisparas.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    if (arrProyectil.size < 10) {
+                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
+                                personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
+                        arrProyectil.add(proyectil);
+                    }
+                }
+            });
+
             escenaNivel1.addActor(btnNP);
             escenaNivel1.addActor(btnIzquierda);
             escenaNivel1.addActor(bntDerecha);
@@ -175,9 +197,17 @@ public class PantallaLucha1 extends Pantalla {
         personaje.render(batch);
         escenaNivel1.draw();
         dibujarBolasFuego();
+        dibujarProyectil();
         batch.end();
 
 
+    }
+
+    private void dibujarProyectil() {
+        for (Proyectil proyectil :
+                arrProyectil) {
+            proyectil.render(batch);
+        }
     }
 
     private void dibujarBolasFuego() {
@@ -190,6 +220,17 @@ public class PantallaLucha1 extends Pantalla {
 
     private void actualizar(){
         actualizarBolasFuego();
+        actualizarProyectil();
+    }
+
+    private void actualizarProyectil() {
+        for (int i=arrProyectil.size-1; i>=0; i--) {
+            Proyectil proyectil = arrProyectil.get(i);
+            proyectil.moverDerecha();
+            if (proyectil.sprite.getX()>ANCHO) {
+                arrProyectil.removeIndex(i);
+            }
+        }
     }
 
     private void actualizarBolasFuego() {
