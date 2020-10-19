@@ -54,8 +54,8 @@ public class PantallaLucha1 extends Pantalla {
 
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
-        juego.detenerMusica();
-        juego.reproducirMusicaNivel1();
+        //juego.detenerMusica();
+        //juego.reproducirMusicaNivel1();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class PantallaLucha1 extends Pantalla {
 
     private void crearPersonaje() {
         texturaPersonaje=new Texture("sprites/personaje.png");
-        personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,128);
+        personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
     }
 
     private void crearNivel1() {
@@ -176,7 +176,7 @@ public class PantallaLucha1 extends Pantalla {
                 }
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO);
+                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
                 }
             });
 
@@ -188,7 +188,7 @@ public class PantallaLucha1 extends Pantalla {
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadoCaminando(EstadoCaminando.QUIETO);
+                personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
             }
             });
 

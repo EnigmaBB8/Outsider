@@ -67,8 +67,14 @@ public class Personaje extends Objeto{
             if(estadoCaminando == EstadoCaminando.DERECHA && frame.isFlipX()){
                 frame.flip(true,false);
 
-            }else if(estadoCaminando == EstadoCaminando.IZQUIERDA && !frame.isFlipX()){
-                frame.flip(true,false);
+            }else if(estadoCaminando == EstadoCaminando.IZQUIERDA && !frame.isFlipX()) {
+                frame.flip(true, false);
+
+            }else if(estadoCaminando==EstadoCaminando.QUIETO_DERECHA && frame.isFlipX()){
+                frame.flip(true, false);
+
+            }else if(estadoCaminando==EstadoCaminando.QUIETO_IZQUIERDA && !frame.isFlipX()){
+                frame.flip(true, false);
 
             }else{
                 frame.flip(false,false);

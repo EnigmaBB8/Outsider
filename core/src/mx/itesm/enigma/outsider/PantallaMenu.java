@@ -26,7 +26,7 @@ public class PantallaMenu extends Pantalla  {
 
     public PantallaMenu(Juego juego) {
         this.juego = juego;
-        juego.reproducirMusica();
+        //juego.reproducirMusica();
     }
 
     @Override
