@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -12,11 +13,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
@@ -50,6 +53,10 @@ public class PantallaLucha1 extends Pantalla {
     //Sonidos
     private Sound efectoSalto;
 
+    //Pausa
+    private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
+    private EscenaPausa escenaPausa;
+
 
 
     public PantallaLucha1(Juego juego) {
@@ -69,6 +76,8 @@ public class PantallaLucha1 extends Pantalla {
         crearTexto();
         crearVillano();
         crearSonido();
+
+
     }
 
     private void crearSonido() {
@@ -105,7 +114,7 @@ public class PantallaLucha1 extends Pantalla {
     private void crearNivel1() {
 
             escenaNivel1 = new Stage(vista);
-            ///Boton de regreso a menu
+            ///Boton de Pausa
             Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
             TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
@@ -126,7 +135,7 @@ public class PantallaLucha1 extends Pantalla {
             TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
 
-            //Inverso de boton de regreso a menu
+            //Inverso de Pausa
             Texture btnNuevaPartidaInv = new Texture("botones/BtnMP1.png");
             TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
@@ -159,14 +168,7 @@ public class PantallaLucha1 extends Pantalla {
             bntSalta.setPosition(ANCHO*.70f,ALTO*.15f, Align.topLeft);
             bntDisparas.setPosition(ANCHO*.85f,ALTO*.15f,Align.topLeft);
 
-            btnNP.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    juego.setScreen(new PantallaPausa(juego));
-                    juego.detenerMusica();
-                }
-            });
+
 
             bntDerecha.addListener(new ClickListener() {
                 @Override
@@ -215,6 +217,26 @@ public class PantallaLucha1 extends Pantalla {
                     }
                 }
             });
+            //Pausa
+        btnNP.addListener(new ClickListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(estado==EstadoJuego.JUGANDO) {
+                    estado = EstadoJuego.PAUSADO;
+                    //Crear escena Pausa
+                    if(escenaPausa==null){
+                        escenaPausa=new EscenaPausa(vista,batch);
+                    }
+                    Gdx.input.setInputProcessor(escenaPausa);
+                    Gdx.app.log("Pausa","Cambia a Pausa");
+
+                }else if (estado==EstadoJuego.PAUSADO){
+                    estado=EstadoJuego.JUGANDO;
+                    Gdx.app.log("Pausa","Cambia a Jugando");
+
+                }
+                return true;
+            }
+        });
 
             escenaNivel1.addActor(btnNP);
             escenaNivel1.addActor(btnIzquierda);
@@ -226,19 +248,23 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void render(float delta) {
-        actualizar();
-        borrarPantalla(0, 0, 0.5f);
-        batch.setProjectionMatrix(camara.combined);
+        if(estado==EstadoJuego.JUGANDO) {
+            actualizar();
+            borrarPantalla(0, 0, 0.5f);
+            batch.setProjectionMatrix(camara.combined);
 
-        batch.begin();
-        batch.draw(fondoNivel1, 0, 0);
-        villano.render(batch);
-        personaje.render(batch);
-        escenaNivel1.draw();
-        dibujarBolasFuego();
-        dibujarProyectil();
-        dibujarTexto();
-        batch.end();
+            batch.begin();
+            batch.draw(fondoNivel1, 0, 0);
+            villano.render(batch);
+            personaje.render(batch);
+            escenaNivel1.draw();
+            dibujarBolasFuego();
+            dibujarProyectil();
+            dibujarTexto();
+            batch.end();
+        }else if(estado==EstadoJuego.PAUSADO){
+            escenaPausa.draw();
+        }
     }
 
     private void dibujarTexto() {
@@ -304,5 +330,88 @@ public class PantallaLucha1 extends Pantalla {
     public void dispose() {
         fondoNivel1.dispose();
         batch.dispose();
+    }
+
+     //Estados Juego
+    private enum EstadoJuego {
+     JUGANDO,
+     PAUSADO,
+     GANANO,
+     PERDIO
+    }
+
+    private class EscenaPausa extends Stage {
+        public EscenaPausa(Viewport vista, SpriteBatch batch){
+            super(vista,batch);
+            Texture textura=new Texture("fondos/fondoPausaN1.png");
+            Image imgPausa=new Image(textura);
+            imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
+            this.addActor(imgPausa); //Fondo
+
+            //Botones
+            // Boton Reanudar
+            Texture bntReanudar = new Texture("botones/BtnReanudarN1.png");
+            TextureRegionDrawable trReanudar = new TextureRegionDrawable(new TextureRegion(bntReanudar));
+
+            //Boton Menu
+            Texture bntMenu = new Texture("botones/BtnMenuN1.png");
+            TextureRegionDrawable trMenu = new TextureRegionDrawable(new TextureRegion(bntMenu));
+            //Boton Musica
+            Texture bntMusica = new Texture("botones/BtnMusicN1.png");
+            TextureRegionDrawable trMusica= new TextureRegionDrawable(new TextureRegion(bntMusica));
+            //Boton Sonido
+            Texture bntSonido = new Texture("botones/BtnSonidoN1.png");
+            TextureRegionDrawable trSonido =new TextureRegionDrawable(new TextureRegion(bntSonido));
+
+            //Inverso de Reanudar
+            Texture btnReanudarInv= new Texture("botones/BtnReanudarN1Inv.png");
+            TextureRegionDrawable trdBtReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
+
+            //Inverso de Menu
+            Texture btnMenuInv= new Texture("botones/BtnMenuN1Inv.png");
+            TextureRegionDrawable trdBtMenuInv = new TextureRegionDrawable(new TextureRegion(btnMenuInv));
+            //Inverso de Musica
+            Texture btnMusicaInv= new Texture("botones/BtnMusicN1Inv.png");
+            TextureRegionDrawable trdBtMusicanv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
+            //Inverso de Sonido
+            Texture btnSonidoInv= new Texture("botones/BtnSonidoN1Inv.png");
+            TextureRegionDrawable trdBtSonidonv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
+
+
+            ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);
+            ImageButton btnMenu = new ImageButton(trMenu, trdBtMenuInv);
+            ImageButton btnMusica = new ImageButton(trMusica, trdBtMusicanv);
+            ImageButton btnSonido = new ImageButton(trSonido, trdBtSonidonv);
+            btnSonido.setPosition(ANCHO * .82f, ALTO *0.65f, Align.top);
+            btnMusica.setPosition(ANCHO * .62f, ALTO *0.65f, Align.top);
+            btnReanuda.setPosition(ANCHO * .10f, ALTO *0.65f, Align.topLeft);
+            btnMenu.setPosition(ANCHO * .32f, ALTO *0.65f, Align.topLeft);
+            btnReanuda.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    estado=EstadoJuego.JUGANDO;
+                    Gdx.input.setInputProcessor(escenaNivel1);
+                    Gdx.app.log("Pausa","Reanuda");
+                }
+
+            });
+            btnMenu.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    estado=EstadoJuego.JUGANDO;
+                    juego.setScreen(new PantallaMenu(juego));
+                }
+
+            });
+
+            this.addActor(btnReanuda);
+            this.addActor(btnMenu);
+            this.addActor(btnMusica);
+            this.addActor(btnSonido);
+
+        }
+
     }
 }

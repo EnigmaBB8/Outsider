@@ -77,7 +77,7 @@ public class Personaje extends Objeto{
                 frame.flip(true, false);
 
             }else{
-                frame.flip(false,false);
+              frame.flip(false,false);
             }
             batch.draw(frame,sprite.getX(),sprite.getY());
 
