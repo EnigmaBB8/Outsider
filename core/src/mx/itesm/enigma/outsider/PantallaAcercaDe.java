@@ -29,6 +29,7 @@ public class PantallaAcercaDe extends Pantalla {
 
     private void crearPantallaAD() {
         escenaAcercaDe = new Stage(vista);
+
         /*
         Botones de acción
          */

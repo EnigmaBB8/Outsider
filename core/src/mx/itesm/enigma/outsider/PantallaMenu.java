@@ -19,33 +19,20 @@ public class PantallaMenu extends Pantalla  {
     private final Juego juego;
     private Texture fondomenu;
     private Stage escenaMenu;
-    private Texture Kaim;
 
     // Música / Efectos de sonido
     private Music musicaFondo;
 
     public PantallaMenu(Juego juego) {
         this.juego = juego;
-        //juego.reproducirMusica();
+        juego.reproducirMusica();
     }
 
     @Override
     public void show() {
         fondomenu = new Texture("fondos/fondomenu.jpeg");
         crearMenu();
-        //crearAudio();
     }
-
-    private void crearAudio() {
-        AssetManager manager = new AssetManager();
-        manager.load("Musica/musicaMenu.mp3", Music.class);
-        manager.finishLoading();    // ESPERA
-        musicaFondo = manager.get("Musica/musicaMenu.mp3");
-        musicaFondo.setVolume(0.1f);
-        musicaFondo.setLooping(true);
-        musicaFondo.play();
-    }
-
     private void crearMenu() {
         escenaMenu = new Stage(vista);
         //Logo
