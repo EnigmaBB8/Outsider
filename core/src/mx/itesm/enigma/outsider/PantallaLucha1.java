@@ -237,7 +237,7 @@ public class PantallaLucha1 extends Pantalla {
                 return true;
             }
         });
-
+            //botones lvl 1
             escenaNivel1.addActor(btnNP);
             escenaNivel1.addActor(btnIzquierda);
             escenaNivel1.addActor(bntDerecha);
