@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -60,8 +61,8 @@ public class PantallaLucha1 extends Pantalla {
 
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
-        juego.detenerMusica();
-        juego.reproducirMusicaNivel1();
+        //juego.detenerMusica();
+        //juego.reproducirMusicaNivel1();
     }
 
     @Override
@@ -75,6 +76,8 @@ public class PantallaLucha1 extends Pantalla {
         crearTexto();
         crearVillano();
         crearSonido();
+
+
     }
 
     private void crearSonido() {
@@ -111,7 +114,7 @@ public class PantallaLucha1 extends Pantalla {
     private void crearNivel1() {
 
             escenaNivel1 = new Stage(vista);
-            ///Boton de regreso a menu
+            ///Boton de Pausa
             Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
             TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
@@ -132,7 +135,7 @@ public class PantallaLucha1 extends Pantalla {
             TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
 
-            //Inverso de boton de regreso a menu
+            //Inverso de Pausa
             Texture btnNuevaPartidaInv = new Texture("botones/BtnMP1.png");
             TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
@@ -165,26 +168,7 @@ public class PantallaLucha1 extends Pantalla {
             bntSalta.setPosition(ANCHO*.70f,ALTO*.15f, Align.topLeft);
             bntDisparas.setPosition(ANCHO*.85f,ALTO*.15f,Align.topLeft);
 
-            //Pausa
-            btnNP.addListener(new ClickListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(estado==EstadoJuego.JUGANDO) {
-                    estado = EstadoJuego.PAUSADO;
-                    //Crear escena Pausa
-                    if(escenaPausa==null){
-                        escenaPausa=new EscenaPausa(vista,batch);
-                    }
-                    Gdx.input.setInputProcessor(escenaPausa);
-                    Gdx.app.log("Pausa","Cambia a Pausa");
 
-                }else if (estado==EstadoJuego.PAUSADO){
-                    juego.reproducirMusicaNivel1();
-                    Gdx.app.log("Pausa","Cambia a Jugando");
-
-                }
-                return true;
-            }
-        });
 
             bntDerecha.addListener(new ClickListener() {
                 @Override
@@ -233,6 +217,26 @@ public class PantallaLucha1 extends Pantalla {
                     }
                 }
             });
+            //Pausa
+        btnNP.addListener(new ClickListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(estado==EstadoJuego.JUGANDO) {
+                    estado = EstadoJuego.PAUSADO;
+                    //Crear escena Pausa
+                    if(escenaPausa==null){
+                        escenaPausa=new EscenaPausa(vista,batch);
+                    }
+                    Gdx.input.setInputProcessor(escenaPausa);
+                    Gdx.app.log("Pausa","Cambia a Pausa");
+
+                }else if (estado==EstadoJuego.PAUSADO){
+                    estado=EstadoJuego.JUGANDO;
+                    Gdx.app.log("Pausa","Cambia a Jugando");
+
+                }
+                return true;
+            }
+        });
 
             escenaNivel1.addActor(btnNP);
             escenaNivel1.addActor(btnIzquierda);
@@ -328,12 +332,12 @@ public class PantallaLucha1 extends Pantalla {
         batch.dispose();
     }
 
-    //Estados Juego
+     //Estados Juego
     private enum EstadoJuego {
-        JUGANDO,
-        PAUSADO,
-        GANANCO,
-        PERDIENDO
+     JUGANDO,
+     PAUSADO,
+     GANANO,
+     PERDIO
     }
 
     private class EscenaPausa extends Stage {
@@ -398,16 +402,6 @@ public class PantallaLucha1 extends Pantalla {
                     super.clicked(event, x, y);
                     estado=EstadoJuego.JUGANDO;
                     juego.setScreen(new PantallaMenu(juego));
-                    juego.detenerMusicaNivel1();
-                }
-
-            });
-
-            btnMusica.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    juego.detenerMusicaAll();
                 }
 
             });
