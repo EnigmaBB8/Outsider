@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import static mx.itesm.enigma.outsider.Pantalla.ANCHO;
+
 public class Personaje extends Objeto{
     private Animation<TextureRegion> animacion;
     private float timerAnimacion;
@@ -110,7 +112,14 @@ public class Personaje extends Objeto{
             mover(-Dx);
 
         }
-
+        if (sprite.getX()>=ANCHO - sprite.getWidth() || sprite.getX()<=0) {
+            if(sprite.getX() == ANCHO -sprite.getWidth()) {
+                setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
+            }
+            else {//if (personaje.sprite.getWidth() <= 0) {
+                setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
+            }
+        }
     }
 
     public void mover(float dx) {

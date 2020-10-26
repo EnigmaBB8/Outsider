@@ -59,8 +59,6 @@ public class PantallaLucha1 extends Pantalla {
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
     private EscenaPausa escenaPausa;
 
-
-
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
         //juego.detenerMusica();
