@@ -434,6 +434,12 @@ public class PantallaLucha1 extends Pantalla {
                     juego.setScreen(new PantallaMenu(juego));
                 }
             });
+            btnMusica.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                   juego.detenerMusicaAll();
+                }
+            });
 
             this.addActor(btnReanuda);
             this.addActor(btnMenu);

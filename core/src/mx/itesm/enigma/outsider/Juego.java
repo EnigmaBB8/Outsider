@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Juego extends Game {
 
-	private Music musicaFondo;
-	private Music musicaFondo1;
+	public Music musicaFondo;
+	public Music musicaFondo1;
 
 	@Override
 	public void create() {
@@ -45,13 +45,9 @@ public class Juego extends Game {
 		musicaFondo.pause();
 	}
 
-	public void detenerMusicaNivel1 (){
-		musicaFondo1.pause();
-	}
-
 	public void detenerMusicaAll (){
-		musicaFondo.pause();
-		musicaFondo1.pause();
+		musicaFondo.stop();
+		musicaFondo1.stop();
 	}
 
 }
