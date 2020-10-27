@@ -29,11 +29,11 @@ public class PantallaAcercaDeItzel extends Pantalla {
 
     private void crearpantallaAyuda() {
         escenaAyuda = new Stage(vista);
-        ///Boton de regreso a menu
+        ///Boton de regreso a acerca de
         Texture btnNuevaPartida = new Texture("botones/BtnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
-        //Inverso de boton de regreso a menu
+        //Inverso de boton de a acerca de
         Texture btnNuevaPartidaInv = new Texture("botones/BtnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
@@ -57,22 +57,18 @@ public class PantallaAcercaDeItzel extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-
         batch.begin();
         batch.draw(fondoAyuda, 0, 0);
         batch.end();
-
         escenaAyuda.draw();
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override

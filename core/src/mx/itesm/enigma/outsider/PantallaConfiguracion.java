@@ -58,22 +58,18 @@ public class PantallaConfiguracion extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-
         batch.begin();
         batch.draw(fondoConf, 0, 0);
         batch.end();
-
         escenaConf.draw();
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override

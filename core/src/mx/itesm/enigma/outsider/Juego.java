@@ -27,7 +27,6 @@ public class Juego extends Game {
 		manager.load("Musica/musicaMenu.mp3", Music.class);
 		manager.finishLoading();
 		musicaFondo = manager.get("Musica/musicaMenu.mp3");
-		musicaFondo.setVolume(0.1f);
 		musicaFondo.setLooping(true);
 		musicaFondo.play();
 	}
@@ -36,7 +35,6 @@ public class Juego extends Game {
 		manager.load("Musica/musicaNivel1.mp3", Music.class);
 		manager.finishLoading();
 		musicaFondo1 = manager.get("Musica/musicaNivel1.mp3");
-		musicaFondo1.setVolume(0.1f);
 		musicaFondo1.setLooping(true);
 		musicaFondo1.play();
 	}

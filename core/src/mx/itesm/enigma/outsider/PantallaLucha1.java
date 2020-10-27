@@ -54,6 +54,16 @@ public class PantallaLucha1 extends Pantalla {
 
     //Sonidos
     private Sound efectoSalto;
+    private Sound efectoFlecha;
+    private Sound efectoBolaDeFuego;
+    private Sound efectoPocima;
+
+    //Pocimas
+    private Texture texturaPocima;
+    private Array<Pocimas> arrPocimas;
+    private float timerCrearPocima;
+    private float TIEMPO_CREA_POCIMA = 7;
+    private float tiempoPocima = 30;
 
     //Pausa
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -77,13 +87,25 @@ public class PantallaLucha1 extends Pantalla {
         crearTexto();
         crearVillano();
         crearSonido();
+        crearPocima();
+    }
+
+    private void crearPocima() {
+        texturaPocima = new Texture("Proyectiles/pocima.png");
+        arrPocimas = new Array<>();
     }
 
     private void crearSonido() {
         AssetManager manager = new AssetManager();
         manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
+        efectoFlecha = manager.get("Efectos/Flecha.mp3");
+        efectoBolaDeFuego = manager.get("Efectos/bolaDeFuego.mp3");
+        efectoPocima = manager.get("Efectos/pocima.mp3");
     }
 
     private void crearVillano() {
@@ -165,6 +187,7 @@ public class PantallaLucha1 extends Pantalla {
         bntSalta.setPosition(ANCHO*.70f,ALTO*.15f, Align.topLeft);
         bntDisparas.setPosition(ANCHO*.85f,ALTO*.15f,Align.topLeft);
 
+        //Boton derecha
         bntDerecha.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -177,6 +200,7 @@ public class PantallaLucha1 extends Pantalla {
             }
         });
 
+        //Boton izquierda
         btnIzquierda.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -189,6 +213,7 @@ public class PantallaLucha1 extends Pantalla {
             }
             });
 
+        //Boton saltar
         bntSalta.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -199,19 +224,17 @@ public class PantallaLucha1 extends Pantalla {
                 }
             }
         });
-
-            // Disparo
-            bntDisparas.addListener(new ClickListener() {
+        // Disparo
+        bntDisparas.addListener(new ClickListener() {
                 @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    if (arrProyectil.size < 5) {
-                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
-                                personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
-                        arrProyectil.add(proyectil);
-                    }
-                }
-            });
+                public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
+                if (arrProyectil.size < 5) {
+                    Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
+                            personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
+                    arrProyectil.add(proyectil);
+                    efectoFlecha.play();
+                } }
+        });
             //Pausa
         btnNP.addListener(new ClickListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -260,10 +283,18 @@ public class PantallaLucha1 extends Pantalla {
             dibujarProyectil();
             dibujarVidaPersonaje();
             dibujarVidaVillano();
+            dibujarPocimas();
 
             batch.end();
         }else if(estado==EstadoJuego.PAUSADO){
             escenaPausa.draw();
+        }
+    }
+
+    private void dibujarPocimas() {
+        for (Pocimas pocimas :
+                arrPocimas) {
+            pocimas.render(batch);
         }
     }
 
@@ -289,16 +320,35 @@ public class PantallaLucha1 extends Pantalla {
                 arrBolasFuego) {
             bola.render(batch);
             bola.atacar();
+            efectoBolaDeFuego.play();
+
         }
     }
 
     private void actualizar(){
         actualizarBolasFuego();
         actualizarProyectil();
+        actualizarPocimas();
 
         //Colisiones entre los objetos
         verificarChoquesBolasPersonaje();
         verificarChoquesAEnemigo();
+        verificarPocimaTomada();
+    }
+
+    private void verificarPocimaTomada() {
+        for (int i = arrPocimas.size-1; i >= 0; i--) {
+            Pocimas pocima = arrPocimas.get(i); //Pocima
+            // COLISION!!!
+            if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
+            && bateria<100) {
+                arrPocimas.removeIndex(i);
+                // Aumentar puntos
+                bateria += 20;
+                efectoPocima.play();
+                break;
+            }
+        }
     }
 
     private void verificarChoquesAEnemigo() {
@@ -322,6 +372,19 @@ public class PantallaLucha1 extends Pantalla {
                 bateria -= 20;
                 break;
             }
+        }
+    }
+
+    private void actualizarPocimas() {
+        timerCrearPocima += Gdx.graphics.getDeltaTime();
+        if (timerCrearPocima>=TIEMPO_CREA_POCIMA) {
+            timerCrearPocima = 0;
+            TIEMPO_CREA_POCIMA = tiempoPocima + MathUtils.random()*.4f;
+            if (tiempoPocima>2) {
+                tiempoPocima -= 1;
+            }
+            Pocimas pocima = new Pocimas(texturaPocima, 200+MathUtils.random(1,5)*100, 120);
+            arrPocimas.add(pocima);
         }
     }
 
@@ -376,7 +439,7 @@ public class PantallaLucha1 extends Pantalla {
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
-            Texture textura=new Texture("fondos/fondoPausaN1.png");
+            Texture textura=new Texture("fondos/PausaN1.jpeg");
             Image imgPausa=new Image(textura);
             imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
             this.addActor(imgPausa); //Fondo
@@ -440,13 +503,19 @@ public class PantallaLucha1 extends Pantalla {
                    juego.detenerMusicaAll();
                 }
             });
-
+            btnSonido.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    efectoFlecha.stop();
+                    efectoBolaDeFuego.stop();
+                    efectoPocima.stop();
+                    efectoSalto.stop();
+                }
+            });
             this.addActor(btnReanuda);
             this.addActor(btnMenu);
             this.addActor(btnMusica);
             this.addActor(btnSonido);
-
         }
-
     }
 }

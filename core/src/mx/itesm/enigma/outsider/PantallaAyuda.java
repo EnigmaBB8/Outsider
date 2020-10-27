@@ -58,22 +58,18 @@ public class PantallaAyuda extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-
         batch.begin();
         batch.draw(fondoAyuda, 0, 0);
         batch.end();
-
         escenaAyuda.draw();
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override

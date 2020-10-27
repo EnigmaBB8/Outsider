@@ -169,12 +169,10 @@ public class PantallaAcercaDe extends Pantalla {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
