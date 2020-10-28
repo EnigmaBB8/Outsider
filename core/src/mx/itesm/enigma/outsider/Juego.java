@@ -40,7 +40,7 @@ public class Juego extends Game {
 	}
 
 	public void detenerMusica () {
-			musicaFondo.pause();
+		musicaFondo.pause();
 
 
 	}

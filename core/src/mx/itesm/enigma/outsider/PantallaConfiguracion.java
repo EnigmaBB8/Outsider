@@ -16,6 +16,7 @@ public class PantallaConfiguracion extends Pantalla {
     private final Juego juego;
     private Texture fondoConf;
     private Stage escenaConf;
+    private boolean coso=true;
 
     public PantallaConfiguracion(Juego juego) {
         this.juego = juego;
@@ -23,7 +24,7 @@ public class PantallaConfiguracion extends Pantalla {
 
     @Override
     public void show() {
-        fondoConf = new Texture("fondos/fondoconfiguracion.png");
+        fondoConf = new Texture("fondos/fondoconfiguracion.jpg");
         crearPantallaConf();
     }
 
@@ -39,6 +40,7 @@ public class PantallaConfiguracion extends Pantalla {
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
+
         btnNP.setPosition(ANCHO * .8f, ALTO * .25F, Align.topLeft);
 
         btnNP.addListener(new ClickListener() {
@@ -51,6 +53,53 @@ public class PantallaConfiguracion extends Pantalla {
         });
 
         escenaConf.addActor(btnNP);
+        Gdx.input.setInputProcessor(escenaConf);
+
+
+        //Boton musica
+        Texture btnMusica = new Texture("botones/btnconfM.png");
+        TextureRegionDrawable trdBtMusica = new TextureRegionDrawable(new TextureRegion(btnMusica));
+        //inverso boton musica
+        Texture btnMusicaInv = new Texture("botones/btnconfMI.PNG");
+        TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
+
+        //Boton reiniciar
+        Texture btnReiniciar = new Texture("botones/btnconfR.png");
+        TextureRegionDrawable trdBtReiniciar= new TextureRegionDrawable(new TextureRegion(btnReiniciar));
+        //inverso boton reiniciar
+        Texture btnReiniciarInv = new Texture("botones/btnconfRI.PNG");
+        TextureRegionDrawable trdBtReiniciarInv = new TextureRegionDrawable(new TextureRegion(btnReiniciarInv));
+
+
+        ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
+        ImageButton btnR = new ImageButton(trdBtReiniciar, trdBtReiniciarInv);
+        btnM.setPosition(ANCHO * .5F, ALTO * .52F, Align.center);
+        btnR.setPosition(ANCHO * .5F, ALTO * .32F, Align.center);
+
+
+        //Listener M
+        btnM.addListener(new ClickListener() {
+            @Override
+            //Necesita arreglarse despues de darle click again crashea
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+
+                juego.detenerMusicaAll();
+
+            }
+        });
+        //Listener R
+        btnM.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.detenerMusica();
+            }
+        });
+
+        escenaConf.addActor(btnM);
+        escenaConf.addActor(btnR);
+
         Gdx.input.setInputProcessor(escenaConf);
     }
 

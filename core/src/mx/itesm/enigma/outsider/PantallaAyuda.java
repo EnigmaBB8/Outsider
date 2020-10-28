@@ -47,8 +47,10 @@ public class PantallaAyuda extends Pantalla {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaMenu(juego));
                 juego.detenerMusica();
+
             }
         });
+
 
         escenaAyuda.addActor(btnNP);
         Gdx.input.setInputProcessor(escenaAyuda);
