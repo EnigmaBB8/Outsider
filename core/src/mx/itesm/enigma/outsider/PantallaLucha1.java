@@ -71,6 +71,12 @@ public class PantallaLucha1 extends Pantalla {
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
     private EscenaPausa escenaPausa;
 
+    // Ganando
+    private EscenaGanando escenaGanando;
+
+    //Perdió
+    private EscenaPerdio escenaPerdio;
+
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
         //juego.detenerMusica();
@@ -290,6 +296,10 @@ public class PantallaLucha1 extends Pantalla {
             batch.end();
         }else if(estado==EstadoJuego.PAUSADO){
             escenaPausa.draw();
+        } else if (estado == EstadoJuego.GANANDO) {
+            escenaGanando.draw();
+        } else if (estado == EstadoJuego.PERDIO) {
+            escenaPerdio.draw();
         }
     }
 
@@ -362,6 +372,12 @@ public class PantallaLucha1 extends Pantalla {
                 // Descontar puntos
                 vidaVillano -= 2;
                 break;
+            } else if (vidaVillano == 0) {
+                estado = EstadoJuego.GANANDO;
+                if (escenaGanando == null) {
+                    escenaGanando = new EscenaGanando(vista, batch);
+                }
+                Gdx.input.setInputProcessor(escenaGanando);
             }
         }
     }
@@ -373,6 +389,12 @@ public class PantallaLucha1 extends Pantalla {
                 arrBolasFuego.removeIndex(i);
                 bateria -= 20;
                 break;
+            } else if (bateria == 0) {
+                estado = EstadoJuego.PERDIO;
+                if (escenaPerdio == null) {
+                    escenaPerdio = new EscenaPerdio(vista, batch);
+                }
+                Gdx.input.setInputProcessor(escenaPerdio);
             }
         }
     }
@@ -522,6 +544,67 @@ public class PantallaLucha1 extends Pantalla {
             this.addActor(btnMenu);
             this.addActor(btnMusica);
             this.addActor(btnSonido);
+        }
+    }
+
+    private class EscenaGanando extends Stage {
+        public EscenaGanando(Viewport vista, SpriteBatch batch) {
+            super(vista, batch);
+            Texture textura = new Texture("Historieta/VNLvl1_1.PNG");
+            Texture textura2 = new Texture("Historieta/VNLvl1_2.png");
+            Texture textura3 = new Texture("Historieta/VNLvl1_3.png");
+            Image imgGanando = new Image(textura);
+            Image imgGanando2 = new Image(textura2);
+            Image imgGanando3 = new Image(textura3);
+
+            imgGanando.setPosition(ANCHO/2-textura.getWidth()/2, ALTO/2-textura.getHeight()/2);
+            imgGanando2.setPosition(ANCHO/2-textura2.getWidth()/2, ALTO/2-textura2.getHeight()/2);
+            imgGanando3.setPosition(ANCHO/2-textura3.getWidth()/2, ALTO/2-textura3.getHeight()/2);
+
+            this.addActor(imgGanando);
+
+            // Boton Avanzar
+            Texture btnAvanzar = new Texture("botones/avanzar.png");
+            TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
+
+            ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
+            btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
+
+            btnAvanza.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    juego.setScreen(new PantallaMenu(juego));
+                }
+            });
+            this.addActor(btnAvanza);
+        }
+    }
+
+    private class EscenaPerdio extends Stage {
+        public EscenaPerdio(Viewport vista, SpriteBatch batch) {
+            super(vista, batch);
+            Texture textura = new Texture("Historieta/VNLvl1_4.png");
+            Image imgPerdio = new Image(textura);
+            imgPerdio.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
+
+            this.addActor(imgPerdio);
+
+            // Boton Avanzar
+            Texture btnAvanzar = new Texture("botones/avanzar.png");
+            TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
+
+            ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
+            btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
+
+            btnAvanza.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    juego.setScreen(new PantallaMenu(juego));
+                }
+            });
+            this.addActor(btnAvanza);
         }
     }
 }
