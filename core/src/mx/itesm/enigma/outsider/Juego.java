@@ -39,13 +39,20 @@ public class Juego extends Game {
 		musicaFondo1.play();
 	}
 
-	public void detenerMusica (){
-		musicaFondo.pause();
+	public void detenerMusica () {
+			musicaFondo.pause();
+
+
 	}
 
 	public void detenerMusicaAll (){
-		musicaFondo.stop();
-		musicaFondo1.stop();
+		if (musicaFondo.isPlaying()) {
+			musicaFondo.stop();
+		}else if(musicaFondo1.isPlaying()){
+			musicaFondo1.stop();
+		}else{
+			musicaFondo1.play();
+		}
 	}
 
 }

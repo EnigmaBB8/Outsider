@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+
+
 public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
@@ -500,16 +502,20 @@ public class PantallaLucha1 extends Pantalla {
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                   juego.detenerMusicaAll();
+                        juego.detenerMusica();
+                        juego.detenerMusicaAll();
+
                 }
             });
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    efectoFlecha.stop();
-                    efectoBolaDeFuego.stop();
-                    efectoPocima.stop();
-                    efectoSalto.stop();
+
+                          efectoFlecha.play();
+                          efectoBolaDeFuego.stop();
+                          efectoPocima.stop();
+                          efectoSalto.stop();
+
                 }
             });
             this.addActor(btnReanuda);
