@@ -83,8 +83,7 @@ public class PantallaConfiguracion extends Pantalla {
             //Necesita arreglarse despues de darle click again crashea
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
-                juego.detenerMusicaAll();
+                juego.detenerMusica();
 
             }
         });

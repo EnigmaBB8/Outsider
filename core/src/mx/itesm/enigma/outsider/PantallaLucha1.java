@@ -219,7 +219,7 @@ public class PantallaLucha1 extends Pantalla {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
             }
-            });
+        });
 
         //Boton saltar
         bntSalta.addListener(new ClickListener() {
@@ -234,8 +234,8 @@ public class PantallaLucha1 extends Pantalla {
         });
         // Disparo
         bntDisparas.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
+            @Override
+            public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
                 if (arrProyectil.size < 5) {
                     Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
                             personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
@@ -243,7 +243,7 @@ public class PantallaLucha1 extends Pantalla {
                     efectoFlecha.play();
                 } }
         });
-            //Pausa
+        //Pausa
         btnNP.addListener(new ClickListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(estado==EstadoJuego.JUGANDO) {
@@ -264,13 +264,13 @@ public class PantallaLucha1 extends Pantalla {
             }
         });
 
-            escenaNivel1.addActor(btnNP);
-            escenaNivel1.addActor(btnIzquierda);
-            escenaNivel1.addActor(bntDerecha);
-            escenaNivel1.addActor(bntSalta);
-            escenaNivel1.addActor(bntDisparas);
-            Gdx.input.setInputProcessor(escenaNivel1);
-        }
+        escenaNivel1.addActor(btnNP);
+        escenaNivel1.addActor(btnIzquierda);
+        escenaNivel1.addActor(bntDerecha);
+        escenaNivel1.addActor(bntSalta);
+        escenaNivel1.addActor(bntDisparas);
+        Gdx.input.setInputProcessor(escenaNivel1);
+    }
 
     @Override
     public void render(float delta) {
@@ -353,7 +353,7 @@ public class PantallaLucha1 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-            && bateria<100) {
+                    && bateria<100) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateria += 20;
@@ -452,12 +452,12 @@ public class PantallaLucha1 extends Pantalla {
         batch.dispose();
     }
 
-     //Estados Juego
+    //Estados Juego
     private enum EstadoJuego {
-     JUGANDO,
-     PAUSADO,
-     GANANDO,
-     PERDIO
+        JUGANDO,
+        PAUSADO,
+        GANANDO,
+        PERDIO
     }
 
     private class EscenaPausa extends Stage {
@@ -524,8 +524,8 @@ public class PantallaLucha1 extends Pantalla {
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                        juego.detenerMusica();
-                        juego.detenerMusicaAll();
+                    juego.detenerMusica();
+                    juego.detenerMusicaAll();
 
                 }
             });
@@ -533,10 +533,10 @@ public class PantallaLucha1 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
 
-                          efectoFlecha.play();
-                          efectoBolaDeFuego.stop();
-                          efectoPocima.stop();
-                          efectoSalto.stop();
+                    efectoFlecha.play();
+                    efectoBolaDeFuego.stop();
+                    efectoPocima.stop();
+                    efectoSalto.stop();
 
                 }
             });
