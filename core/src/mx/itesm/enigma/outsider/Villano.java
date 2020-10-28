@@ -40,7 +40,7 @@ public class Villano extends Objeto{
 
 
     public  void render(SpriteBatch batch) {
-        actualizar();
+        actualizarVillano();
         float delta = Gdx.graphics.getDeltaTime();
         timerAnimacion += delta;//calcula
         TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
@@ -49,9 +49,8 @@ public class Villano extends Objeto{
 //Well for now i have the class and it moves and everything,
 // next time will do the part where it dies =ටᆼට=
 
-    private void actualizar() {
+    private void actualizarVillano() {
         if(estado == EstadoVillano.MUERTO){
         }
-
     }
 }

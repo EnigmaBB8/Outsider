@@ -49,6 +49,13 @@ public class PantallaLucha1 extends Pantalla {
     private Texture texturaProyectil;
     private Array<Proyectil> arrProyectil;
 
+    // Piedras
+    private Texture texturaPiedra;
+    private Array<Piedra> arrPiedra;
+    private float timerCrearPiedra;
+    private float TIEMPO_CREA_PIEDRA = 1;
+    private float tiempoPiedra = 1;
+
     //Texto
     private Texto texto;
     private float bateria=100;
@@ -89,6 +96,7 @@ public class PantallaLucha1 extends Pantalla {
         pilaP = new Texture("sprites/pilaP.png");
         pilaV = new Texture("sprites/pilaP.png");
         crearNivel1();
+        crearPiedra();
         crearPersonaje();
         crearBolasFuego();
         crearProyectil();
@@ -96,6 +104,11 @@ public class PantallaLucha1 extends Pantalla {
         crearVillano();
         crearSonido();
         crearPocima();
+    }
+
+    private void crearPiedra() {
+        texturaPiedra = new Texture("Proyectiles/piedra.png");
+        arrPiedra = new Array<>();
     }
 
     private void crearPocima() {
@@ -292,6 +305,7 @@ public class PantallaLucha1 extends Pantalla {
             dibujarVidaPersonaje();
             dibujarVidaVillano();
             dibujarPocimas();
+            dibujarPiedras();
 
             batch.end();
         }else if(estado==EstadoJuego.PAUSADO){
@@ -300,6 +314,14 @@ public class PantallaLucha1 extends Pantalla {
             escenaGanando.draw();
         } else if (estado == EstadoJuego.PERDIO) {
             escenaPerdio.draw();
+        }
+    }
+
+    private void dibujarPiedras() {
+        for (Piedra piedra :
+                arrPiedra) {
+            piedra.render(batch);
+            piedra.atacar();
         }
     }
 
@@ -337,15 +359,30 @@ public class PantallaLucha1 extends Pantalla {
         }
     }
 
-    private void actualizar(){
+    private void actualizar() {
         actualizarBolasFuego();
         actualizarProyectil();
         actualizarPocimas();
+        actualizarPiedra();
 
         //Colisiones entre los objetos
         verificarChoquesBolasPersonaje();
         verificarChoquesAEnemigo();
         verificarPocimaTomada();
+        veriicarChoquePiedra();
+    }
+
+    private void veriicarChoquePiedra() {
+        for (int i = arrPiedra.size-1; i >= 0; i--) {
+            Piedra piedra = arrPiedra.get(i); //Pocima
+            // COLISION!!!
+            if (piedra.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())){
+                arrPiedra.removeIndex(i);
+                // Aumentar puntos
+                bateria -= 4;
+                break;
+            }
+        }
     }
 
     private void verificarPocimaTomada() {
@@ -353,10 +390,10 @@ public class PantallaLucha1 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateria<100) {
+                    && bateria<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateria += 20;
+                bateria += 10;
                 efectoPocima.play();
                 break;
             }
@@ -387,15 +424,28 @@ public class PantallaLucha1 extends Pantalla {
             BolasDeFuego bola = arrBolasFuego.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(bola.sprite.getBoundingRectangle())) {
                 arrBolasFuego.removeIndex(i);
-                bateria -= 20;
+                bateria -= 15;
                 break;
-            } else if (bateria == 0) {
+            } else if (bateria <= 0) {
                 estado = EstadoJuego.PERDIO;
                 if (escenaPerdio == null) {
                     escenaPerdio = new EscenaPerdio(vista, batch);
                 }
                 Gdx.input.setInputProcessor(escenaPerdio);
             }
+        }
+    }
+
+    private void actualizarPiedra() {
+        timerCrearPiedra += Gdx.graphics.getDeltaTime();
+        if (timerCrearPiedra>=TIEMPO_CREA_PIEDRA) {
+            timerCrearPiedra = 0;
+            TIEMPO_CREA_PIEDRA = tiempoPiedra + MathUtils.random()*.1f;
+            if (tiempoPiedra>1) {
+                tiempoPiedra -= 1;
+            }
+            Piedra piedra = new Piedra(texturaPiedra, 5+MathUtils.random(1,4)*100, ALTO*0.9f);
+            arrPiedra.add(piedra);
         }
     }
 
