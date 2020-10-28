@@ -584,7 +584,7 @@ public class PantallaLucha1 extends Pantalla {
     private class EscenaPerdio extends Stage {
         public EscenaPerdio(Viewport vista, SpriteBatch batch) {
             super(vista, batch);
-            Texture textura = new Texture("Historieta/VNLvl1_4.png");
+            Texture textura = new Texture("Historieta/perdistelvl1.png");
             Image imgPerdio = new Image(textura);
             imgPerdio.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
 
