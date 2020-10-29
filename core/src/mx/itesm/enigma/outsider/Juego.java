@@ -2,6 +2,7 @@ package mx.itesm.enigma.outsider;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,6 +16,10 @@ public class Juego extends Game {
 
 	@Override
 	public void create() {
+
+		Preferences preferencias = Gdx.app.getPreferences("Musica");
+		preferencias.putBoolean("General",false);
+
 		setScreen(new PantallaMenu(this));
 		AssetManager manager = new AssetManager();
 		manager.load("Musica/musicaMenu.mp3", Music.class);

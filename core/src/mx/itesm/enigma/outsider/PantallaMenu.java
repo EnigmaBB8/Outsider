@@ -30,12 +30,11 @@ public class PantallaMenu extends Pantalla  {
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
-        boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
-        Gdx.app.log("MUSICA", " " + musicaFondo);
+        boolean musicaFondo = preferencias.getBoolean("General");
+        Gdx.app.log("MUSICA 1", " " + musicaFondo);
         if(musicaFondo==true) {
             //Prender musica
             juego.reproducirMusica();
-            preferencias.putBoolean("MusicaGeneral",false);
         }
     }
 
@@ -127,19 +126,6 @@ public class PantallaMenu extends Pantalla  {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaLucha1(juego));
-                Preferences preferencias = Gdx.app.getPreferences("Musica");
-                boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
-                Gdx.app.log("MUSICA"," "+musicaFondo);
-                if(musicaFondo==false) {
-                    //Prender musica
-                    juego.reproducirMusicaNivel1();
-                    juego.detenerMusica();
-                    preferencias.putBoolean("MusicaGeneral",true);
-                }else{
-                    juego.detenerMusicaN1();
-                    preferencias.putBoolean("MusicaGeneral",false);
-                }
-                preferencias.flush();
             }
         });
 

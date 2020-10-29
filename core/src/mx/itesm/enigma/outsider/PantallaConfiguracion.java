@@ -84,18 +84,19 @@ public class PantallaConfiguracion extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Musica");
-                boolean musicaFondo = preferencias.getBoolean("MusicaGeneral");
+                boolean musicaFondo = preferencias.getBoolean("General");
                 Gdx.app.log("MUSICA"," "+musicaFondo);
-                if(musicaFondo==true){
+                if(musicaFondo==false){
                     //Apagar musica
                     juego.reproducirMusica();
-                    preferencias.putBoolean("MusicaGeneral",false);
+                    preferencias.putBoolean("General",true);
                 }else{
                     //Prender musica
                     juego.detenerMusica();
-                    preferencias.putBoolean("MusicaGeneral",true);
+                    preferencias.putBoolean("General",false);
                 }
                 preferencias.flush();
+                Gdx.app.log("MUSICA VALOR FINAL"," "+musicaFondo);
 
             }
         });

@@ -108,18 +108,13 @@ public class PantallaLucha1 extends Pantalla {
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
-        boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
-        Gdx.app.log("MUSICA"," "+musicaFondo);
+        boolean musicaFondo = preferencias.getBoolean("General");
+        Gdx.app.log("MUSICA 2"," "+musicaFondo);
         if(musicaFondo==true) {
             //Prender musica
             juego.reproducirMusicaNivel1();
             juego.detenerMusica();
-            preferencias.putBoolean("MusicaGeneral",false);
-        }else{
-            juego.detenerMusicaN1();
-            preferencias.putBoolean("MusicaGeneral",true);
         }
-        preferencias.flush();
     }
 
     private void crearPiedra() {
@@ -583,38 +578,40 @@ public class PantallaLucha1 extends Pantalla {
                     super.clicked(event, x, y);
                     estado=EstadoJuego.JUGANDO;
                     juego.setScreen(new PantallaMenu(juego));
+
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
-                    boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
-                    Gdx.app.log("MUSICA", " " + musicaFondo);
+                    boolean musicaFondo = preferencias.getBoolean("General");
+                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
                     if(musicaFondo==false) {
                         //Prender musica
                         juego.reproducirMusica();
                         juego.detenerMusicaN1();
-                        preferencias.putBoolean("MusicaGeneral",true);
                     }else{
                         juego.detenerMusica();
-                        preferencias.putBoolean("MusicaGeneral",false);
                     }
-                    preferencias.flush();
                 }
             });
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.detenerMusica();
-                    juego.detenerMusicaN1();
 
+                    Preferences preferencias = Gdx.app.getPreferences("Musica");
+                    boolean musicaFondo = preferencias.getBoolean("General");
+                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
+                    if(musicaFondo==true) {
+                        //Prender musica
+                        juego.detenerMusicaN1();
+                        juego.detenerMusica();
+                        preferencias.putBoolean("General",false);
+                    }else{
+                        juego.reproducirMusicaNivel1();
+                        preferencias.putBoolean("General",false);
+                    }
                 }
             });
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-
-                    efectoFlecha.play();
-                    efectoBolaDeFuego.stop();
-                    efectoPocima.stop();
-                    efectoSalto.stop();
-
                 }
             });
             this.addActor(btnReanuda);
@@ -652,6 +649,14 @@ public class PantallaLucha1 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaMenu(juego));
+                    Preferences preferencias = Gdx.app.getPreferences("Musica");
+                    boolean musicaFondo = preferencias.getBoolean("General");
+                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
+                    if(musicaFondo==true) {
+                        //Prender musica
+                        juego.reproducirMusica();
+                        juego.detenerMusicaN1();
+                    }
                 }
             });
             this.addActor(btnAvanza);
@@ -679,6 +684,15 @@ public class PantallaLucha1 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaMenu(juego));
+
+                    Preferences preferencias = Gdx.app.getPreferences("Musica");
+                    boolean musicaFondo = preferencias.getBoolean("General");
+                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
+                    if(musicaFondo==true) {
+                        //Prender musica
+                        juego.reproducirMusica();
+                        juego.detenerMusicaN1();
+                    }
                 }
             });
             this.addActor(btnAvanza);
