@@ -54,6 +54,10 @@ public class PantallaAcercaDe extends Pantalla {
         Texture btnADAbraham = new Texture("botones/AD_Abraham1.png");
         TextureRegionDrawable trdBtnAbraham = new TextureRegionDrawable(new TextureRegion(btnADAbraham));
 
+        ///Boton de Historia
+        Texture btnHistoria = new Texture("botones/BtnHistory.png");
+        TextureRegionDrawable trdBtHistoria = new TextureRegionDrawable(new TextureRegion(btnHistoria));
+
         /*
         Botones inversos de accion
          */
@@ -78,6 +82,10 @@ public class PantallaAcercaDe extends Pantalla {
         Texture btnADAbrahamInv = new Texture("botones/AD_Abraham.png");
         TextureRegionDrawable trdBtnAbrahmInv = new TextureRegionDrawable(new TextureRegion(btnADAbrahamInv));
 
+        //Inverso de Historia
+        Texture btnHistoriInv = new Texture("botones/BtnHistory1.png");
+        TextureRegionDrawable trdBtHistoriaInv = new TextureRegionDrawable(new TextureRegion(btnHistoriInv ));
+
         /*
         Botones y su inicializacion
          */
@@ -87,16 +95,18 @@ public class PantallaAcercaDe extends Pantalla {
         ImageButton btnM = new ImageButton(trdBtnManuel, trdBtnManuelInv);
         ImageButton btnI = new ImageButton(trdBtnItzel, trdBtnItzelInv);
         ImageButton btnA = new ImageButton(trdBtnAbraham, trdBtnAbrahmInv);
+        ImageButton btnH = new ImageButton(trdBtHistoria,trdBtHistoriaInv);
 
         /*
         Posicion e inicializacion de los botones
          */
 
-        btnNP.setPosition(ANCHO * .8f, ALTO * .25F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .83f, ALTO * .23F, Align.topLeft);
         btnK.setPosition(ANCHO*.15f,ALTO*.55f, Align.center);
         btnM.setPosition(ANCHO*.45f,ALTO*.55f, Align.center);
         btnI.setPosition(ANCHO*.15f,ALTO*.15f, Align.center);
         btnA.setPosition(ANCHO*.45f,ALTO*.15f, Align.center);
+        btnH.setPosition(ANCHO * .84f, ALTO * .40F, Align.topLeft);
 
         /*
         Accion al darles click a los botones
@@ -142,6 +152,14 @@ public class PantallaAcercaDe extends Pantalla {
             }
         });
 
+        btnH.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaH(juego));
+            }
+        });
+
         /*
         Representación en escena de los botones
          */
@@ -151,6 +169,7 @@ public class PantallaAcercaDe extends Pantalla {
         escenaAcercaDe.addActor(btnM);
         escenaAcercaDe.addActor(btnI);
         escenaAcercaDe.addActor(btnA);
+        escenaAcercaDe.addActor(btnH);
         Gdx.input.setInputProcessor(escenaAcercaDe);
     }
 
