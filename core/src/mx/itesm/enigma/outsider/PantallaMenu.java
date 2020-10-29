@@ -1,10 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,19 +17,28 @@ public class PantallaMenu extends Pantalla  {
     private Texture fondomenu;
     private Stage escenaMenu;
 
-    // Música / Efectos de sonido
-    private Music musicaFondo;
-
     public PantallaMenu(Juego juego) {
         this.juego = juego;
-        juego.reproducirMusica();
     }
 
     @Override
     public void show() {
         fondomenu = new Texture("fondos/fondomenu.jpeg");
         crearMenu();
+        configurarMusica();
     }
+
+    private void configurarMusica() {
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
+        Gdx.app.log("MUSICA", " " + musicaFondo);
+        if(musicaFondo==true) {
+            //Prender musica
+            juego.reproducirMusica();
+            preferencias.putBoolean("MusicaGeneral",false);
+        }
+    }
+
     private void crearMenu() {
         escenaMenu = new Stage(vista);
         //Logo
@@ -121,7 +127,19 @@ public class PantallaMenu extends Pantalla  {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaLucha1(juego));
-                juego.detenerMusica();
+                Preferences preferencias = Gdx.app.getPreferences("Musica");
+                boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
+                Gdx.app.log("MUSICA"," "+musicaFondo);
+                if(musicaFondo==false) {
+                    //Prender musica
+                    juego.reproducirMusicaNivel1();
+                    juego.detenerMusica();
+                    preferencias.putBoolean("MusicaGeneral",true);
+                }else{
+                    juego.detenerMusicaN1();
+                    preferencias.putBoolean("MusicaGeneral",false);
+                }
+                preferencias.flush();
             }
         });
 
@@ -186,4 +204,3 @@ public class PantallaMenu extends Pantalla  {
         batch.dispose();
     }
 }
-

@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,7 +17,6 @@ public class PantallaConfiguracion extends Pantalla {
     private final Juego juego;
     private Texture fondoConf;
     private Stage escenaConf;
-    private boolean coso=true;
 
     public PantallaConfiguracion(Juego juego) {
         this.juego = juego;
@@ -48,7 +48,7 @@ public class PantallaConfiguracion extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaMenu(juego));
-                juego.detenerMusica();
+
             }
         });
 
@@ -83,12 +83,24 @@ public class PantallaConfiguracion extends Pantalla {
             //Necesita arreglarse despues de darle click again crashea
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.detenerMusica();
+                Preferences preferencias = Gdx.app.getPreferences("Musica");
+                boolean musicaFondo = preferencias.getBoolean("MusicaGeneral");
+                Gdx.app.log("MUSICA"," "+musicaFondo);
+                if(musicaFondo==true){
+                    //Apagar musica
+                    juego.reproducirMusica();
+                    preferencias.putBoolean("MusicaGeneral",false);
+                }else{
+                    //Prender musica
+                    juego.detenerMusica();
+                    preferencias.putBoolean("MusicaGeneral",true);
+                }
+                preferencias.flush();
 
             }
         });
         //Listener R
-        btnM.addListener(new ClickListener() {
+        btnR.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);

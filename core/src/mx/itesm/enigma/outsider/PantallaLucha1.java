@@ -2,6 +2,7 @@ package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -86,8 +87,6 @@ public class PantallaLucha1 extends Pantalla {
 
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
-        //juego.detenerMusica();
-        juego.reproducirMusicaNivel1();
     }
 
     @Override
@@ -104,6 +103,23 @@ public class PantallaLucha1 extends Pantalla {
         crearVillano();
         crearSonido();
         crearPocima();
+        configurarMusica();
+    }
+
+    private void configurarMusica() {
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
+        Gdx.app.log("MUSICA"," "+musicaFondo);
+        if(musicaFondo==true) {
+            //Prender musica
+            juego.reproducirMusicaNivel1();
+            juego.detenerMusica();
+            preferencias.putBoolean("MusicaGeneral",false);
+        }else{
+            juego.detenerMusicaN1();
+            preferencias.putBoolean("MusicaGeneral",true);
+        }
+        preferencias.flush();
     }
 
     private void crearPiedra() {
@@ -354,8 +370,6 @@ public class PantallaLucha1 extends Pantalla {
                 arrBolasFuego) {
             bola.render(batch);
             bola.atacar();
-            efectoBolaDeFuego.play();
-
         }
     }
 
@@ -379,7 +393,7 @@ public class PantallaLucha1 extends Pantalla {
             if (piedra.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())){
                 arrPiedra.removeIndex(i);
                 // Aumentar puntos
-                bateria -= 4;
+                bateria -= 10;
                 break;
             }
         }
@@ -393,7 +407,7 @@ public class PantallaLucha1 extends Pantalla {
                     && bateria<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateria += 10;
+                bateria += 15;
                 efectoPocima.play();
                 break;
             }
@@ -444,7 +458,7 @@ public class PantallaLucha1 extends Pantalla {
             if (tiempoPiedra>1) {
                 tiempoPiedra -= 1;
             }
-            Piedra piedra = new Piedra(texturaPiedra, 5+MathUtils.random(1,4)*100, ALTO*0.9f);
+            Piedra piedra = new Piedra(texturaPiedra, 1+MathUtils.random(1,40)*10, ALTO*0.9f);
             arrPiedra.add(piedra);
         }
     }
@@ -569,13 +583,26 @@ public class PantallaLucha1 extends Pantalla {
                     super.clicked(event, x, y);
                     estado=EstadoJuego.JUGANDO;
                     juego.setScreen(new PantallaMenu(juego));
+                    Preferences preferencias = Gdx.app.getPreferences("Musica");
+                    boolean musicaFondo = preferencias.getBoolean("MusicaFondo");
+                    Gdx.app.log("MUSICA", " " + musicaFondo);
+                    if(musicaFondo==false) {
+                        //Prender musica
+                        juego.reproducirMusica();
+                        juego.detenerMusicaN1();
+                        preferencias.putBoolean("MusicaGeneral",true);
+                    }else{
+                        juego.detenerMusica();
+                        preferencias.putBoolean("MusicaGeneral",false);
+                    }
+                    preferencias.flush();
                 }
             });
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     juego.detenerMusica();
-                    juego.detenerMusicaAll();
+                    juego.detenerMusicaN1();
 
                 }
             });

@@ -46,8 +46,6 @@ public class PantallaAyuda extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaMenu(juego));
-                juego.detenerMusica();
-
             }
         });
 

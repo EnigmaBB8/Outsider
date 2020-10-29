@@ -14,7 +14,7 @@ public class Personaje extends Objeto{
     private float timerAnimacion;
 
     //Caminar
-    private float Dx=2;
+    private float Dx=4;
     private EstadoCaminando estadoCaminando;
 
     // Salto
@@ -112,7 +112,7 @@ public class Personaje extends Objeto{
             mover(-Dx);
 
         }
-        if (sprite.getX()>=ANCHO - sprite.getWidth() || sprite.getX()<=0) {
+        if (sprite.getX()>=ANCHO - 600 || sprite.getX()<=0) {
             if(sprite.getX() == ANCHO -sprite.getWidth()) {
                 setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
             }

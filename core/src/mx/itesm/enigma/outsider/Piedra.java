@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Piedra extends Objeto {
-    private final float VY = 350;
+    private final float VY = 400;
 
     public Piedra(Texture textura, float x, float y) {
         super(textura, x, y);

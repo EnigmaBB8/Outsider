@@ -10,12 +10,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Juego extends Game {
 
-	public Music musicaFondo;
-	public Music musicaFondo1;
+	protected Music musicaFondo;
+	protected Music musicaNivel1;
 
 	@Override
 	public void create() {
 		setScreen(new PantallaMenu(this));
+		AssetManager manager = new AssetManager();
+		manager.load("Musica/musicaMenu.mp3", Music.class);
+		manager.finishLoading();
+		musicaFondo = manager.get("Musica/musicaMenu.mp3");
+		musicaFondo.setLooping(true);
+
+		AssetManager manager1 = new AssetManager();
+		manager1.load("Musica/musicaNivel1.mp3", Music.class);
+		manager1.finishLoading();
+		musicaNivel1 = manager1.get("Musica/musicaNivel1.mp3");
+		musicaNivel1.setLooping(true);
 	}
 	@Override
 	public void render() {
@@ -23,36 +34,12 @@ public class Juego extends Game {
 	}
 
 	public void reproducirMusica (){
-		AssetManager manager = new AssetManager();
-		manager.load("Musica/musicaMenu.mp3", Music.class);
-		manager.finishLoading();
-		musicaFondo = manager.get("Musica/musicaMenu.mp3");
-		musicaFondo.setLooping(true);
 		musicaFondo.play();
 	}
-	public void reproducirMusicaNivel1 (){
-		AssetManager manager = new AssetManager();
-		manager.load("Musica/musicaNivel1.mp3", Music.class);
-		manager.finishLoading();
-		musicaFondo1 = manager.get("Musica/musicaNivel1.mp3");
-		musicaFondo1.setLooping(true);
-		musicaFondo1.play();
-	}
 
-	public void detenerMusica () {
-		musicaFondo.pause();
+	public void reproducirMusicaNivel1 (){ musicaNivel1.play(); }
 
+	public void detenerMusica () { musicaFondo.pause(); }
 
-	}
-
-	public void detenerMusicaAll (){
-		if (musicaFondo.isPlaying()) {
-			musicaFondo.stop();
-		}else if(musicaFondo1.isPlaying()){
-			musicaFondo1.stop();
-		}else{
-			musicaFondo1.play();
-		}
-	}
-
+	public void detenerMusicaN1 () { musicaNivel1.pause(); }
 }
