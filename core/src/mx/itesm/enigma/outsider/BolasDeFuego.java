@@ -26,7 +26,6 @@ public class BolasDeFuego extends Objeto {
         sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de la bola de fuego
         sprite.setPosition(x,y);
     }
-
     /*
     Método que hace que se muevan las bolas de fuego
      */
