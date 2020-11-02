@@ -30,11 +30,11 @@ public class PantallaAyuda extends Pantalla {
     private void crearPantallaAyuda() {
         escenaAyuda = new Stage(vista);
         ///Boton de regreso a menu
-        Texture btnNuevaPartida = new Texture("botones/BtnBack1.png");
+        Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnBack.png");
+        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
