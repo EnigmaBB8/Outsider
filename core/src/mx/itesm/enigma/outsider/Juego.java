@@ -25,6 +25,7 @@ public class Juego extends Game {
 		manager.load("Musica/musicaMenu.mp3", Music.class);
 		manager.finishLoading();
 		musicaFondo = manager.get("Musica/musicaMenu.mp3");
+		musicaFondo.setVolume(0.1f);
 		musicaFondo.setLooping(true);
 
 		AssetManager manager1 = new AssetManager();
@@ -32,6 +33,7 @@ public class Juego extends Game {
 		manager1.finishLoading();
 		musicaNivel1 = manager1.get("Musica/musicaNivel1.mp3");
 		musicaNivel1.setLooping(true);
+		musicaNivel1.setVolume(0.1f);
 	}
 	@Override
 	public void render() {
