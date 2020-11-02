@@ -24,18 +24,18 @@ public class PantallaConfiguracion extends Pantalla {
 
     @Override
     public void show() {
-        fondoConf = new Texture("fondos/fondoconfiguracion.jpg");
+        fondoConf = new Texture("fondos/fondoconfiguracion.JPG");
         crearPantallaConf();
     }
 
     private void crearPantallaConf() {
         escenaConf = new Stage(vista);
         ///Boton de regreso a menu
-        Texture btnNuevaPartida = new Texture("botones/BtnBack1.png");
+        Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnBack.png");
+        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
@@ -57,14 +57,14 @@ public class PantallaConfiguracion extends Pantalla {
 
 
         //Boton musica
-        Texture btnMusica = new Texture("botones/btnconfM.png");
+        Texture btnMusica = new Texture("botones/btnconfM.PNG");
         TextureRegionDrawable trdBtMusica = new TextureRegionDrawable(new TextureRegion(btnMusica));
         //inverso boton musica
         Texture btnMusicaInv = new Texture("botones/btnconfMI.PNG");
         TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
 
         //Boton reiniciar
-        Texture btnReiniciar = new Texture("botones/btnconfR.png");
+        Texture btnReiniciar = new Texture("botones/btnconfR.PNG");
         TextureRegionDrawable trdBtReiniciar= new TextureRegionDrawable(new TextureRegion(btnReiniciar));
         //inverso boton reiniciar
         Texture btnReiniciarInv = new Texture("botones/btnconfRI.PNG");

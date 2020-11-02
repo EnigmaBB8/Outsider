@@ -141,7 +141,7 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearVillano() {
-        texturaVillano=new Texture("Enemigos/Titan1.png");
+        texturaVillano=new Texture("Enemigos/Titan1.PNG");
         villano=new Villano(texturaVillano);
     }
 
@@ -625,8 +625,8 @@ public class PantallaLucha1 extends Pantalla {
         public EscenaGanando(Viewport vista, SpriteBatch batch) {
             super(vista, batch);
             Texture textura = new Texture("Historieta/VNLvl1_1.PNG");
-            Texture textura2 = new Texture("Historieta/VNLvl1_2.png");
-            Texture textura3 = new Texture("Historieta/VNLvl1_3.png");
+            Texture textura2 = new Texture("Historieta/VNLvl1_2.PNG");
+            Texture textura3 = new Texture("Historieta/VNLvl1_3.PNG");
             Image imgGanando = new Image(textura);
             Image imgGanando2 = new Image(textura2);
             Image imgGanando3 = new Image(textura3);
@@ -666,7 +666,7 @@ public class PantallaLucha1 extends Pantalla {
     private class EscenaPerdio extends Stage {
         public EscenaPerdio(Viewport vista, SpriteBatch batch) {
             super(vista, batch);
-            Texture textura = new Texture("Historieta/perdistelvl1.png");
+            Texture textura = new Texture("Historieta/perdistelvl1.PNG");
             Image imgPerdio = new Image(textura);
             imgPerdio.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
 

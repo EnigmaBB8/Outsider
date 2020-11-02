@@ -29,11 +29,11 @@ public class PantallaH extends Pantalla {
     private void crearHistoria() {
         escenaHistoria=new Stage(vista);
         ///Boton de regreso a acerca de
-        Texture btnConf= new Texture("botones/BtnBack1.png");
+        Texture btnConf= new Texture("botones/btnBack1.png");
         TextureRegionDrawable trdBtconf = new TextureRegionDrawable(new TextureRegion(btnConf));
 
         //Inverso de boton de regreso a acerca de
-        Texture btnConfInv = new Texture("botones/BtnBack.png");
+        Texture btnConfInv = new Texture("botones/btnBack.png");
         TextureRegionDrawable trdBtConfInv = new TextureRegionDrawable(new TextureRegion(btnConfInv));
 
         ImageButton btnH = new ImageButton(trdBtconf,trdBtConfInv);

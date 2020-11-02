@@ -35,7 +35,7 @@ public class PantallaAcercaDe extends Pantalla {
          */
 
         ///Boton de regreso a menu
-        Texture btnNuevaPartida = new Texture("botones/BtnBack1.png");
+        Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton acerca de Karla
@@ -63,7 +63,7 @@ public class PantallaAcercaDe extends Pantalla {
          */
 
         //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnBack.png");
+        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de boton de Acerca de Karla
