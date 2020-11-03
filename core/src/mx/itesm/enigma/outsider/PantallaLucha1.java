@@ -490,7 +490,7 @@ public class PantallaLucha1 extends Pantalla {
             if (tiempoBola>2) {
                 tiempoBola -= 1;
             }
-            BolasDeFuego bola = new BolasDeFuego(texturaBolas, 900, 220+MathUtils.random(1,3)*100);
+            BolasDeFuego bola = new BolasDeFuego(texturaBolas, 950, 400);
             arrBolasFuego.add(bola);
         }
     }
