@@ -420,6 +420,7 @@ public class PantallaLucha1 extends Pantalla {
                 break;
             } else if (vidaVillano == 0) {
                 estado = EstadoJuego.GANANDO;
+                villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaGanando == null) {
                     escenaGanando = new EscenaGanando(vista, batch);
                 }
