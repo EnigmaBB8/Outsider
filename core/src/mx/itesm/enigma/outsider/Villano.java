@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Villano extends Objeto{
     private Animation<TextureRegion> animacion;
+    private Animation<TextureRegion> animacionMuerte;
     private float timerAnimacion;
+    private float timerAnimacionMuerte;
     private EstadoVillano estado;
 
     public Villano(Texture textura){
@@ -28,10 +30,21 @@ public class Villano extends Objeto{
         timerAnimacion=0;
         estado = EstadoVillano.ATACANDO;
 
+        //Animacion muerte
+        TextureRegion[] arrFramemuerte={texturasFrame[0][4],texturasFrame[0][5],texturasFrame[0][6]};
+        animacionMuerte=new Animation<TextureRegion>(0.2f,arrFramemuerte);
+        animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);
+        timerAnimacionMuerte=0;
+
+
         //Muerto OWO
-        estado = EstadoVillano.MUERTO;
+       // estado = EstadoVillano.MUERTO;
 
 
+    }
+
+    public void setEstado(EstadoVillano estado) {
+        this.estado = estado;
     }
 
     public EstadoVillano getEstado() {
@@ -42,9 +55,16 @@ public class Villano extends Objeto{
     public  void render(SpriteBatch batch) {
         actualizarVillano();
         float delta = Gdx.graphics.getDeltaTime();
-        timerAnimacion += delta;//calcula
-        TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
-        batch.draw(frame, sprite.getX(), sprite.getY());
+        if (estado==EstadoVillano.ATACANDO){
+            timerAnimacion += delta;//calcula
+            TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
+            batch.draw(frame, sprite.getX(), sprite.getY());
+        }
+        else {
+            timerAnimacionMuerte += delta;//calcula
+            TextureRegion frame = animacionMuerte.getKeyFrame(timerAnimacionMuerte);
+            batch.draw(frame, sprite.getX(), sprite.getY());
+        }
     }
 //Well for now i have the class and it moves and everything,
 // next time will do the part where it dies =ටᆼට=
