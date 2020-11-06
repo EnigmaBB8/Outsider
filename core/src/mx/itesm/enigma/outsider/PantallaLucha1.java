@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -298,11 +299,11 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void render(float delta) {
+        borrarPantalla(0, 0, 0.5f);
+        batch.setProjectionMatrix(camara.combined);
         if(estado==EstadoJuego.JUGANDO) {
             actualizar();
-            borrarPantalla(0, 0, 0.5f);
-            batch.setProjectionMatrix(camara.combined);
-
+            
             batch.begin();
             batch.draw(fondoNivel1, 0, 0);
             batch.draw(pilaP,ANCHO*0.03f,ALTO*0.83f);
@@ -321,7 +322,11 @@ public class PantallaLucha1 extends Pantalla {
             batch.end();
         }else if(estado==EstadoJuego.PAUSADO){
             escenaPausa.draw();
-        } else if (estado == EstadoJuego.GANANDO) {
+        } else if (estado == EstadoJuego.GANANDO1 || estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
+        || estado == EstadoJuego.GANANDO4) {
+            batch.begin();
+            batch.draw(fondoNivel1, 0, 0);
+            batch.end();
             escenaGanando.draw();
         } else if (estado == EstadoJuego.PERDIO) {
             escenaPerdio.draw();
@@ -419,7 +424,7 @@ public class PantallaLucha1 extends Pantalla {
                 vidaVillano -= 2;
                 break;
             } else if (vidaVillano == 0) {
-                estado = EstadoJuego.GANANDO;
+                estado = EstadoJuego.GANANDO1;
                 if (escenaGanando == null) {
                     escenaGanando = new EscenaGanando(vista, batch);
                 }
@@ -515,7 +520,10 @@ public class PantallaLucha1 extends Pantalla {
     private enum EstadoJuego {
         JUGANDO,
         PAUSADO,
-        GANANDO,
+        GANANDO1,
+        GANANDO2,
+        GANANDO3,
+        GANANDO4,
         PERDIO
     }
 
@@ -622,44 +630,68 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private class EscenaGanando extends Stage {
+        private Image imgGanando;
         public EscenaGanando(Viewport vista, SpriteBatch batch) {
             super(vista, batch);
-            Texture textura = new Texture("Historieta/VNLvl1_1.PNG");
-            Texture textura2 = new Texture("Historieta/VNLvl1_2.PNG");
-            Texture textura3 = new Texture("Historieta/VNLvl1_3.PNG");
-            Image imgGanando = new Image(textura);
-            Image imgGanando2 = new Image(textura2);
-            Image imgGanando3 = new Image(textura3);
 
-            imgGanando.setPosition(ANCHO/2-textura.getWidth()/2, ALTO/2-textura.getHeight()/2);
-            imgGanando2.setPosition(ANCHO/2-textura2.getWidth()/2, ALTO/2-textura2.getHeight()/2);
-            imgGanando3.setPosition(ANCHO/2-textura3.getWidth()/2, ALTO/2-textura3.getHeight()/2);
-
-            this.addActor(imgGanando);
+            if (estado == EstadoJuego.GANANDO1) {
+                Texture textura1 = new Texture("Historieta/VNLvl1_1.PNG");
+                imgGanando = new Image(textura1);
+                imgGanando.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
+                Gdx.app.log("Ganando1", "Sí entra");
+                this.addActor(imgGanando);
+            }
 
             // Boton Avanzar
             Texture btnAvanzar = new Texture("botones/avanzar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
 
-            ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
+            final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
+            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.9f, Align.topRight);
 
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaMenu(juego));
-                    Preferences preferencias = Gdx.app.getPreferences("Musica");
-                    boolean musicaFondo = preferencias.getBoolean("General");
-                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
-                    if(musicaFondo==true) {
-                        //Prender musica
-                        juego.reproducirMusica();
-                        juego.detenerMusicaN1();
+                    if (estado == EstadoJuego.GANANDO1) {
+                        estado = EstadoJuego.GANANDO2;
+                        Gdx.app.log("Ganando2", "Sí cambia");
+                        Texture textura2 = new Texture("Historieta/VNLvl1_2.PNG");
+                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura2);
+                        imgGanando.setDrawable(nuevaImagen);
+                        btnAvanza.toFront();
+                    } else if (estado == EstadoJuego.GANANDO2) {
+                        estado = EstadoJuego.GANANDO3;
+                        Gdx.app.log("Ganando3", "Sí cambia");
+                        Texture textura3 = new Texture("Historieta/VNLvl1_3.PNG");
+                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura3);
+                        imgGanando.setDrawable(nuevaImagen);
+                        btnAvanza.toFront();
+                    } else if (estado == EstadoJuego.GANANDO3) {
+                        estado = EstadoJuego. GANANDO4;
+                        Gdx.app.log("Ganando4", "Sí cambia");
+                        Texture textura4 = new Texture("Historieta/VNLvl1_4.PNG");
+                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura4);
+                        imgGanando.setDrawable(nuevaImagen);
+                        btnAvanza.toFront();
+                    } else if (estado == EstadoJuego.GANANDO4) {
+                        juego.setScreen(new PantallaMenu(juego));
+                        btnAvanza.toFront();
                     }
+
                 }
             });
             this.addActor(btnAvanza);
+
+            // Esto es para que se haga una sola vez cuando se entra al estado
+            Preferences preferencias = Gdx.app.getPreferences("Musica");
+            boolean musicaFondo = preferencias.getBoolean("General");
+            Gdx.app.log("MUSICA 3", " " + musicaFondo);
+            if(musicaFondo==true) {
+                //Prender musica
+                juego.reproducirMusica();
+                juego.detenerMusicaN1();
+            }
         }
     }
 
