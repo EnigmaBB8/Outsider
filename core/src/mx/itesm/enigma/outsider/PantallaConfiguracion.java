@@ -87,12 +87,13 @@ public class PantallaConfiguracion extends Pantalla {
                 boolean musicaFondo = preferencias.getBoolean("General");
                 Gdx.app.log("MUSICA"," "+musicaFondo);
                 if(musicaFondo==false){
-                    //Apagar musica
+                    //Prender musica
                     juego.reproducirMusica();
                     preferencias.putBoolean("General",true);
                 }else{
-                    //Prender musica
+                    //Apagar musica
                     juego.detenerMusica();
+                    juego.detenerMusicaN1();
                     preferencias.putBoolean("General",false);
                 }
                 preferencias.flush();

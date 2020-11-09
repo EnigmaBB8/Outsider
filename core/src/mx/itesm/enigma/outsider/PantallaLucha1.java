@@ -110,7 +110,7 @@ public class PantallaLucha1 extends Pantalla {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
         Gdx.app.log("MUSICA 2"," "+musicaFondo);
-        if(musicaFondo==true) {
+        if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusicaNivel1();
             juego.detenerMusica();
@@ -586,17 +586,6 @@ public class PantallaLucha1 extends Pantalla {
                     super.clicked(event, x, y);
                     estado=EstadoJuego.JUGANDO;
                     juego.setScreen(new PantallaMenu(juego));
-
-                    Preferences preferencias = Gdx.app.getPreferences("Musica");
-                    boolean musicaFondo = preferencias.getBoolean("General");
-                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
-                    if(musicaFondo==false) {
-                        //Prender musica
-                        juego.reproducirMusica();
-                        juego.detenerMusicaN1();
-                    }else{
-                        juego.detenerMusica();
-                    }
                 }
             });
             btnMusica.addListener(new ClickListener() {
@@ -606,13 +595,14 @@ public class PantallaLucha1 extends Pantalla {
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
                     Gdx.app.log("MUSICA 3", " " + musicaFondo);
-                    if(musicaFondo==true) {
+                    if(musicaFondo==false) {
                         //Prender musica
+                        juego.reproducirMusicaNivel1();
+                        juego.detenerMusica();
+                        preferencias.putBoolean("General",true);
+                    }else{
                         juego.detenerMusicaN1();
                         juego.detenerMusica();
-                        preferencias.putBoolean("General",false);
-                    }else{
-                        juego.reproducirMusicaNivel1();
                         preferencias.putBoolean("General",false);
                     }
                 }

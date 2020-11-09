@@ -16,11 +16,6 @@ public class Juego extends Game {
 
 	@Override
 	public void create() {
-
-		Preferences preferencias = Gdx.app.getPreferences("Musica");
-		preferencias.putBoolean("General",false);
-
-		setScreen(new PantallaMenu(this));
 		AssetManager manager = new AssetManager();
 		manager.load("Musica/musicaMenu.mp3", Music.class);
 		manager.finishLoading();
@@ -34,7 +29,10 @@ public class Juego extends Game {
 		musicaNivel1 = manager1.get("Musica/musicaNivel1.mp3");
 		musicaNivel1.setLooping(true);
 		musicaNivel1.setVolume(0.1f);
+
+		setScreen(new PantallaMenu(this));
 	}
+
 	@Override
 	public void render() {
 		super.render();
