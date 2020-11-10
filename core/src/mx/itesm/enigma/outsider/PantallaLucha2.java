@@ -21,17 +21,24 @@ public class PantallaLucha2 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel2;
     private Texture fondoNivel2;
+    private Texture pilaP2;
+    private Texture pilaV2;
 
     //Personaje
     private Personaje personaje;
     private Texture texturaPersonaje;
     // Proyectil
     private Texture texturaProyectil;
-    private Array<Proyectil> arrProyectil;
+    private Array<BolasMagicas> arrBolasMagicas;
 
     //Sonidos
     private Sound efectoSalto;
     private Sound efectoFlecha;
+
+    //Texto
+    private Texto texto;
+    private float bateriaN2=100;
+    private float vidaVillano2 = 100;
 
     //Pausa
     private PantallaLucha2.EstadoJuego estado= PantallaLucha2.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -43,11 +50,18 @@ public class PantallaLucha2 extends Pantalla {
 
     @Override
     public void show() {
-        fondoNivel2 = new Texture("fondos/fondonivel1.JPG");
+        fondoNivel2 = new Texture("fondos/fondonivel2.png");
+        pilaP2 = new Texture("sprites/pilaP2.png");
+        pilaV2 = new Texture("sprites/pilaP2.png");
         crearNivel2();
         crearPersonaje();
-        crearProyectil();
+        crearBolaMagica();
         crearSonido();
+        crearTexto();
+    }
+
+    private void crearTexto() {
+        texto=new Texto("Texto/game.fnt");
     }
 
     private void crearSonido() {
@@ -60,9 +74,9 @@ public class PantallaLucha2 extends Pantalla {
 
     }
 
-    private void crearProyectil() {
-        texturaProyectil = new Texture("Proyectiles/flecha1.png");
-        arrProyectil = new Array<>();
+    private void crearBolaMagica() {
+        texturaProyectil = new Texture("Proyectiles/bolasMagicas.png");
+        arrBolasMagicas = new Array<>();
     }
 
     private void crearPersonaje() {
@@ -73,7 +87,7 @@ public class PantallaLucha2 extends Pantalla {
     private void crearNivel2() {
         escenaNivel2 = new Stage(vista);
         ///Boton de Pausa
-        Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
+        Texture btnNuevaPartida = new Texture("botones/BtnPausa2.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton Izquierda
@@ -93,7 +107,7 @@ public class PantallaLucha2 extends Pantalla {
         TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
         //Inverso de Pausa
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnMP1.png");
+        Texture btnNuevaPartidaInv = new Texture("botones/BtnPausa2.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de Boton Izquierda
@@ -124,6 +138,7 @@ public class PantallaLucha2 extends Pantalla {
         bntDerecha.setPosition(ANCHO*.15f,ALTO*.14f,Align.topLeft);
         bntSalta.setPosition(ANCHO*.70f,ALTO*.15f, Align.topLeft);
         bntDisparas.setPosition(ANCHO*.85f,ALTO*.15f,Align.topLeft);
+
         //Boton derecha
         bntDerecha.addListener(new ClickListener() {
             @Override
@@ -165,10 +180,9 @@ public class PantallaLucha2 extends Pantalla {
         bntDisparas.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
-                if (arrProyectil.size < 5) {
-                    Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
-                            personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
-                    arrProyectil.add(proyectil);
+                if (arrBolasMagicas.size < 5) {
+                    BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
+                    arrBolasMagicas.add(BolasMagicas);
                     efectoFlecha.play();
 
                 } }
@@ -209,40 +223,54 @@ public class PantallaLucha2 extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-        if(estado== PantallaLucha2.EstadoJuego.JUGANDO) {
+        if(estado == PantallaLucha2.EstadoJuego.JUGANDO) {
             actualizar();
+
             batch.begin();
             batch.draw(fondoNivel2, 0, 0);
+            batch.draw(pilaP2,ANCHO*0.03f,ALTO*0.83f);
+            batch.draw(pilaV2,ANCHO*0.8f,ALTO*0.83f);
             personaje.render(batch);
             escenaNivel2.draw();
-            dibujarProyectil();
+
+            dibujarBolasMagicas();
+            dibujarVidaPersonaje();
+            dibujarVidaVillano();
+
             batch.end();
-        }else if(estado== PantallaLucha2.EstadoJuego.PAUSADO){
+
+        }else if(estado == PantallaLucha2.EstadoJuego.PAUSADO){
             escenaPausa.draw();
         }
-
-
-
     }
 
-    private void dibujarProyectil() {
-        for (Proyectil proyectil :
-                arrProyectil) {
+    private void dibujarVidaPersonaje() {
+        int vidaPersonaje = (int)bateriaN2;
+        texto.mostrarMensaje(batch,vidaPersonaje+"%",ANCHO*0.11f,ALTO*0.93f);
+    }
+
+    private void dibujarVidaVillano() {
+        int VidaVillano2 = (int)vidaVillano2;
+        texto.mostrarMensaje(batch,VidaVillano2+"%",ANCHO*0.88f,ALTO*0.93f);
+    }
+
+    private void dibujarBolasMagicas() {
+        for (BolasMagicas proyectil :
+                arrBolasMagicas) {
             proyectil.render(batch);
         }
     }
+
     private void actualizar() {
         actualizarProyectil();
-
     }
 
     private void actualizarProyectil() {
-        for (int i=arrProyectil.size-1; i>=0; i--) {
-            Proyectil proyectil = arrProyectil.get(i);
+        for (int i=arrBolasMagicas.size-1; i>=0; i--) {
+            BolasMagicas proyectil = arrBolasMagicas.get(i);
             proyectil.moverDerecha();
-            proyectil.caida();
             if (proyectil.sprite.getX()>ANCHO) {
-                arrProyectil.removeIndex(i);
+                arrBolasMagicas.removeIndex(i);
             }
         }
     }
@@ -276,46 +304,46 @@ public class PantallaLucha2 extends Pantalla {
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
-            Texture textura=new Texture("fondos/PausaN1.jpeg");
+            Texture textura=new Texture("fondos/PausaN2.png");
             Image imgPausa=new Image(textura);
             imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
             this.addActor(imgPausa); //Fondo
 
             //Botones
             // Boton Reanudar
-            Texture bntReanudar = new Texture("botones/BtnReanudarN1.png");
+            Texture bntReanudar = new Texture("botones/BtnReanudarN2.png");
             TextureRegionDrawable trReanudar = new TextureRegionDrawable(new TextureRegion(bntReanudar));
             //Boton Menu
-            Texture bntMenu = new Texture("botones/BtnMenuN1.png");
+            Texture bntMenu = new Texture("botones/BtnMenuN2.png");
             TextureRegionDrawable trMenu = new TextureRegionDrawable(new TextureRegion(bntMenu));
             //Boton Musica
-            Texture bntMusica = new Texture("botones/BtnMusicN1.png");
+            Texture bntMusica = new Texture("botones/BtnMusicN2.png");
             TextureRegionDrawable trMusica= new TextureRegionDrawable(new TextureRegion(bntMusica));
             //Boton Sonido
-            Texture bntSonido = new Texture("botones/BtnSonidoN1.png");
+            Texture bntSonido = new Texture("botones/BtnSonidoN2.png");
             TextureRegionDrawable trSonido =new TextureRegionDrawable(new TextureRegion(bntSonido));
 
             //Inverso de Reanudar
-            Texture btnReanudarInv= new Texture("botones/BtnReanudarN1Inv.png");
+            Texture btnReanudarInv= new Texture("botones/BtnReanudarN2Inv.png");
             TextureRegionDrawable trdBtReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
             //Inverso de Menu
-            Texture btnMenuInv= new Texture("botones/BtnMenuN1Inv.png");
+            Texture btnMenuInv= new Texture("botones/BtnMenuN2Inv.png");
             TextureRegionDrawable trdBtMenuInv = new TextureRegionDrawable(new TextureRegion(btnMenuInv));
             //Inverso de Musica
-            Texture btnMusicaInv= new Texture("botones/BtnMusicN1Inv.png");
+            Texture btnMusicaInv= new Texture("botones/BtnMusicN2Inv.png");
             TextureRegionDrawable trdBtMusicanv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
             //Inverso de Sonido
-            Texture btnSonidoInv= new Texture("botones/BtnSonidoN1Inv.png");
+            Texture btnSonidoInv= new Texture("botones/BtnSonidoN2Inv.png");
             TextureRegionDrawable trdBtSonidonv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
             ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);
             ImageButton btnMenu = new ImageButton(trMenu, trdBtMenuInv);
             ImageButton btnMusica = new ImageButton(trMusica, trdBtMusicanv);
             ImageButton btnSonido = new ImageButton(trSonido, trdBtSonidonv);
-            btnSonido.setPosition(ANCHO * .82f, ALTO *0.65f, Align.top);
-            btnMusica.setPosition(ANCHO * .62f, ALTO *0.65f, Align.top);
-            btnReanuda.setPosition(ANCHO * .10f, ALTO *0.65f, Align.topLeft);
-            btnMenu.setPosition(ANCHO * .32f, ALTO *0.65f, Align.topLeft);
+            btnSonido.setPosition(ANCHO * .82f, ALTO *0.60f, Align.top);
+            btnMusica.setPosition(ANCHO * .62f, ALTO *0.60f, Align.top);
+            btnReanuda.setPosition(ANCHO * .10f, ALTO *0.60f, Align.topLeft);
+            btnMenu.setPosition(ANCHO * .32f, ALTO *0.60f, Align.topLeft);
 
             btnReanuda.addListener(new ClickListener() {
                 @Override

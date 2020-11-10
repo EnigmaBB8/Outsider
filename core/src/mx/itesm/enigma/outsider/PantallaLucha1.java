@@ -167,7 +167,7 @@ public class PantallaLucha1 extends Pantalla {
     private void crearNivel1() {
         escenaNivel1 = new Stage(vista);
         ///Boton de Pausa
-        Texture btnNuevaPartida = new Texture("botones/BtnMP.png");
+        Texture btnNuevaPartida = new Texture("botones/BtnPausa.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton Izquierda
@@ -187,7 +187,7 @@ public class PantallaLucha1 extends Pantalla {
         TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
         //Inverso de Pausa
-        Texture btnNuevaPartidaInv = new Texture("botones/BtnMP1.png");
+        Texture btnNuevaPartidaInv = new Texture("botones/BtnPausa1.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de Boton Izquierda
