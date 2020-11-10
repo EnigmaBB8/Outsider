@@ -665,7 +665,7 @@ public class PantallaLucha1 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaMenu(juego));
+                        juego.setScreen(new PantallaLucha2(juego));
                         btnAvanza.toFront();
                     }
                 }
