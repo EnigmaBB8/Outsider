@@ -1,0 +1,253 @@
+package mx.itesm.enigma.outsider;
+
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
+public class PantallaCargando extends Pantalla {
+
+    //Animación cargando
+    private Sprite spriteCargando;
+    public static final float TIEMPO_ENTRE_FRAMES = 0.05f;
+    private float timerAnimacion = TIEMPO_ENTRE_FRAMES;
+    private Texture texturaCargando;
+
+    //Asset Manager
+    private AssetManager manager;
+
+    //Referencia al juego
+    private Juego juego;       //Para hacer set Screen
+
+    //Identifica las pantallas del juego
+    private Pantallas siguientePantalla;
+
+    //Porcentaje de carga
+    private int avance;
+
+    //Para mostrar mensajes
+    private Texto texto;
+
+    public PantallaCargando(Juego juego, Pantallas siguientePantalla) {
+        this.juego = juego;
+        this.siguientePantalla = siguientePantalla;
+    }
+
+    @Override
+    public void show() {
+        texturaCargando = new Texture("fondos/fondomenu.jpeg");
+        spriteCargando = new Sprite(texturaCargando);
+        spriteCargando.setPosition(ANCHO/2 - spriteCargando.getWidth()/2, ALTO/2 -spriteCargando.getHeight()/2);
+        cargarRecursos(siguientePantalla);
+        texto= new Texto("Texto/game.fnt");
+    }
+
+    private void cargarRecursos(Pantallas siguientePantalla) {
+        manager = juego.getManager();
+        avance = 0;     //Porcentaje de carga
+        switch (siguientePantalla) {
+            case MENU:
+                cargarRecursosMenu();
+                break;
+            case AYUDA:
+                cargarRecursosAyuda();
+                break;
+            case HISTORIA:
+                cargarRecursosHistoria();
+                break;
+            case REANUDAR:
+                cargarRecursosReanudar();
+                break;
+            case CONFIGURACION:
+                cargarRecursosConfiguracion();
+                break;
+            case NIVEL1:
+                cargarRecursosNivel1();
+                break;
+        }
+    }
+
+    private void cargarRecursosConfiguracion() {
+        //Fondos
+        manager.load("fondos/fondoconfiguracion.JPG", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+        manager.load("botones/btnconfM.PNG", Texture.class);
+        manager.load("botones/btnconfMI.PNG", Texture.class);
+        manager.load("botones/btnconfR.PNG", Texture.class);
+        manager.load("botones/btnconfRI.PNG", Texture.class);
+    }
+
+    private void cargarRecursosReanudar() {
+        //Fondos
+        manager.load("fondos/PantallaReanudar.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosHistoria() {
+        //Fondos
+        manager.load("fondos/Historia.jpeg", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosAyuda() {
+        //Fondos
+        manager.load("fondos/fondoPantallaAyuda.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosNivel1() {
+        //Fondos
+        manager.load("fondos/fondonivel1.JPG", Texture.class);
+        manager.load("fondos/PausaN1.jpeg", Texture.class);
+
+        //Sprites
+        manager.load("sprites/pilaP.png", Texture.class);
+        manager.load("sprites/pilaP.png", Texture.class);
+        manager.load("sprites/personaje.png", Texture.class);
+
+        //Proyectiles
+        manager.load("Proyectiles/piedra.png", Texture.class);
+        manager.load("Proyectiles/pocima.png", Texture.class);
+        manager.load("Proyectiles/flecha1.png", Texture.class);
+
+        //Efectos
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
+
+        //Enemigos
+        manager.load("Enemigos/Titan1.PNG", Texture.class);
+        manager.load("Enemigos/BolaDeFuego.png", Texture.class);
+
+        //Texto
+        //manager.load("Texto/game.fnt", Texture.class);
+
+        //Botones
+        manager.load("botones/BtnPausa.png", Texture.class);
+        manager.load("botones/BotonIzquierda.png", Texture.class);
+        manager.load("botones/BotonDerecha.png", Texture.class);
+        manager.load("botones/BotonSaltar.png", Texture.class);
+        manager.load("botones/BotonDisparar.png", Texture.class);
+        manager.load("botones/BtnPausa1.png", Texture.class);
+        manager.load("botones/BotonIzquierdaInv.png", Texture.class);
+        manager.load("botones/BotonDerechaInv.png", Texture.class);
+        manager.load("botones/BotonSaltarInv.png", Texture.class);
+        manager.load("botones/BotonDispararInv.png", Texture.class);
+
+        manager.load("botones/BtnReanudarN1.png", Texture.class);
+        manager.load("botones/BtnMenuN1.png", Texture.class);
+        manager.load("botones/BtnMusicN1.png", Texture.class);
+        manager.load("botones/BtnSonidoN1.png", Texture.class);
+        manager.load("botones/BtnReanudarN1Inv.png", Texture.class);
+        manager.load("botones/BtnMenuN1Inv.png", Texture.class);
+        manager.load("botones/BtnMusicN1Inv.png", Texture.class);
+        manager.load("botones/BtnSonidoN1Inv.png", Texture.class);
+
+        manager.load("botones/avanzar.png", Texture.class);
+
+        //Historieta
+        manager.load("Historieta/VNLvl1_1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_2.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_3.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_4.PNG", Texture.class);
+
+        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
+
+
+    }
+
+    private void cargarRecursosMenu() {
+        manager.load("fondos/fondomenu.jpeg", Texture.class);
+        manager.load("botones/Logo.png", Texture.class);
+        manager.load("botones/botonNP.png", Texture.class);
+        manager.load("botones/botonR.png", Texture.class);
+        manager.load("botones/botonAD.png", Texture.class);
+        manager.load("botones/botonAyuda.png", Texture.class);
+        manager.load("botones/botonC.png", Texture.class);
+        manager.load("botones/botonNPInv.png", Texture.class);
+        manager.load("botones/botonRInv.png", Texture.class);
+        manager.load("botones/botonADInv.png", Texture.class);
+        manager.load("botones/botonAyudaInv.png", Texture.class);
+        manager.load("botones/botonCInv.png", Texture.class);
+    }
+
+    @Override
+    public void render(float delta) {
+        borrarPantalla(0.5f, 0.2f, 0.5f);
+
+        batch.setProjectionMatrix(camara.combined);
+
+        batch.begin();
+        spriteCargando.draw(batch);
+        texto.mostrarMensaje(batch, avance + "%", ANCHO/2, ALTO/2);
+        batch.end();
+
+        //Actualizar
+        timerAnimacion -= delta;
+        if (timerAnimacion <= 0) {
+            timerAnimacion = TIEMPO_ENTRE_FRAMES;
+            spriteCargando.rotate(20);
+        }
+
+        //Actualizar carga
+        actualizarCarga();
+    }
+
+    private void actualizarCarga() {
+        if (manager.update()) {
+            switch (siguientePantalla) {
+                case MENU:
+                    juego.setScreen(new PantallaMenu(juego));
+                    break;
+                case AYUDA:
+                    juego.setScreen(new PantallaAyuda(juego));
+                    break;
+                case HISTORIA:
+                    juego.setScreen(new PantallaH(juego));
+                    break;
+                case REANUDAR:
+                    juego.setScreen(new PantallaReanudar(juego));
+                    break;
+                case CONFIGURACION:
+                    juego.setScreen(new PantallaConfiguracion(juego));
+                    break;
+                case NIVEL1:
+                    juego.setScreen(new PantallaLucha1(juego));
+                    break;
+                case NIVEL2:
+                    juego.setScreen(new PantallaLucha2(juego));
+                    break;
+            }
+        }
+        avance = (int)(manager.getProgress()*100);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+        texturaCargando.dispose();
+    }
+}

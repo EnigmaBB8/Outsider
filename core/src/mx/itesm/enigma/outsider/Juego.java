@@ -11,12 +11,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Juego extends Game {
 
+	private AssetManager manager;
 	protected Music musicaFondo;
 	protected Music musicaNivel1;
 
 	@Override
 	public void create() {
-		AssetManager manager = new AssetManager();
+		manager = new AssetManager();
 		manager.load("Musica/musicaMenu.mp3", Music.class);
 		manager.finishLoading();
 		musicaFondo = manager.get("Musica/musicaMenu.mp3");
@@ -30,7 +31,12 @@ public class Juego extends Game {
 		musicaNivel1.setLooping(true);
 		musicaNivel1.setVolume(0.1f);
 
-		setScreen(new PantallaMenu(this));
+		//setScreen(new PantallaMenu(this));
+		setScreen(new PantallaCargando(this, Pantallas.MENU));
+	}
+
+	public AssetManager getManager() {
+		return manager;
 	}
 
 	@Override
