@@ -13,6 +13,7 @@ public class PantallaCargando extends Pantalla {
     public static final float TIEMPO_ENTRE_FRAMES = 0.05f;
     private float timerAnimacion = TIEMPO_ENTRE_FRAMES;
     private Texture texturaCargando;
+    private Texture texturaFondo;
 
     //Asset Manager
     private AssetManager manager;
@@ -36,7 +37,8 @@ public class PantallaCargando extends Pantalla {
 
     @Override
     public void show() {
-        texturaCargando = new Texture("fondos/fondomenu.jpeg");
+        this.texturaFondo = new Texture("Cargando/fondoloading.png");
+        this.texturaCargando = new Texture("Cargando/loading.png");
         spriteCargando = new Sprite(texturaCargando);
         spriteCargando.setPosition(ANCHO/2 - spriteCargando.getWidth()/2, ALTO/2 -spriteCargando.getHeight()/2);
         cargarRecursos(siguientePantalla);
@@ -70,15 +72,13 @@ public class PantallaCargando extends Pantalla {
 
     private void cargarRecursosConfiguracion() {
         //Fondos
-        manager.load("fondos/fondoconfiguracion.JPG", Texture.class);
+        manager.load("fondos/fondoconfiguracion.png", Texture.class);
 
         //Botones
         manager.load("botones/btnBack1.png", Texture.class);
         manager.load("botones/btnBack.png", Texture.class);
         manager.load("botones/btnconfM.PNG", Texture.class);
         manager.load("botones/btnconfMI.PNG", Texture.class);
-        manager.load("botones/btnconfR.PNG", Texture.class);
-        manager.load("botones/btnconfRI.PNG", Texture.class);
     }
 
     private void cargarRecursosReanudar() {
@@ -147,7 +147,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BotonDerechaInv.png", Texture.class);
         manager.load("botones/BotonSaltarInv.png", Texture.class);
         manager.load("botones/BotonDispararInv.png", Texture.class);
-
         manager.load("botones/BtnReanudarN1.png", Texture.class);
         manager.load("botones/BtnMenuN1.png", Texture.class);
         manager.load("botones/BtnMusicN1.png", Texture.class);
@@ -156,7 +155,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMenuN1Inv.png", Texture.class);
         manager.load("botones/BtnMusicN1Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN1Inv.png", Texture.class);
-
         manager.load("botones/avanzar.png", Texture.class);
 
         //Historieta
@@ -164,7 +162,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("Historieta/VNLvl1_2.PNG", Texture.class);
         manager.load("Historieta/VNLvl1_3.PNG", Texture.class);
         manager.load("Historieta/VNLvl1_4.PNG", Texture.class);
-
         manager.load("Historieta/perdistelvl1.PNG", Texture.class);
 
 
@@ -192,6 +189,7 @@ public class PantallaCargando extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
 
         batch.begin();
+        this.batch.draw(this.texturaFondo, 0.0F, 0.0F);
         spriteCargando.draw(batch);
         texto.mostrarMensaje(batch, avance + "%", ANCHO/2, ALTO/2);
         batch.end();

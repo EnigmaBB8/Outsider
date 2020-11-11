@@ -24,7 +24,7 @@ public class PantallaConfiguracion extends Pantalla {
 
     @Override
     public void show() {
-        fondoConf = new Texture("fondos/fondoconfiguracion.JPG");
+        fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
     }
 
@@ -40,7 +40,6 @@ public class PantallaConfiguracion extends Pantalla {
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
-
         btnNP.setPosition(ANCHO * .8f, ALTO * .25F, Align.topLeft);
 
         btnNP.addListener(new ClickListener() {
@@ -51,7 +50,6 @@ public class PantallaConfiguracion extends Pantalla {
 
             }
         });
-
         escenaConf.addActor(btnNP);
         Gdx.input.setInputProcessor(escenaConf);
 
@@ -63,18 +61,9 @@ public class PantallaConfiguracion extends Pantalla {
         Texture btnMusicaInv = new Texture("botones/btnconfMI.PNG");
         TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
 
-        //Boton reiniciar
-        Texture btnReiniciar = new Texture("botones/btnconfR.PNG");
-        TextureRegionDrawable trdBtReiniciar= new TextureRegionDrawable(new TextureRegion(btnReiniciar));
-        //inverso boton reiniciar
-        Texture btnReiniciarInv = new Texture("botones/btnconfRI.PNG");
-        TextureRegionDrawable trdBtReiniciarInv = new TextureRegionDrawable(new TextureRegion(btnReiniciarInv));
-
 
         ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
-        ImageButton btnR = new ImageButton(trdBtReiniciar, trdBtReiniciarInv);
-        btnM.setPosition(ANCHO * .5F, ALTO * .52F, Align.center);
-        btnR.setPosition(ANCHO * .5F, ALTO * .32F, Align.center);
+        btnM.setPosition(ANCHO * .65F, ALTO * .3F, Align.center);
 
 
         //Listener M
@@ -101,17 +90,8 @@ public class PantallaConfiguracion extends Pantalla {
 
             }
         });
-        //Listener R
-        btnR.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.detenerMusica();
-            }
-        });
 
         escenaConf.addActor(btnM);
-        escenaConf.addActor(btnR);
 
         Gdx.input.setInputProcessor(escenaConf);
     }
