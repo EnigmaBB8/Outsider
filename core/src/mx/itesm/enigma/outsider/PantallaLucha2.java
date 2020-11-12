@@ -314,7 +314,7 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("sprites/personaje.png");
 
         //Proyectiles
-        juego.getManager().unload("Proyectiles/piedra.png");
+        juego.getManager().unload("Proyectiles/bolasMagicas.png");
         juego.getManager().unload("Proyectiles/pocima.png");
         juego.getManager().unload("Proyectiles/flecha1.png");
 
@@ -442,7 +442,7 @@ public class PantallaLucha2 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     estado= PantallaLucha2.EstadoJuego.JUGANDO;
-                    juego.setScreen(new PantallaMenu(juego));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
 

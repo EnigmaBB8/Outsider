@@ -439,7 +439,7 @@ public class PantallaLucha1 extends Pantalla {
             if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
                 arrProyectil.removeIndex(i);
                 // Descontar puntos
-                vidaVillano -= 2;
+                vidaVillano -= 100;
                 break;
             } else if (vidaVillano == 0) {
                 estado = EstadoJuego.GANANDO1;

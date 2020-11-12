@@ -36,6 +36,7 @@ public class PantallaCargando extends Pantalla {
 
     @Override
     public void show() {
+        juego.detenerMusica();
         this.texturaFondo = new Texture("Cargando/fondoloading.png");
         this.texturaCargando = new Texture("Cargando/loading.png");
         spriteCargando = new Sprite(texturaCargando);
