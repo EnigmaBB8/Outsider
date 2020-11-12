@@ -73,7 +73,9 @@ public class PantallaAcercaDeManuel extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoAyuda.dispose();
+        juego.getManager().unload("fondos/fondoacercadeM.png");
+        juego.getManager().unload("botones/btnBack1.png");
+        juego.getManager().unload("botones/btnBack.png");
         batch.dispose();
     }
 }

@@ -195,7 +195,6 @@ public class PantallaAcercaDe extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoAcercaDe.dispose();
         juego.getManager().unload("fondos/fondoacercade.png");
         juego.getManager().unload("botones/btnBack1.png");
         juego.getManager().unload("botones/AD_Karla1.png");

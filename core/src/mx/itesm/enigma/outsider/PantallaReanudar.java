@@ -79,7 +79,9 @@ public class PantallaReanudar extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoPantallaReanudar.dispose();
+        juego.getManager().unload("fondos/PantallaReanudar.png");
+        juego.getManager().unload("botones/btnBack1.png");
+        juego.getManager().unload("botones/btnBack.png");
         batch.dispose();
     }
 }

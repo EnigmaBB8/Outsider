@@ -116,7 +116,11 @@ public class PantallaConfiguracion extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoConf.dispose();
+        juego.getManager().unload("fondos/fondoconfiguracion.png");
+        juego.getManager().unload("botones/btnBack1.png");
+        juego.getManager().unload("botones/btnBack.png");
+        juego.getManager().unload("botones/btnconfM.PNG");
+        juego.getManager().unload("botones/btnconfMI.PNG");
         batch.dispose();
     }
 }

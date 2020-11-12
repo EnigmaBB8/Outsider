@@ -531,7 +531,6 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoNivel1.dispose();
         //Fondos
         juego.getManager().unload("fondos/fondonivel1.JPG");
         juego.getManager().unload("fondos/PausaN1.jpeg");

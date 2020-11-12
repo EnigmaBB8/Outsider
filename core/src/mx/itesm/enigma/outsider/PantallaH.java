@@ -72,7 +72,9 @@ public class PantallaH extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoHistoria.dispose();
+        juego.getManager().unload("fondos/Historia.jpeg");
+        juego.getManager().unload("botones/btnBack1.png");
+        juego.getManager().unload("botones/btnBack.png");
         batch.dispose();
     }
 }

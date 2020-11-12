@@ -201,7 +201,6 @@ public class PantallaMenu extends Pantalla  {
 
     @Override
     public void dispose() {
-        fondomenu.dispose();
         juego.getManager().unload("fondos/fondomenu.jpeg");
         juego.getManager().unload("botones/Logo.png");
         juego.getManager().unload("botones/botonNP.png");

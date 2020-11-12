@@ -73,7 +73,9 @@ public class PantallaAcercaDeItzel extends Pantalla {
 
     @Override
     public void dispose() {
-        fondoAyuda.dispose();
+        juego.getManager().unload("fondos/fondoacercadeI.png");
+        juego.getManager().unload("botones/btnBack1.png");
+        juego.getManager().unload("botones/btnBack.png");
         batch.dispose();
     }
 }
