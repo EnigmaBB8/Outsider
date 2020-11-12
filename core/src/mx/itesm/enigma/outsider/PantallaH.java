@@ -44,7 +44,7 @@ public class PantallaH extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDe(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.ACERCA_DE));
             }
         });
 

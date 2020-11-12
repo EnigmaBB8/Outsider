@@ -1,7 +1,6 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -116,7 +115,7 @@ public class PantallaAcercaDe extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaMenu(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
             }
         });
 
@@ -124,7 +123,7 @@ public class PantallaAcercaDe extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDeManuel(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.ACERDA_DE_MANUEL));
             }
         });
 
@@ -132,7 +131,7 @@ public class PantallaAcercaDe extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDeKarla(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.ACERCA_DE_KARLA));
             }
         });
 
@@ -140,7 +139,8 @@ public class PantallaAcercaDe extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDeItzel(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.ACERCA_DE_ITZEL) {
+                });
             }
         });
 
@@ -148,7 +148,7 @@ public class PantallaAcercaDe extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDeAbraham(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas. ACERCA_DE_ABRAHAM));
             }
         });
 
@@ -156,7 +156,7 @@ public class PantallaAcercaDe extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaH(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.HISTORIA));
             }
         });
 
@@ -196,7 +196,7 @@ public class PantallaAcercaDe extends Pantalla {
     @Override
     public void dispose() {
         fondoAcercaDe.dispose();
-        /*juego.getManager().unload("fondos/fondoacercade.png");
+        juego.getManager().unload("fondos/fondoacercade.png");
         juego.getManager().unload("botones/btnBack1.png");
         juego.getManager().unload("botones/AD_Karla1.png");
         juego.getManager().unload("botones/AD_Manuel1.png");
@@ -208,7 +208,7 @@ public class PantallaAcercaDe extends Pantalla {
         juego.getManager().unload("botones/AD_Manuel.png");
         juego.getManager().unload("botones/AD_Itzel.png");
         juego.getManager().unload("botones/AD_Abraham.png");
-        juego.getManager().unload("botones/BtnHistory1.png");*/
+        juego.getManager().unload("botones/BtnHistory1.png");
         batch.dispose();
     }
 }

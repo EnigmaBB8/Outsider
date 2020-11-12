@@ -148,7 +148,7 @@ public class PantallaMenu extends Pantalla  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaReanudar(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.REANUDAR));
             }
         });
 
@@ -156,7 +156,7 @@ public class PantallaMenu extends Pantalla  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAcercaDe(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.ACERCA_DE));
             }
         });
 
@@ -164,7 +164,7 @@ public class PantallaMenu extends Pantalla  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaConfiguracion(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.CONFIGURACION));
             }
         });
 
@@ -172,7 +172,7 @@ public class PantallaMenu extends Pantalla  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaAyuda(juego));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.AYUDA));
             }
         });
     }
@@ -201,8 +201,8 @@ public class PantallaMenu extends Pantalla  {
 
     @Override
     public void dispose() {
-        //fondomenu.dispose();
-        /*juego.getManager().unload("fondos/fondomenu.jpeg");
+        fondomenu.dispose();
+        juego.getManager().unload("fondos/fondomenu.jpeg");
         juego.getManager().unload("botones/Logo.png");
         juego.getManager().unload("botones/botonNP.png");
         juego.getManager().unload("botones/botonR.png");
@@ -213,7 +213,7 @@ public class PantallaMenu extends Pantalla  {
         juego.getManager().unload("botones/botonRInv.png");
         juego.getManager().unload("botones/botonADInv.png");
         juego.getManager().unload("botones/botonAyudaInv.png");
-        juego.getManager().unload("botones/botonCInv.png");*/
+        juego.getManager().unload("botones/botonCInv.png");
         batch.dispose();
     }
 }

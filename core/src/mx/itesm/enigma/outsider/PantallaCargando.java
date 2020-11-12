@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class PantallaCargando extends Pantalla {
 
@@ -73,7 +72,7 @@ public class PantallaCargando extends Pantalla {
             case ACERCA_DE_ITZEL:
                 cargarRecursosAcercaDeItzel();
                 break;
-            case ACERCA_DE_KALRA:
+            case ACERCA_DE_KARLA:
                 cargarRecursosAcercaDeKarla();
                 break;
             case ACERDA_DE_MANUEL:
@@ -82,7 +81,124 @@ public class PantallaCargando extends Pantalla {
             case NIVEL1:
                 cargarRecursosNivel1();
                 break;
+            case NIVEL2:
+                cargarRecursosNivel2();
+                break;
         }
+    }
+
+    private void cargarRecursosNivel2() {
+        //Fondos
+        manager.load("fondos/fondonivel2.png", Texture.class);
+        manager.load("fondos/PausaN2.png", Texture.class);
+
+        //Sprites
+        manager.load("sprites/pilaP2.png", Texture.class);
+        manager.load("sprites/pilaP2.png", Texture.class);
+        manager.load("sprites/personaje.png", Texture.class);
+
+        //Proyectiles
+        manager.load("Proyectiles/bolasMagicas.png", Texture.class);
+        manager.load("Proyectiles/pocima.png", Texture.class);
+        manager.load("Proyectiles/flecha1.png", Texture.class);
+
+        //Efectos
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
+
+        //Enemigos
+        manager.load("Enemigos/Titan1.PNG", Texture.class);
+        manager.load("Enemigos/BolaDeFuego.png", Texture.class);
+
+        //Texto
+        //manager.load("Texto/game.fnt", Texture.class);
+
+        //Botones
+        manager.load("botones/BtnPausa2.png", Texture.class);
+        manager.load("botones/BotonIzquierda.png", Texture.class);
+        manager.load("botones/BotonDerecha.png", Texture.class);
+        manager.load("botones/BotonSaltar.png", Texture.class);
+        manager.load("botones/BotonDisparar.png", Texture.class);
+        manager.load("botones/BtnPausa2.png", Texture.class);
+        manager.load("botones/BotonIzquierdaInv.png", Texture.class);
+        manager.load("botones/BotonDerechaInv.png", Texture.class);
+        manager.load("botones/BotonSaltarInv.png", Texture.class);
+        manager.load("botones/BotonDispararInv.png", Texture.class);
+        manager.load("botones/BtnReanudarN2.png", Texture.class);
+        manager.load("botones/BtnMenuN2.png", Texture.class);
+        manager.load("botones/BtnMusicN2.png", Texture.class);
+        manager.load("botones/BtnSonidoN2.png", Texture.class);
+        manager.load("botones/BtnReanudarN2Inv.png", Texture.class);
+        manager.load("botones/BtnMenuN2Inv.png", Texture.class);
+        manager.load("botones/BtnMusicN2Inv.png", Texture.class);
+        manager.load("botones/BtnSonidoN2Inv.png", Texture.class);
+        manager.load("botones/avanzar.png", Texture.class);
+
+        //Historieta
+        manager.load("Historieta/VNLvl1_1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_2.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_3.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_4.PNG", Texture.class);
+        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
+    }
+
+    private void cargarRecursosNivel1() {
+        //Fondos
+        manager.load("fondos/fondonivel1.JPG", Texture.class);
+        manager.load("fondos/PausaN1.jpeg", Texture.class);
+
+        //Sprites
+        manager.load("sprites/pilaP.png", Texture.class);
+        manager.load("sprites/pilaP.png", Texture.class);
+        manager.load("sprites/personaje.png", Texture.class);
+
+        //Proyectiles
+        manager.load("Proyectiles/piedra.png", Texture.class);
+        manager.load("Proyectiles/pocima.png", Texture.class);
+        manager.load("Proyectiles/flecha1.png", Texture.class);
+
+        //Efectos
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
+
+        //Enemigos
+        manager.load("Enemigos/Titan1.PNG", Texture.class);
+        manager.load("Enemigos/BolaDeFuego.png", Texture.class);
+
+        //Texto
+        //manager.load("Texto/game.fnt", Texture.class);
+
+        //Botones
+        manager.load("botones/BtnPausa.png", Texture.class);
+        manager.load("botones/BotonIzquierda.png", Texture.class);
+        manager.load("botones/BotonDerecha.png", Texture.class);
+        manager.load("botones/BotonSaltar.png", Texture.class);
+        manager.load("botones/BotonDisparar.png", Texture.class);
+        manager.load("botones/BtnPausa1.png", Texture.class);
+        manager.load("botones/BotonIzquierdaInv.png", Texture.class);
+        manager.load("botones/BotonDerechaInv.png", Texture.class);
+        manager.load("botones/BotonSaltarInv.png", Texture.class);
+        manager.load("botones/BotonDispararInv.png", Texture.class);
+        manager.load("botones/BtnReanudarN1.png", Texture.class);
+        manager.load("botones/BtnMenuN1.png", Texture.class);
+        manager.load("botones/BtnMusicN1.png", Texture.class);
+        manager.load("botones/BtnSonidoN1.png", Texture.class);
+        manager.load("botones/BtnReanudarN1Inv.png", Texture.class);
+        manager.load("botones/BtnMenuN1Inv.png", Texture.class);
+        manager.load("botones/BtnMusicN1Inv.png", Texture.class);
+        manager.load("botones/BtnSonidoN1Inv.png", Texture.class);
+        manager.load("botones/avanzar.png", Texture.class);
+
+        //Historieta
+        manager.load("Historieta/VNLvl1_1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_2.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_3.PNG", Texture.class);
+        manager.load("Historieta/VNLvl1_4.PNG", Texture.class);
+        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
     }
 
     private void cargarRecursosAcercaDeManuel() {
@@ -179,65 +295,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/btnBack.png", Texture.class);
     }
 
-    private void cargarRecursosNivel1() {
-        //Fondos
-        manager.load("fondos/fondonivel1.JPG", Texture.class);
-        manager.load("fondos/PausaN1.jpeg", Texture.class);
-
-        //Sprites
-        manager.load("sprites/pilaP.png", Texture.class);
-        manager.load("sprites/pilaP.png", Texture.class);
-        manager.load("sprites/personaje.png", Texture.class);
-
-        //Proyectiles
-        manager.load("Proyectiles/piedra.png", Texture.class);
-        manager.load("Proyectiles/pocima.png", Texture.class);
-        manager.load("Proyectiles/flecha1.png", Texture.class);
-
-        //Efectos
-        manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
-        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
-        manager.load("Efectos/pocima.mp3", Sound.class);
-
-        //Enemigos
-        manager.load("Enemigos/Titan1.PNG", Texture.class);
-        manager.load("Enemigos/BolaDeFuego.png", Texture.class);
-
-        //Texto
-        //manager.load("Texto/game.fnt", Texture.class);
-
-        //Botones
-        manager.load("botones/BtnPausa.png", Texture.class);
-        manager.load("botones/BotonIzquierda.png", Texture.class);
-        manager.load("botones/BotonDerecha.png", Texture.class);
-        manager.load("botones/BotonSaltar.png", Texture.class);
-        manager.load("botones/BotonDisparar.png", Texture.class);
-        manager.load("botones/BtnPausa1.png", Texture.class);
-        manager.load("botones/BotonIzquierdaInv.png", Texture.class);
-        manager.load("botones/BotonDerechaInv.png", Texture.class);
-        manager.load("botones/BotonSaltarInv.png", Texture.class);
-        manager.load("botones/BotonDispararInv.png", Texture.class);
-        manager.load("botones/BtnReanudarN1.png", Texture.class);
-        manager.load("botones/BtnMenuN1.png", Texture.class);
-        manager.load("botones/BtnMusicN1.png", Texture.class);
-        manager.load("botones/BtnSonidoN1.png", Texture.class);
-        manager.load("botones/BtnReanudarN1Inv.png", Texture.class);
-        manager.load("botones/BtnMenuN1Inv.png", Texture.class);
-        manager.load("botones/BtnMusicN1Inv.png", Texture.class);
-        manager.load("botones/BtnSonidoN1Inv.png", Texture.class);
-        manager.load("botones/avanzar.png", Texture.class);
-
-        //Historieta
-        manager.load("Historieta/VNLvl1_1.PNG", Texture.class);
-        manager.load("Historieta/VNLvl1_2.PNG", Texture.class);
-        manager.load("Historieta/VNLvl1_3.PNG", Texture.class);
-        manager.load("Historieta/VNLvl1_4.PNG", Texture.class);
-        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
-
-
-    }
-
     private void cargarRecursosMenu() {
         manager.load("fondos/fondomenu.jpeg", Texture.class);
         manager.load("botones/Logo.png", Texture.class);
@@ -303,7 +360,7 @@ public class PantallaCargando extends Pantalla {
                 case ACERCA_DE_ITZEL:
                     juego.setScreen(new PantallaAcercaDeItzel(juego));
                     break;
-                case ACERCA_DE_KALRA:
+                case ACERCA_DE_KARLA:
                     juego.setScreen(new PantallaAcercaDeKarla(juego));
                     break;
                 case ACERDA_DE_MANUEL:

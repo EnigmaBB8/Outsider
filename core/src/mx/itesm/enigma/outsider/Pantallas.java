@@ -9,7 +9,7 @@ public enum Pantallas {
     ACERCA_DE,
     ACERCA_DE_ABRAHAM,
     ACERCA_DE_ITZEL,
-    ACERCA_DE_KALRA,
+    ACERCA_DE_KARLA,
     ACERDA_DE_MANUEL,
     NIVEL1,
     NIVEL2

@@ -670,7 +670,7 @@ public class PantallaLucha1 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     estado=EstadoJuego.JUGANDO;
-                    juego.setScreen(new PantallaMenu(juego));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
             btnMusica.addListener(new ClickListener() {
@@ -755,7 +755,7 @@ public class PantallaLucha1 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaLucha2(juego));
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
                         btnAvanza.toFront();
                     }
                 }
@@ -796,7 +796,7 @@ public class PantallaLucha1 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaMenu(juego));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
 
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
