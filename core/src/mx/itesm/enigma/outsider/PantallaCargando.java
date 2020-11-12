@@ -64,10 +64,81 @@ public class PantallaCargando extends Pantalla {
             case CONFIGURACION:
                 cargarRecursosConfiguracion();
                 break;
+            case ACERCA_DE:
+                cargarRecursosAcercaDe();
+                break;
+            case ACERCA_DE_ABRAHAM:
+                cargarRecursosAcercaDeAbraham();
+                break;
+            case ACERCA_DE_ITZEL:
+                cargarRecursosAcercaDeItzel();
+                break;
+            case ACERCA_DE_KALRA:
+                cargarRecursosAcercaDeKarla();
+                break;
+            case ACERDA_DE_MANUEL:
+                cargarRecursosAcercaDeManuel();
+                break;
             case NIVEL1:
                 cargarRecursosNivel1();
                 break;
         }
+    }
+
+    private void cargarRecursosAcercaDeManuel() {
+        //Fondos
+        manager.load("fondos/fondoacercadeM.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosAcercaDeKarla() {
+        //Fondos
+        manager.load("fondos/fondoacercadeK.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosAcercaDeItzel() {
+        //Fondos
+        manager.load("fondos/fondoacercadeI.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosAcercaDeAbraham() {
+        //Fondos
+        manager.load("fondos/fondoacercadeA.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+    }
+
+    private void cargarRecursosAcercaDe() {
+        //Fondos
+        manager.load("fondos/fondoacercade.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/AD_Karla1.png", Texture.class);
+        manager.load("botones/AD_Manuel1.png", Texture.class);
+        manager.load("botones/AD_Itzel1.png", Texture.class);
+        manager.load("botones/AD_Abraham1.png", Texture.class);
+        manager.load("botones/BtnHistory.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
+        manager.load("botones/AD_Karla.png", Texture.class);
+        manager.load("botones/AD_Manuel.png", Texture.class);
+        manager.load("botones/AD_Itzel.png", Texture.class);
+        manager.load("botones/AD_Abraham.png", Texture.class);
+        manager.load("botones/BtnHistory1.png", Texture.class);
+
     }
 
     private void cargarRecursosConfiguracion() {
@@ -222,6 +293,21 @@ public class PantallaCargando extends Pantalla {
                     break;
                 case CONFIGURACION:
                     juego.setScreen(new PantallaConfiguracion(juego));
+                    break;
+                case ACERCA_DE:
+                    juego.setScreen(new PantallaAcercaDe(juego));
+                    break;
+                case ACERCA_DE_ABRAHAM:
+                    juego.setScreen(new PantallaAcercaDeAbraham(juego));
+                    break;
+                case ACERCA_DE_ITZEL:
+                    juego.setScreen(new PantallaAcercaDeItzel(juego));
+                    break;
+                case ACERCA_DE_KALRA:
+                    juego.setScreen(new PantallaAcercaDeKarla(juego));
+                    break;
+                case ACERDA_DE_MANUEL:
+                    juego.setScreen(new PantallaAcercaDeManuel(juego));
                     break;
                 case NIVEL1:
                     juego.setScreen(new PantallaLucha1(juego));

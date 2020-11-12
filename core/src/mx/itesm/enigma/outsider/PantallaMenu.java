@@ -201,8 +201,8 @@ public class PantallaMenu extends Pantalla  {
 
     @Override
     public void dispose() {
-        fondomenu.dispose();
-        juego.getManager().unload("fondos/fondomenu.jpeg");
+        //fondomenu.dispose();
+        /*juego.getManager().unload("fondos/fondomenu.jpeg");
         juego.getManager().unload("botones/Logo.png");
         juego.getManager().unload("botones/botonNP.png");
         juego.getManager().unload("botones/botonR.png");
@@ -213,7 +213,7 @@ public class PantallaMenu extends Pantalla  {
         juego.getManager().unload("botones/botonRInv.png");
         juego.getManager().unload("botones/botonADInv.png");
         juego.getManager().unload("botones/botonAyudaInv.png");
-        juego.getManager().unload("botones/botonCInv.png");
+        juego.getManager().unload("botones/botonCInv.png");*/
         batch.dispose();
     }
 }
