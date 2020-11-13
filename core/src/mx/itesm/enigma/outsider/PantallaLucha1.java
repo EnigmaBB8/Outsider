@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -644,17 +645,31 @@ public class PantallaLucha1 extends Pantalla {
             //Inverso de Sonido
             //Texture btnSonidoInv= new Texture("botones/BtnSonidoN1Inv.png");
             Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN1Inv.png");
-            TextureRegionDrawable trdBtSonidonv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
+            TextureRegionDrawable trdBtSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
             ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);
             ImageButton btnMenu = new ImageButton(trMenu, trdBtMenuInv);
-            ImageButton btnMusica = new ImageButton(trMusica, trdBtMusicanv);
-            ImageButton btnSonido = new ImageButton(trSonido, trdBtSonidonv);
+
+            //Botón Música (Efecto Apagado/Encendido)
+            final Button.ButtonStyle estiloPrendidoMusica=new Button.ButtonStyle(trMusica,trdBtMusicanv,null);
+            final Button.ButtonStyle estiloApagadoMusica=new Button.ButtonStyle(trdBtMusicanv,trMusica,null);
+            final ImageButton.ImageButtonStyle PrendidoMusica=new ImageButton.ImageButtonStyle(estiloPrendidoMusica);
+            final ImageButton.ImageButtonStyle ApagadoMusica=new ImageButton.ImageButtonStyle(estiloApagadoMusica);
+            final ImageButton btnMusica = new ImageButton(trMusica, trdBtMusicanv);
+
+            //Botón Sonido (Efecto Apagado/Encendido)
+            final Button.ButtonStyle estiloPrendidoSonido=new Button.ButtonStyle(trSonido,trdBtSonidoInv,null);
+            final Button.ButtonStyle estiloApagadoSonido=new Button.ButtonStyle(trdBtSonidoInv,trSonido,null);
+            final ImageButton.ImageButtonStyle PrendidoSonido=new ImageButton.ImageButtonStyle(estiloPrendidoSonido);
+            final ImageButton.ImageButtonStyle ApagadoSonido=new ImageButton.ImageButtonStyle(estiloApagadoSonido);
+            final ImageButton btnSonido = new ImageButton(trSonido,trdBtSonidoInv);
+
             btnSonido.setPosition(ANCHO * .82f, ALTO *0.65f, Align.top);
             btnMusica.setPosition(ANCHO * .62f, ALTO *0.65f, Align.top);
             btnReanuda.setPosition(ANCHO * .10f, ALTO *0.65f, Align.topLeft);
             btnMenu.setPosition(ANCHO * .32f, ALTO *0.65f, Align.topLeft);
 
+            //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -664,6 +679,7 @@ public class PantallaLucha1 extends Pantalla {
                     Gdx.app.log("Pausa","Reanuda");
                 }
             });
+            //Listener Menú
             btnMenu.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -672,6 +688,7 @@ public class PantallaLucha1 extends Pantalla {
                     juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
+            //Listener Música
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -681,16 +698,19 @@ public class PantallaLucha1 extends Pantalla {
                     Gdx.app.log("MUSICA 3", " " + musicaFondo);
                     if(musicaFondo==false) {
                         //Prender musica
+                        btnMusica.setStyle(PrendidoMusica);
                         juego.reproducirMusicaNivel1();
                         juego.detenerMusica();
                         preferencias.putBoolean("General",true);
                     }else{
+                        btnMusica.setStyle(ApagadoMusica);
                         juego.detenerMusicaN1();
                         juego.detenerMusica();
                         preferencias.putBoolean("General",false);
                     }
                 }
             });
+            //Listener Sonido
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -26,6 +27,17 @@ public class PantallaConfiguracion extends Pantalla {
     public void show() {
         fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
+        configurarMusica();
+    }
+    private void configurarMusica() {
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("General");
+        Gdx.app.log("MUSICA 2"," "+musicaFondo);
+        if(musicaFondo==true){
+            //Prender musica
+            juego.reproducirMusicaNivel1();
+            juego.detenerMusica();
+        }
     }
 
     private void crearPantallaConf() {
@@ -60,13 +72,17 @@ public class PantallaConfiguracion extends Pantalla {
         //inverso boton musica
         Texture btnMusicaInv = new Texture("botones/btnconfMI.PNG");
         TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
+        //Boton Música (Efecto Apagado/Encendido)
+        final Button.ButtonStyle estiloPrendido=new Button.ButtonStyle(trdBtMusica,trdBtMusicaInv,null);
+        final Button.ButtonStyle estiloApagado=new Button.ButtonStyle(trdBtMusicaInv,trdBtMusica,null);
+        final ImageButton.ImageButtonStyle Prendido=new ImageButton.ImageButtonStyle(estiloPrendido);
+        final ImageButton.ImageButtonStyle Apagado=new ImageButton.ImageButtonStyle(estiloApagado);
 
-
-        ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
+        final ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
         btnM.setPosition(ANCHO * .65F, ALTO * .3F, Align.center);
 
 
-        //Listener M
+        //Listener Música
         btnM.addListener(new ClickListener() {
             @Override
             //Necesita arreglarse despues de darle click again crashea
@@ -77,10 +93,12 @@ public class PantallaConfiguracion extends Pantalla {
                 Gdx.app.log("MUSICA"," "+musicaFondo);
                 if(musicaFondo==false){
                     //Prender musica
+                    btnM.setStyle(Prendido);
                     juego.reproducirMusica();
                     preferencias.putBoolean("General",true);
                 }else{
                     //Apagar musica
+                    btnM.setStyle(Apagado);
                     juego.detenerMusica();
                     juego.detenerMusicaN1();
                     preferencias.putBoolean("General",false);
