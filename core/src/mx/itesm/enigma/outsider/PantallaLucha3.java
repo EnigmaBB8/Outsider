@@ -18,12 +18,12 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class PantallaLucha2 extends Pantalla {
+public class PantallaLucha3 extends Pantalla {
     private final Juego juego;
-    private Stage escenaNivel2;
-    private Texture fondoNivel2;
-    private Texture pilaP2;
-    private Texture pilaV2;
+    private Stage escenaNivel3;
+    private Texture fondoNivel3;
+    private Texture pilaP3;
+    private Texture pilaV3;
 
     //Personaje
     private Personaje personaje;
@@ -38,38 +38,37 @@ public class PantallaLucha2 extends Pantalla {
 
     //Texto
     private Texto texto;
-    private float bateriaN2=100;
-    private float vidaVillano2 = 100;
+    private float bateriaN3=100;
+    private float vidaVillano3 = 100;
 
     //Pausa
-    private PantallaLucha2.EstadoJuego estado= PantallaLucha2.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
-    private PantallaLucha2.EscenaPausa escenaPausa;
+    private PantallaLucha3.EstadoJuego estado= PantallaLucha3.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
+    private PantallaLucha3.EscenaPausa escenaPausa;
 
-    public PantallaLucha2(Juego juego) {
+    public PantallaLucha3(Juego juego) {
         this.juego = juego;
     }
 
     @Override
     public void show() {
         //fondoNivel2 = new Texture("fondos/fondonivel2.png");
-        fondoNivel2 = juego.getManager().get("fondos/fondonivel2.png");
+        fondoNivel3 = juego.getManager().get("fondos/fondonivel1.JPG");
         //pilaP2 = new Texture("sprites/pilaP2.png");
-        pilaP2 = juego.getManager().get("sprites/pilaP2.png");
+        pilaP3 = juego.getManager().get("sprites/pilaP2.png");
         //pilaV2 = new Texture("sprites/pilaP2.png");
-        pilaV2 = juego.getManager().get("sprites/pilaP2.png");
-        crearNivel2();
+        pilaV3 = juego.getManager().get("sprites/pilaP2.png");
+        crearNivel3();
         crearPersonaje();
         crearBolaMagica();
         crearSonido();
         crearTexto();
-        ConfiguracionMusica();
-
+        configurarMusica();
     }
 
-    private void ConfiguracionMusica() {
+    private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 2"," "+musicaFondo);
+        Gdx.app.log("MUSICA 3"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusicaNivel1();
@@ -103,8 +102,8 @@ public class PantallaLucha2 extends Pantalla {
         personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
     }
 
-    private void crearNivel2() {
-        escenaNivel2 = new Stage(vista);
+    private void crearNivel3() {
+        escenaNivel3 = new Stage(vista);
         ///Boton de Pausa
         //Texture btnNuevaPartida = new Texture("botones/BtnPausa2.png");
         Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa2.png");
@@ -219,17 +218,17 @@ public class PantallaLucha2 extends Pantalla {
         //Pausa
         btnNP.addListener(new ClickListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(estado== PantallaLucha2.EstadoJuego.JUGANDO) {
-                    estado = PantallaLucha2.EstadoJuego.PAUSADO;
+                if(estado== PantallaLucha3.EstadoJuego.JUGANDO) {
+                    estado = PantallaLucha3.EstadoJuego.PAUSADO;
                     //Crear escena Pausa
                     if(escenaPausa==null){
-                        escenaPausa=new PantallaLucha2.EscenaPausa(vista,batch);
+                        escenaPausa=new PantallaLucha3.EscenaPausa(vista,batch);
                     }
                     Gdx.input.setInputProcessor(escenaPausa);
                     Gdx.app.log("Pausa","Cambia a Pausa");
 
-                }else if (estado== PantallaLucha2.EstadoJuego.PAUSADO){
-                    estado= PantallaLucha2.EstadoJuego.JUGANDO;
+                }else if (estado== PantallaLucha3.EstadoJuego.PAUSADO){
+                    estado= PantallaLucha3.EstadoJuego.JUGANDO;
                     Gdx.app.log("Pausa","Cambia a Jugando");
 
                 }
@@ -238,12 +237,12 @@ public class PantallaLucha2 extends Pantalla {
         });
 
 
-        escenaNivel2.addActor(btnNP);
-        escenaNivel2.addActor(btnIzquierda);
-        escenaNivel2.addActor(bntDerecha);
-        escenaNivel2.addActor(bntSalta);
-        escenaNivel2.addActor(bntDisparas);
-        Gdx.input.setInputProcessor(escenaNivel2);
+        escenaNivel3.addActor(btnNP);
+        escenaNivel3.addActor(btnIzquierda);
+        escenaNivel3.addActor(bntDerecha);
+        escenaNivel3.addActor(bntSalta);
+        escenaNivel3.addActor(bntDisparas);
+        Gdx.input.setInputProcessor(escenaNivel3);
 
 
     }
@@ -252,15 +251,15 @@ public class PantallaLucha2 extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-        if(estado == PantallaLucha2.EstadoJuego.JUGANDO) {
+        if(estado == PantallaLucha3.EstadoJuego.JUGANDO) {
             actualizar();
 
             batch.begin();
-            batch.draw(fondoNivel2, 0, 0);
-            batch.draw(pilaP2,ANCHO*0.03f,ALTO*0.83f);
-            batch.draw(pilaV2,ANCHO*0.8f,ALTO*0.83f);
+            batch.draw(fondoNivel3, 0, 0);
+            batch.draw(pilaP3,ANCHO*0.03f,ALTO*0.83f);
+            batch.draw(pilaV3,ANCHO*0.8f,ALTO*0.83f);
             personaje.render(batch);
-            escenaNivel2.draw();
+            escenaNivel3.draw();
 
             dibujarBolasMagicas();
             dibujarVidaPersonaje();
@@ -268,19 +267,19 @@ public class PantallaLucha2 extends Pantalla {
 
             batch.end();
 
-        }else if(estado == PantallaLucha2.EstadoJuego.PAUSADO){
+        }else if(estado == PantallaLucha3.EstadoJuego.PAUSADO){
             escenaPausa.draw();
         }
 
     }
 
     private void dibujarVidaPersonaje() {
-        int vidaPersonaje = (int)bateriaN2;
+        int vidaPersonaje = (int)bateriaN3;
         texto.mostrarMensaje(batch,vidaPersonaje+"%",ANCHO*0.11f,ALTO*0.93f);
     }
 
     private void dibujarVidaVillano() {
-        int VidaVillano2 = (int)vidaVillano2;
+        int VidaVillano2 = (int)vidaVillano3;
         texto.mostrarMensaje(batch,VidaVillano2+"%",ANCHO*0.88f,ALTO*0.93f);
     }
 
@@ -318,7 +317,7 @@ public class PantallaLucha2 extends Pantalla {
     @Override
     public void dispose() {
         //Fondos
-        juego.getManager().unload("fondos/fondonivel2.png");
+        juego.getManager().unload("fondos/fondonivel1.JPG");
         juego.getManager().unload("fondos/PausaN2.png");
 
         //Sprites
@@ -432,7 +431,6 @@ public class PantallaLucha2 extends Pantalla {
             Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN2Inv.png");
             TextureRegionDrawable trdBtSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
-
             ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);
             ImageButton btnMenu = new ImageButton(trMenu, trdBtMenuInv);
 
@@ -442,7 +440,6 @@ public class PantallaLucha2 extends Pantalla {
             final ImageButton.ImageButtonStyle PrendidoMusica=new ImageButton.ImageButtonStyle(estiloPrendidoMusica);
             final ImageButton.ImageButtonStyle ApagadoMusica=new ImageButton.ImageButtonStyle(estiloApagadoMusica);
             final ImageButton btnMusica = new ImageButton(trMusica, trdBtMusicanv);
-
 
             //Botón Sonido (Efecto Apagado/Encendido)
             final Button.ButtonStyle estiloPrendidoSonido=new Button.ButtonStyle(trSonido,trdBtSonidoInv,null);
@@ -461,20 +458,22 @@ public class PantallaLucha2 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    estado= PantallaLucha2.EstadoJuego.JUGANDO;
-                    Gdx.input.setInputProcessor(escenaNivel2);
+                    estado= PantallaLucha3.EstadoJuego.JUGANDO;
+                    Gdx.input.setInputProcessor(escenaNivel3);
                     Gdx.app.log("Pausa","Reanuda");
                 }
             });
+
             //Listener Menú
             btnMenu.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    estado= PantallaLucha2.EstadoJuego.JUGANDO;
+                    estado= PantallaLucha3.EstadoJuego.JUGANDO;
                     juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
+
             //Listener Música
             btnMusica.addListener(new ClickListener() {
                 @Override
