@@ -100,7 +100,7 @@ public class PantallaCargando extends Pantalla {
 
         //Proyectiles
         manager.load("Proyectiles/bolasMagicas.png", Texture.class);
-        manager.load("Proyectiles/pocima.png", Texture.class);
+        manager.load("Proyectiles/pocimaNivel2.png", Texture.class);
         manager.load("Proyectiles/flecha1.png", Texture.class);
 
         //Efectos
@@ -110,7 +110,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Enemigos
-        manager.load("Enemigos/Titan1.PNG", Texture.class);
+        manager.load("Enemigos/Dragon1.PNG", Texture.class);
         manager.load("Enemigos/BolaDeFuego.png", Texture.class);
 
         //Texto
@@ -138,10 +138,10 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/avanzar.png", Texture.class);
 
         //Historieta
-        manager.load("Historieta/VNLvl1_1.PNG", Texture.class);
-        manager.load("Historieta/VNLvl1_2.PNG", Texture.class);
-        manager.load("Historieta/VNLvl1_3.PNG", Texture.class);
-        manager.load("Historieta/VNLvl1_4.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_2.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_3.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_4.PNG", Texture.class);
         manager.load("Historieta/perdistelvl1.PNG", Texture.class);
     }
 
@@ -193,6 +193,8 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMusicN1Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN1Inv.png", Texture.class);
         manager.load("botones/avanzar.png", Texture.class);
+        manager.load("botones/omitir.png", Texture.class);
+        manager.load("botones/PlayAgain.png", Texture.class);
 
         //Historieta
         manager.load("Historieta/VNLvl1_1.PNG", Texture.class);

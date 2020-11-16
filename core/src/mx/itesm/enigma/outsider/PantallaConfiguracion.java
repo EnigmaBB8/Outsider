@@ -73,8 +73,10 @@ public class PantallaConfiguracion extends Pantalla {
         Texture btnMusicaInv = new Texture("botones/btnconfMI.PNG");
         TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
         //Boton Música (Efecto Apagado/Encendido)
+
         final Button.ButtonStyle estiloPrendido=new Button.ButtonStyle(trdBtMusica,trdBtMusicaInv,null);
         final Button.ButtonStyle estiloApagado=new Button.ButtonStyle(trdBtMusicaInv,trdBtMusica,null);
+
         final ImageButton.ImageButtonStyle Prendido=new ImageButton.ImageButtonStyle(estiloPrendido);
         final ImageButton.ImageButtonStyle Apagado=new ImageButton.ImageButtonStyle(estiloApagado);
 

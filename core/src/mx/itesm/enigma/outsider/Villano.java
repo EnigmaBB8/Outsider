@@ -22,7 +22,7 @@ public class Villano extends Objeto{
         //Inicio oWo
         sprite = new Sprite(texturasFrame[0][0]);
         estado = EstadoVillano.ATACANDO;
-        sprite.setPosition(900,110);
+        sprite.setPosition(890,110);
         //Animación atacando (=‘ｘ‘=)
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.15f,arrFrame);

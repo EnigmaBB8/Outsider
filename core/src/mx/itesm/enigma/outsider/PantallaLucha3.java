@@ -52,7 +52,7 @@ public class PantallaLucha3 extends Pantalla {
     @Override
     public void show() {
         //fondoNivel2 = new Texture("fondos/fondonivel2.png");
-        fondoNivel3 = juego.getManager().get("fondos/fondonivel1.JPG");
+        fondoNivel3 = juego.getManager().get("fondos/fondonivel3.png");
         //pilaP2 = new Texture("sprites/pilaP2.png");
         pilaP3 = juego.getManager().get("sprites/pilaP2.png");
         //pilaV2 = new Texture("sprites/pilaP2.png");

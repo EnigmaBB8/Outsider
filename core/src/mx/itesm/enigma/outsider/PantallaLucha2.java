@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -28,6 +29,11 @@ public class PantallaLucha2 extends Pantalla {
     //Personaje
     private Personaje personaje;
     private Texture texturaPersonaje;
+
+    //Villano
+    private Villano villano;
+    private Texture texturaVillano;
+
     // Proyectil
     private Texture texturaProyectil;
     private Array<BolasMagicas> arrBolasMagicas;
@@ -41,9 +47,20 @@ public class PantallaLucha2 extends Pantalla {
     private float bateriaN2=100;
     private float vidaVillano2 = 100;
 
+    //Pocimas
+    private Texture texturaPocima;
+    private Array<Pocimas> arrPocimas;
+    private float timerCrearPocima;
+    private float TIEMPO_CREA_POCIMA = 7;
+    private float tiempoPocima = 10;
+
     //Pausa
-    private PantallaLucha2.EstadoJuego estado= PantallaLucha2.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
+    private PantallaLucha2.EstadoJuego estado = PantallaLucha2.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
     private PantallaLucha2.EscenaPausa escenaPausa;
+
+    //Sonidos
+    private Sound efectoPocima;
+
 
     public PantallaLucha2(Juego juego) {
         this.juego = juego;
@@ -57,13 +74,26 @@ public class PantallaLucha2 extends Pantalla {
         pilaP2 = juego.getManager().get("sprites/pilaP2.png");
         //pilaV2 = new Texture("sprites/pilaP2.png");
         pilaV2 = juego.getManager().get("sprites/pilaP2.png");
+
         crearNivel2();
+        crearVillano();
         crearPersonaje();
         crearBolaMagica();
         crearSonido();
         crearTexto();
+        crearPocima();
         ConfiguracionMusica();
 
+    }
+
+    private void crearPocima() {
+        texturaPocima = juego.getManager().get("Proyectiles/pocimaNivel2.png");
+        arrPocimas = new Array<>();
+    }
+
+    private void crearVillano() {
+        texturaVillano = juego.getManager().get("Enemigos/Dragon1.PNG");
+        villano=new Villano(texturaVillano);
     }
 
     private void ConfiguracionMusica() {
@@ -85,9 +115,11 @@ public class PantallaLucha2 extends Pantalla {
         AssetManager manager = new AssetManager();
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
         efectoFlecha = manager.get("Efectos/Flecha.mp3");
+        efectoPocima = manager.get("Efectos/pocima.mp3");
 
     }
 
@@ -259,12 +291,14 @@ public class PantallaLucha2 extends Pantalla {
             batch.draw(fondoNivel2, 0, 0);
             batch.draw(pilaP2,ANCHO*0.03f,ALTO*0.83f);
             batch.draw(pilaV2,ANCHO*0.8f,ALTO*0.83f);
+            villano.render(batch);
             personaje.render(batch);
             escenaNivel2.draw();
 
             dibujarBolasMagicas();
             dibujarVidaPersonaje();
             dibujarVidaVillano();
+            dibujarPocimas();
 
             batch.end();
 
@@ -272,6 +306,13 @@ public class PantallaLucha2 extends Pantalla {
             escenaPausa.draw();
         }
 
+    }
+
+    private void dibujarPocimas() {
+        for (Pocimas pocimas :
+                arrPocimas) {
+            pocimas.render(batch);
+        }
     }
 
     private void dibujarVidaPersonaje() {
@@ -293,6 +334,51 @@ public class PantallaLucha2 extends Pantalla {
 
     private void actualizar() {
         actualizarProyectil();
+        actualizarPocimas();
+
+        verificarChoquesAEnemigo();
+        verificarPocimaTomada();
+    }
+
+    private void actualizarPocimas() {
+        timerCrearPocima += Gdx.graphics.getDeltaTime();
+        if (timerCrearPocima>=TIEMPO_CREA_POCIMA) {
+            timerCrearPocima = 0;
+            TIEMPO_CREA_POCIMA = tiempoPocima + MathUtils.random()*.4f;
+            if (tiempoPocima>2) {
+                tiempoPocima -= 1;
+            }
+            Pocimas pocima = new Pocimas(texturaPocima, 200+MathUtils.random(1,5)*100, 120);
+            arrPocimas.add(pocima);
+        }
+    }
+
+    private void verificarPocimaTomada() {
+        for (int i = arrPocimas.size-1; i >= 0; i--) {
+            Pocimas pocima = arrPocimas.get(i); //Pocima
+            // COLISION!!!
+            if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
+                    && bateriaN2<90) {
+                arrPocimas.removeIndex(i);
+                // Aumentar puntos
+                bateriaN2 += 15;
+                efectoPocima.play();
+                break;
+            }
+        }
+    }
+
+    private void verificarChoquesAEnemigo() {
+        for (int i=arrBolasMagicas.size-1; i>=0; i--) {
+            BolasMagicas bolasMagicas = arrBolasMagicas.get(i);
+            // COLISION!!!
+            if (bolasMagicas.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
+                arrBolasMagicas.removeIndex(i);
+                // Descontar puntos
+                vidaVillano2 -= 10;
+                break;
+            }
+        }
     }
 
     private void actualizarProyectil() {
@@ -303,16 +389,6 @@ public class PantallaLucha2 extends Pantalla {
                 arrBolasMagicas.removeIndex(i);
             }
         }
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 
     @Override
@@ -328,7 +404,7 @@ public class PantallaLucha2 extends Pantalla {
 
         //Proyectiles
         juego.getManager().unload("Proyectiles/bolasMagicas.png");
-        juego.getManager().unload("Proyectiles/pocima.png");
+        juego.getManager().unload("Proyectiles/pocimaNivel2.png");
         juego.getManager().unload("Proyectiles/flecha1.png");
 
         //Efectos
@@ -338,7 +414,7 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
-        juego.getManager().unload("Enemigos/Titan1.PNG");
+        juego.getManager().unload("Enemigos/Dragon1.PNG");
         juego.getManager().unload("Enemigos/BolaDeFuego.png");
 
         //Texto
@@ -368,14 +444,23 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("botones/avanzar.png");
 
         //Historieta
-        juego.getManager().unload("Historieta/VNLvl1_1.PNG");
-        juego.getManager().unload("Historieta/VNLvl1_2.PNG");
-        juego.getManager().unload("Historieta/VNLvl1_3.PNG");
-        juego.getManager().unload("Historieta/VNLvl1_4.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_1.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_2.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_3.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_4.PNG");
 
         juego.getManager().unload("Historieta/perdistelvl1.PNG");
 
         batch.dispose();
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+
     }
 
     //Estados Juego

@@ -74,7 +74,7 @@ public class PantallaLucha1 extends Pantalla {
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
     private float TIEMPO_CREA_POCIMA = 7;
-    private float tiempoPocima = 30;
+    private float tiempoPocima = 10;
 
     //Pausa
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -128,7 +128,6 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearPocima() {
-        //texturaPocima = new Texture("Proyectiles/pocima.png");
         texturaPocima = juego.getManager().get("Proyectiles/pocima.png");
         arrPocimas = new Array<>();
     }
@@ -581,6 +580,8 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN1Inv.png");
 
         juego.getManager().unload("botones/avanzar.png");
+        juego.getManager().unload("botones/omitir.png");
+        juego.getManager().unload("botones/PlayAgain.png");
 
         //Historieta
         juego.getManager().unload("Historieta/VNLvl1_1.PNG");
@@ -606,7 +607,6 @@ public class PantallaLucha1 extends Pantalla {
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
-            //Texture textura = new Texture("fondos/PausaN1.jpeg");
             Texture textura = juego.getManager().get("fondos/PausaN1.jpeg");
             Image imgPausa = new Image(textura);
             imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
@@ -614,36 +614,34 @@ public class PantallaLucha1 extends Pantalla {
 
             //Botones
             // Boton Reanudar
-            //Texture bntReanudar = new Texture("botones/BtnReanudarN1.png");
             Texture bntReanudar = juego.getManager().get("botones/BtnReanudarN1.png");
             TextureRegionDrawable trReanudar = new TextureRegionDrawable(new TextureRegion(bntReanudar));
+
             //Boton Menu
-            //Texture bntMenu = new Texture("botones/BtnMenuN1.png");
             Texture bntMenu = juego.getManager().get("botones/BtnMenuN1.png");
             TextureRegionDrawable trMenu = new TextureRegionDrawable(new TextureRegion(bntMenu));
+
             //Boton Musica
-            //Texture bntMusica = new Texture("botones/BtnMusicN1.png");
             Texture bntMusica = juego.getManager().get("botones/BtnMusicN1.png");
             TextureRegionDrawable trMusica= new TextureRegionDrawable(new TextureRegion(bntMusica));
+
             //Boton Sonido
-            //Texture bntSonido = new Texture("botones/BtnSonidoN1.png");
             Texture bntSonido = juego.getManager().get("botones/BtnSonidoN1.png");
             TextureRegionDrawable trSonido =new TextureRegionDrawable(new TextureRegion(bntSonido));
 
             //Inverso de Reanudar
-            //Texture btnReanudarInv= new Texture("botones/BtnReanudarN1Inv.png");
             Texture btnReanudarInv = juego.getManager().get("botones/BtnReanudarN1Inv.png");
             TextureRegionDrawable trdBtReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
+
             //Inverso de Menu
-            //Texture btnMenuInv= new Texture("botones/BtnMenuN1Inv.png");
             Texture btnMenuInv = juego.getManager().get("botones/BtnMenuN1Inv.png");
             TextureRegionDrawable trdBtMenuInv = new TextureRegionDrawable(new TextureRegion(btnMenuInv));
+
             //Inverso de Musica
-            //Texture btnMusicaInv= new Texture("botones/BtnMusicN1Inv.png");
             Texture btnMusicaInv = juego.getManager().get("botones/BtnMusicN1Inv.png");
             TextureRegionDrawable trdBtMusicanv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
+
             //Inverso de Sonido
-            //Texture btnSonidoInv= new Texture("botones/BtnSonidoN1Inv.png");
             Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN1Inv.png");
             TextureRegionDrawable trdBtSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
@@ -660,6 +658,7 @@ public class PantallaLucha1 extends Pantalla {
             //Botón Sonido (Efecto Apagado/Encendido)
             final Button.ButtonStyle estiloPrendidoSonido=new Button.ButtonStyle(trSonido,trdBtSonidoInv,null);
             final Button.ButtonStyle estiloApagadoSonido=new Button.ButtonStyle(trdBtSonidoInv,trSonido,null);
+
             final ImageButton.ImageButtonStyle PrendidoSonido=new ImageButton.ImageButtonStyle(estiloPrendidoSonido);
             final ImageButton.ImageButtonStyle ApagadoSonido=new ImageButton.ImageButtonStyle(estiloApagadoSonido);
             final ImageButton btnSonido = new ImageButton(trSonido,trdBtSonidoInv);
@@ -727,7 +726,6 @@ public class PantallaLucha1 extends Pantalla {
         private Image imgGanando;
         public EscenaGanando(Viewport vista, SpriteBatch batch) {
             super(vista, batch);
-
             if (estado == EstadoJuego.GANANDO1) {
                 //Texture textura1 = new Texture("Historieta/VNLvl1_1.PNG");
                 Texture textura1 = juego.getManager().get("Historieta/VNLvl1_1.PNG");
@@ -737,14 +735,25 @@ public class PantallaLucha1 extends Pantalla {
                 this.addActor(imgGanando);
             }
 
+            //Boton Omitir
+            Texture btnOmitir = juego.getManager().get("botones/omitir.png");
+            TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
+            final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
+            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.94F, Align.topRight);
+            btnOmitirFinal.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
+                }
+            });
+            this.addActor(btnOmitirFinal);
+
             // Boton Avanzar
-            //Texture btnAvanzar = new Texture("botones/avanzar.png");
             Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
-
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.9f, Align.topRight);
-
+            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.8f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -803,14 +812,26 @@ public class PantallaLucha1 extends Pantalla {
 
             this.addActor(imgPerdio);
 
+            //Boton de Jugar de Nuevo
+            Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgain.png");
+            TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
+            final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.7f,ALTO*0.3F, Align.topRight);
+            btnJugarDeNuevoNivel.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL1));
+                }
+            });
+            this.addActor(btnJugarDeNuevoNivel);
+
             // Boton Avanzar
             //Texture btnAvanzar = new Texture("botones/avanzar.png");
             Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
-
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
             btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
-
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

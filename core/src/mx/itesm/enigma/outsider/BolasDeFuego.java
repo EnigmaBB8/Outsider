@@ -30,7 +30,7 @@ public class BolasDeFuego extends Objeto {
     Método que hace que se muevan las bolas de fuego
      */
     public void atacar(){
-        sprite.setPosition(sprite.getX()- 7,sprite.getY() - MathUtils.random(1,10));
+        sprite.setPosition(sprite.getX()- 7,sprite.getY() - 4);
     }
 
     /*
