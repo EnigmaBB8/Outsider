@@ -281,9 +281,13 @@ public class PantallaLucha1 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
                     personaje.saltar();
-                    efectoSalto.play();
+                    if(Sonido==true) {
+                        efectoSalto.play();
+                    }
                 }
             }
         });
@@ -291,11 +295,15 @@ public class PantallaLucha1 extends Pantalla {
         bntDisparas.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (arrProyectil.size < 5) {
                     Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
                             personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
                     arrProyectil.add(proyectil);
-                    efectoFlecha.play();
+                    if(Sonido==true) {
+                        efectoFlecha.play();
+                    }
                 } }
         });
         //Pausa
@@ -430,6 +438,8 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void verificarPocimaTomada() {
+        Preferences preferencias = Gdx.app.getPreferences("Sonido");
+        boolean Sonido = preferencias.getBoolean("GeneralSonido");
         for (int i = arrPocimas.size-1; i >= 0; i--) {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
@@ -438,7 +448,9 @@ public class PantallaLucha1 extends Pantalla {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateria += 15;
-                efectoPocima.play();
+                if(Sonido==true) {
+                    efectoPocima.play();
+                }
                 break;
             }
         }
