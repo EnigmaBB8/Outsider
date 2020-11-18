@@ -85,7 +85,48 @@ public class PantallaCargando extends Pantalla {
             case NIVEL2:
                 cargarRecursosNivel2();
                 break;
+            case NIVEL3:
+                cargarRecursosNivel3();
+                break;
         }
+    }
+
+    private void cargarRecursosNivel3() {
+        //Fondos
+        manager.load("fondos/fondonivel3.png", Texture.class);
+        manager.load("fondos/PausaN3.png", Texture.class);
+
+        //Sprites
+        manager.load("sprites/pilaP3.png", Texture.class);
+        manager.load("sprites/personaje.png", Texture.class);
+
+        //Efectos
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
+
+        //Botones
+        manager.load("botones/BtnPausa3.png", Texture.class);
+        manager.load("botones/BotonIzquierda.png", Texture.class);
+        manager.load("botones/BotonDerecha.png", Texture.class);
+        manager.load("botones/BotonSaltar.png", Texture.class);
+        manager.load("botones/BotonDisparar.png", Texture.class);
+
+        manager.load("botones/BtnPausa3.png", Texture.class);
+        manager.load("botones/BotonIzquierdaInv.png", Texture.class);
+        manager.load("botones/BotonDerechaInv.png", Texture.class);
+        manager.load("botones/BotonSaltarInv.png", Texture.class);
+        manager.load("botones/BotonDispararInv.png", Texture.class);
+
+        manager.load("botones/BtnReanudarN3.png", Texture.class);
+        manager.load("botones/BtnMenuN3.png", Texture.class);
+        manager.load("botones/BtnMusicN3.png", Texture.class);
+        manager.load("botones/BtnSonidoN3.png", Texture.class);
+        manager.load("botones/BtnReanudarN3Inv.png", Texture.class);
+        manager.load("botones/BtnMenuN3Inv.png", Texture.class);
+        manager.load("botones/BtnMusic3Inv.png", Texture.class);
+        manager.load("botones/BtnSonidoN3Inv.png", Texture.class);
     }
 
     private void cargarRecursosNivel2() {
@@ -95,13 +136,11 @@ public class PantallaCargando extends Pantalla {
 
         //Sprites
         manager.load("sprites/pilaP2.png", Texture.class);
-        manager.load("sprites/pilaP2.png", Texture.class);
         manager.load("sprites/personaje.png", Texture.class);
 
         //Proyectiles
         manager.load("Proyectiles/bolasMagicas.png", Texture.class);
         manager.load("Proyectiles/pocimaNivel2.png", Texture.class);
-        manager.load("Proyectiles/flecha1.png", Texture.class);
 
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
@@ -111,10 +150,7 @@ public class PantallaCargando extends Pantalla {
 
         //Enemigos
         manager.load("Enemigos/Dragon1.PNG", Texture.class);
-        manager.load("Enemigos/BolaDeFuego.png", Texture.class);
-
-        //Texto
-        //manager.load("Texto/game.fnt", Texture.class);
+        manager.load("Enemigos/llamaradas.png", Texture.class);
 
         //Botones
         manager.load("botones/BtnPausa2.png", Texture.class);
@@ -374,6 +410,9 @@ public class PantallaCargando extends Pantalla {
                     break;
                 case NIVEL2:
                     juego.setScreen(new PantallaLucha2(juego));
+                    break;
+                case NIVEL3:
+                    juego.setScreen(new PantallaLucha3(juego));
                     break;
             }
         }

@@ -28,6 +28,7 @@ public class PantallaLucha3 extends Pantalla {
     //Personaje
     private Personaje personaje;
     private Texture texturaPersonaje;
+
     // Proyectil
     private Texture texturaProyectil;
     private Array<BolasMagicas> arrBolasMagicas;
@@ -39,10 +40,10 @@ public class PantallaLucha3 extends Pantalla {
     //Texto
     private Texto texto;
     private float bateriaN3=100;
-    private float vidaVillano3 = 100;
+    private float vidaVillanoN3 = 100;
 
     //Pausa
-    private PantallaLucha3.EstadoJuego estado= PantallaLucha3.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
+    private PantallaLucha3.EstadoJuego estado = PantallaLucha3.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
     private PantallaLucha3.EscenaPausa escenaPausa;
 
     public PantallaLucha3(Juego juego) {
@@ -51,16 +52,11 @@ public class PantallaLucha3 extends Pantalla {
 
     @Override
     public void show() {
-        //fondoNivel2 = new Texture("fondos/fondonivel2.png");
         fondoNivel3 = juego.getManager().get("fondos/fondonivel3.png");
-        //pilaP2 = new Texture("sprites/pilaP2.png");
-        pilaP3 = juego.getManager().get("sprites/pilaP2.png");
-        //pilaV2 = new Texture("sprites/pilaP2.png");
-        pilaV3 = juego.getManager().get("sprites/pilaP2.png");
+        pilaP3 = juego.getManager().get("sprites/pilaP3.png");
+        pilaV3 = juego.getManager().get("sprites/pilaP3.png");
         crearNivel3();
         crearPersonaje();
-        crearBolaMagica();
-        crearSonido();
         crearTexto();
         configurarMusica();
     }
@@ -80,24 +76,7 @@ public class PantallaLucha3 extends Pantalla {
         texto=new Texto("Texto/game.fnt");
     }
 
-    private void crearSonido() {
-        AssetManager manager = new AssetManager();
-        manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
-        manager.finishLoading();
-        efectoSalto = manager.get("Efectos/salto.mp3");
-        efectoFlecha = manager.get("Efectos/Flecha.mp3");
-
-    }
-
-    private void crearBolaMagica() {
-        //texturaProyectil = new Texture("Proyectiles/bolasMagicas.png");
-        texturaProyectil = juego.getManager().get("Proyectiles/bolasMagicas.png");
-        arrBolasMagicas = new Array<>();
-    }
-
     private void crearPersonaje() {
-        //texturaPersonaje=new Texture("sprites/personaje.png");
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
         personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
     }
@@ -105,52 +84,42 @@ public class PantallaLucha3 extends Pantalla {
     private void crearNivel3() {
         escenaNivel3 = new Stage(vista);
         ///Boton de Pausa
-        //Texture btnNuevaPartida = new Texture("botones/BtnPausa2.png");
-        Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa2.png");
+        Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa3.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton Izquierda
-        //Texture bntIz = new Texture("botones/BotonIzquierda.png");
         Texture bntIz = juego.getManager().get("botones/BotonIzquierda.png");
         TextureRegionDrawable trBntIz = new TextureRegionDrawable(new TextureRegion(bntIz));
 
         //Boton Derecha
-        //Texture bntDer = new Texture("botones/BotonDerecha.png");
         Texture bntDer = juego.getManager().get("botones/BotonDerecha.png");
         TextureRegionDrawable trBntDer = new TextureRegionDrawable(new TextureRegion(bntDer));
 
         //Boton Saltar
-        //Texture bntSaltar = new Texture("botones/BotonSaltar.png");
         Texture bntSaltar = juego.getManager().get("botones/BotonSaltar.png");
         TextureRegionDrawable trBntSaltar = new TextureRegionDrawable(new TextureRegion(bntSaltar));
 
         // Boton Disparar
-        //Texture bntDispara = new Texture("botones/BotonDisparar.png");
         Texture bntDispara = juego.getManager().get("botones/BotonDisparar.png");
         TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
         //Inverso de Pausa
-        //Texture btnNuevaPartidaInv = new Texture("botones/BtnPausa2.png");
-        Texture btnNuevaPartidaInv = juego.getManager().get("botones/BtnPausa2.png");
+        Texture btnNuevaPartidaInv = juego.getManager().get("botones/BtnPausa3.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de Boton Izquierda
-        //Texture btnIzIn = new Texture("botones/BotonIzquierdaInv.png");
         Texture btnIzIn = juego.getManager().get("botones/BotonIzquierdaInv.png");
         TextureRegionDrawable trdBtnIzIn = new TextureRegionDrawable(new TextureRegion(btnIzIn));
 
         //Inverso de Boton Derecha
-        //Texture bntDerIn = new Texture("botones/BotonDerechaInv.png");
         Texture bntDerIn = juego.getManager().get("botones/BotonDerechaInv.png");
         TextureRegionDrawable trdBtnDeIn = new TextureRegionDrawable(new TextureRegion(bntDerIn));
 
         //Inverso de boton Saltar
-        //Texture bntSaltarIn = new Texture("botones/BotonSaltarInv.png");
         Texture bntSaltarIn = juego.getManager().get("botones/BotonSaltarInv.png");
         TextureRegionDrawable trBntSaltarIn = new TextureRegionDrawable(new TextureRegion(bntSaltarIn));
 
         //Inverso de Boton Disparar
-        //Texture bntDisparaIn = new Texture("botones/BotonDispararInv.png");
         Texture bntDisparaIn = juego.getManager().get("botones/BotonDispararInv.png");
         TextureRegionDrawable trBntDispararInv = new TextureRegionDrawable(new TextureRegion(bntDisparaIn));
 
@@ -261,7 +230,6 @@ public class PantallaLucha3 extends Pantalla {
             personaje.render(batch);
             escenaNivel3.draw();
 
-            dibujarBolasMagicas();
             dibujarVidaPersonaje();
             dibujarVidaVillano();
 
@@ -279,30 +247,14 @@ public class PantallaLucha3 extends Pantalla {
     }
 
     private void dibujarVidaVillano() {
-        int VidaVillano2 = (int)vidaVillano3;
-        texto.mostrarMensaje(batch,VidaVillano2+"%",ANCHO*0.88f,ALTO*0.93f);
+        int VidaVillano3 = (int)vidaVillanoN3;
+        texto.mostrarMensaje(batch,VidaVillano3+"%",ANCHO*0.88f,ALTO*0.93f);
     }
 
-    private void dibujarBolasMagicas() {
-        for (BolasMagicas proyectil :
-                arrBolasMagicas) {
-            proyectil.render(batch);
-        }
-    }
 
     private void actualizar() {
-        actualizarProyectil();
     }
 
-    private void actualizarProyectil() {
-        for (int i=arrBolasMagicas.size-1; i>=0; i--) {
-            BolasMagicas proyectil = arrBolasMagicas.get(i);
-            proyectil.moverDerecha();
-            if (proyectil.sprite.getX()>ANCHO) {
-                arrBolasMagicas.removeIndex(i);
-            }
-        }
-    }
 
     @Override
     public void pause() {
@@ -317,64 +269,33 @@ public class PantallaLucha3 extends Pantalla {
     @Override
     public void dispose() {
         //Fondos
-        juego.getManager().unload("fondos/fondonivel1.JPG");
-        juego.getManager().unload("fondos/PausaN2.png");
+        juego.getManager().unload("fondos/fondonivel3.png");
+        juego.getManager().unload("fondos/PausaN3.png");
 
         //Sprites
-        juego.getManager().unload("sprites/pilaP2.png");
-        juego.getManager().unload("sprites/pilaP2.png");
+        juego.getManager().unload("sprites/pilaP3.png");
         juego.getManager().unload("sprites/personaje.png");
 
-        //Proyectiles
-        juego.getManager().unload("Proyectiles/bolasMagicas.png");
-        juego.getManager().unload("Proyectiles/pocima.png");
-        juego.getManager().unload("Proyectiles/flecha1.png");
-
-        //Efectos
-        juego.getManager().unload("Efectos/salto.mp3");
-        juego.getManager().unload("Efectos/Flecha.mp3");
-        juego.getManager().unload("Efectos/bolaDeFuego.mp3");
-        juego.getManager().unload("Efectos/pocima.mp3");
-
-        //Enemigos
-        juego.getManager().unload("Enemigos/Titan1.PNG");
-        juego.getManager().unload("Enemigos/BolaDeFuego.png");
-
-        //Texto
-        //manager.load("Texto/game.fnt", Texture.class);
-
         //Botones
-        juego.getManager().unload("botones/BtnPausa2.png");
+        juego.getManager().unload("botones/BtnPausa3.png");
         juego.getManager().unload("botones/BotonIzquierda.png");
         juego.getManager().unload("botones/BotonDerecha.png");
         juego.getManager().unload("botones/BotonSaltar.png");
         juego.getManager().unload("botones/BotonDisparar.png");
-        juego.getManager().unload("botones/BtnPausa2.png");
+        juego.getManager().unload("botones/BtnPausa3.png");
         juego.getManager().unload("botones/BotonIzquierdaInv.png");
         juego.getManager().unload("botones/BotonDerechaInv.png");
         juego.getManager().unload("botones/BotonSaltarInv.png");
         juego.getManager().unload("botones/BotonDispararInv.png");
 
-        juego.getManager().unload("botones/BtnReanudarN2.png");
-        juego.getManager().unload("botones/BtnMenuN2.png");
-        juego.getManager().unload("botones/BtnMusicN2.png");
-        juego.getManager().unload("botones/BtnSonidoN2.png");
-        juego.getManager().unload("botones/BtnReanudarN2Inv.png");
-        juego.getManager().unload("botones/BtnMenuN2Inv.png");
-        juego.getManager().unload("botones/BtnMusicN2Inv.png");
-        juego.getManager().unload("botones/BtnSonidoN2Inv.png");
-
-        juego.getManager().unload("botones/avanzar.png");
-
-        //Historieta
-        juego.getManager().unload("Historieta/VNLvl1_1.PNG");
-        juego.getManager().unload("Historieta/VNLvl1_2.PNG");
-        juego.getManager().unload("Historieta/VNLvl1_3.PNG");
-        juego.getManager().unload("Historieta/VNLvl1_4.PNG");
-
-        juego.getManager().unload("Historieta/perdistelvl1.PNG");
-
-        batch.dispose();
+        juego.getManager().unload("botones/BtnReanudarN3.png");
+        juego.getManager().unload("botones/BtnMenuN3.png");
+        juego.getManager().unload("botones/BtnMusicN3.png");
+        juego.getManager().unload("botones/BtnSonidoN3.png");
+        juego.getManager().unload("botones/BtnReanudarN3Inv.png");
+        juego.getManager().unload("botones/BtnMenuN3Inv.png");
+        juego.getManager().unload("botones/BtnMusic3Inv.png");
+        juego.getManager().unload("botones/BtnSonidoN3Inv.png");
     }
 
     //Estados Juego
@@ -390,45 +311,36 @@ public class PantallaLucha3 extends Pantalla {
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
-            //Texture textura=new Texture("fondos/PausaN2.png");
-            Texture textura = juego.getManager().get("fondos/PausaN2.png");
+            Texture textura = juego.getManager().get("fondos/PausaN3.png");
             Image imgPausa=new Image(textura);
             imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
             this.addActor(imgPausa); //Fondo
 
             //Botones
             // Boton Reanudar
-            //Texture bntReanudar = new Texture("botones/BtnReanudarN2.png");
-            Texture bntReanudar = juego.getManager().get("botones/BtnReanudarN2.png");
+            Texture bntReanudar = juego.getManager().get("botones/BtnReanudarN3.png");
             TextureRegionDrawable trReanudar = new TextureRegionDrawable(new TextureRegion(bntReanudar));
             //Boton Menu
-            //Texture bntMenu = new Texture("botones/BtnMenuN2.png");
-            Texture bntMenu = juego.getManager().get("botones/BtnMenuN2.png");
+            Texture bntMenu = juego.getManager().get("botones/BtnMenuN3.png");
             TextureRegionDrawable trMenu = new TextureRegionDrawable(new TextureRegion(bntMenu));
             //Boton Musica
-            //Texture bntMusica = new Texture("botones/BtnMusicN2.png");
-            Texture bntMusica = juego.getManager().get("botones/BtnMusicN2.png");
+            Texture bntMusica = juego.getManager().get("botones/BtnMusicN3.png");
             TextureRegionDrawable trMusica= new TextureRegionDrawable(new TextureRegion(bntMusica));
             //Boton Sonido
-            //Texture bntSonido = new Texture("botones/BtnSonidoN2.png");
-            Texture bntSonido = juego.getManager().get("botones/BtnSonidoN2.png");
+            Texture bntSonido = juego.getManager().get("botones/BtnSonidoN3.png");
             TextureRegionDrawable trSonido =new TextureRegionDrawable(new TextureRegion(bntSonido));
 
             //Inverso de Reanudar
-            //Texture btnReanudarInv= new Texture("botones/BtnReanudarN2Inv.png");
-            Texture btnReanudarInv = juego.getManager().get("botones/BtnReanudarN2Inv.png");
+            Texture btnReanudarInv = juego.getManager().get("botones/BtnReanudarN3Inv.png");
             TextureRegionDrawable trdBtReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
             //Inverso de Menu
-            //Texture btnMenuInv= new Texture("botones/BtnMenuN2Inv.png");
-            Texture btnMenuInv = juego.getManager().get("botones/BtnMenuN2Inv.png");
+            Texture btnMenuInv = juego.getManager().get("botones/BtnMenuN3Inv.png");
             TextureRegionDrawable trdBtMenuInv = new TextureRegionDrawable(new TextureRegion(btnMenuInv));
             //Inverso de Musica
-            //Texture btnMusicaInv= new Texture("botones/BtnMusicN2Inv.png");
-            Texture btnMusicaInv = juego.getManager().get("botones/BtnMusicN2Inv.png");
+            Texture btnMusicaInv = juego.getManager().get("botones/BtnMusic3Inv.png");
             TextureRegionDrawable trdBtMusicanv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
             //Inverso de Sonido
-            //Texture btnSonidoInv= new Texture("botones/BtnSonidoN2Inv.png");
-            Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN2Inv.png");
+            Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN3Inv.png");
             TextureRegionDrawable trdBtSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
             ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);
@@ -458,7 +370,7 @@ public class PantallaLucha3 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    estado= PantallaLucha3.EstadoJuego.JUGANDO;
+                    estado = PantallaLucha3.EstadoJuego.JUGANDO;
                     Gdx.input.setInputProcessor(escenaNivel3);
                     Gdx.app.log("Pausa","Reanuda");
                 }

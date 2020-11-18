@@ -47,6 +47,13 @@ public class PantallaLucha2 extends Pantalla {
     private float bateriaN2=100;
     private float vidaVillano2 = 100;
 
+    //Llamaradas
+    private Array<Llamaradas> arrLlamaradas;
+    private float timerCrearLlamarada;
+    private float TIEMPO_CREA_LLAMARADA = 1;
+    private float tiempoLlamarada = 1;
+    private Texture texturaLlamaradas;
+
     //Pocimas
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
@@ -81,9 +88,15 @@ public class PantallaLucha2 extends Pantalla {
         crearBolaMagica();
         crearSonido();
         crearTexto();
+        crearLlamaradas();
         crearPocima();
         ConfiguracionMusica();
 
+    }
+
+    private void crearLlamaradas() {
+        texturaLlamaradas = juego.getManager().get("Enemigos/llamaradas.png");
+        arrLlamaradas = new Array<>();
     }
 
     private void crearPocima() {
@@ -295,6 +308,7 @@ public class PantallaLucha2 extends Pantalla {
             personaje.render(batch);
             escenaNivel2.draw();
 
+            dibujarLlamaradas();
             dibujarBolasMagicas();
             dibujarVidaPersonaje();
             dibujarVidaVillano();
@@ -306,6 +320,14 @@ public class PantallaLucha2 extends Pantalla {
             escenaPausa.draw();
         }
 
+    }
+
+    private void dibujarLlamaradas() {
+        for (Llamaradas llamaradas :
+                arrLlamaradas) {
+            llamaradas.render(batch);
+            llamaradas.atacar();
+        }
     }
 
     private void dibujarPocimas() {
@@ -335,9 +357,35 @@ public class PantallaLucha2 extends Pantalla {
     private void actualizar() {
         actualizarProyectil();
         actualizarPocimas();
+        actualizarLlamaradas();
 
         verificarChoquesAEnemigo();
         verificarPocimaTomada();
+        verificarChoquesLlamaradaPersonaje();
+    }
+
+    private void verificarChoquesLlamaradaPersonaje() {
+        for (int i = arrLlamaradas.size-1; i>=0; i--) {
+            Llamaradas llamaradas = arrLlamaradas.get(i);
+            if (personaje.sprite.getBoundingRectangle().overlaps(llamaradas.sprite.getBoundingRectangle())) {
+                arrLlamaradas.removeIndex(i);
+                bateriaN2 -= 15;
+                break;
+            }
+        }
+    }
+
+    private void actualizarLlamaradas() {
+        timerCrearLlamarada += Gdx.graphics.getDeltaTime();
+        if (timerCrearLlamarada>=TIEMPO_CREA_LLAMARADA) {
+            timerCrearLlamarada = 0;
+            TIEMPO_CREA_LLAMARADA = tiempoLlamarada + MathUtils.random()*.4f;
+            if (tiempoLlamarada>2) {
+                tiempoLlamarada -= 1;
+            }
+            Llamaradas llamarada = new Llamaradas(texturaLlamaradas, 950, 400);
+            arrLlamaradas.add(llamarada);
+        }
     }
 
     private void actualizarPocimas() {
@@ -399,23 +447,20 @@ public class PantallaLucha2 extends Pantalla {
 
         //Sprites
         juego.getManager().unload("sprites/pilaP2.png");
-        juego.getManager().unload("sprites/pilaP2.png");
         juego.getManager().unload("sprites/personaje.png");
 
         //Proyectiles
         juego.getManager().unload("Proyectiles/bolasMagicas.png");
         juego.getManager().unload("Proyectiles/pocimaNivel2.png");
-        juego.getManager().unload("Proyectiles/flecha1.png");
 
         //Efectos
         juego.getManager().unload("Efectos/salto.mp3");
         juego.getManager().unload("Efectos/Flecha.mp3");
-        juego.getManager().unload("Efectos/bolaDeFuego.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
         juego.getManager().unload("Enemigos/Dragon1.PNG");
-        juego.getManager().unload("Enemigos/BolaDeFuego.png");
+        juego.getManager().unload("Enemigos/llamaradas.png");
 
         //Texto
         //manager.load("Texto/game.fnt", Texture.class);

@@ -23,8 +23,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-
-
 public class PantallaLucha1 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
@@ -537,7 +535,6 @@ public class PantallaLucha1 extends Pantalla {
 
         //Sprites
         juego.getManager().unload("sprites/pilaP.png");
-        juego.getManager().unload("sprites/pilaP.png");
         juego.getManager().unload("sprites/personaje.png");
 
         //Proyectiles
@@ -554,9 +551,6 @@ public class PantallaLucha1 extends Pantalla {
         //Enemigos
         juego.getManager().unload("Enemigos/Titan1.PNG");
         juego.getManager().unload("Enemigos/BolaDeFuego.png");
-
-        //Texto
-        //manager.load("Texto/game.fnt", Texture.class);
 
         //Botones
         juego.getManager().unload("botones/BtnPausa.png");
@@ -783,7 +777,7 @@ public class PantallaLucha1 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
                         btnAvanza.toFront();
                     }
                 }

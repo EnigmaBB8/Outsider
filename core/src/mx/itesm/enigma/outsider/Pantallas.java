@@ -12,5 +12,6 @@ public enum Pantallas {
     ACERCA_DE_KARLA,
     ACERDA_DE_MANUEL,
     NIVEL1,
-    NIVEL2
+    NIVEL2,
+    NIVEL3
 }
