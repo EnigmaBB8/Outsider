@@ -40,7 +40,7 @@ public class Personaje extends Objeto{
         timerAnimacion=0;
 
         //Salto
-        yBase = y;
+           yBase = y;
 
         estado = EstadoKAIM.CAMINANDO;
 

@@ -106,6 +106,20 @@ public class PantallaLucha1 extends Pantalla {
         crearSonido();
         crearPocima();
         configurarMusica();
+        configurarSoido();
+    }
+
+    private void configurarSoido() {
+        Preferences preferencias = Gdx.app.getPreferences("Sonido");
+        boolean Sonido = preferencias.getBoolean("GeneralSonido");
+        Gdx.app.log("SonidoC"," "+Sonido);
+        if(Sonido==true){
+            //Prender Sonido
+           efectoBolaDeFuego.play();
+           efectoFlecha.play();
+           efectoSalto.play();
+           efectoPocima.play();
+        }
     }
 
     private void configurarMusica() {
@@ -636,7 +650,7 @@ public class PantallaLucha1 extends Pantalla {
             TextureRegionDrawable trdBtMusicanv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
 
             //Inverso de Sonido
-            Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN1Inv.png");
+            final Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN1Inv.png");
             TextureRegionDrawable trdBtSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
             ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);
@@ -707,6 +721,27 @@ public class PantallaLucha1 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Gdx.app.log("SonidoB", " " + Sonido);
+                    if(Sonido==false) {
+                        //Prender Sonido
+                        btnSonido.setStyle(PrendidoSonido);
+                        efectoSalto.play();
+                        efectoBolaDeFuego.play();
+                        efectoFlecha.play();
+                        efectoPocima.play();
+                        preferencias.putBoolean("GeneralSonido",true);
+                    }else{
+                        //Apagar Sonido
+                        btnSonido.setStyle(ApagadoSonido);
+                        efectoSalto.stop();
+                        efectoBolaDeFuego.stop();
+                        efectoFlecha.stop();
+                        efectoPocima.stop();
+                        preferencias.putBoolean("GeneralSonido",false);
+                    }
+
                 }
             });
             this.addActor(btnReanuda);
