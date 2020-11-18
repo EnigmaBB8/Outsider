@@ -37,6 +37,7 @@ public class PantallaMenu extends Pantalla  {
             //Prender musica
             juego.reproducirMusica();
             juego.detenerMusicaN1();
+            juego.detenerMusicaN2();
         }
     }
 

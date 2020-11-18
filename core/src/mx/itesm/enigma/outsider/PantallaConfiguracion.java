@@ -35,8 +35,9 @@ public class PantallaConfiguracion extends Pantalla {
         Gdx.app.log("MUSICA 2"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
-            juego.reproducirMusicaNivel1();
-            juego.detenerMusica();
+            juego.reproducirMusica();
+            juego.detenerMusicaN1();
+            juego.detenerMusicaN2();
         }
     }
 
@@ -52,7 +53,7 @@ public class PantallaConfiguracion extends Pantalla {
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
-        btnNP.setPosition(ANCHO * .8f, ALTO * .25F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .8f, ALTO * .39F, Align.topLeft);
 
         btnNP.addListener(new ClickListener() {
             @Override
@@ -67,10 +68,10 @@ public class PantallaConfiguracion extends Pantalla {
 
 
         //Boton musica
-        Texture btnMusica = new Texture("botones/btnconfM.PNG");
+        Texture btnMusica = new Texture("botones/btnconfiguracionMusica.png");
         TextureRegionDrawable trdBtMusica = new TextureRegionDrawable(new TextureRegion(btnMusica));
         //inverso boton musica
-        Texture btnMusicaInv = new Texture("botones/btnconfMI.PNG");
+        Texture btnMusicaInv = new Texture("botones/btnconfiguracionMusicaInv.png");
         TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
         //Boton Música (Efecto Apagado/Encendido)
 
@@ -81,7 +82,7 @@ public class PantallaConfiguracion extends Pantalla {
         final ImageButton.ImageButtonStyle Apagado=new ImageButton.ImageButtonStyle(estiloApagado);
 
         final ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
-        btnM.setPosition(ANCHO * .65F, ALTO * .3F, Align.center);
+        btnM.setPosition(ANCHO * .53F, ALTO * .3F, Align.center);
 
 
         //Listener Música
@@ -113,7 +114,27 @@ public class PantallaConfiguracion extends Pantalla {
 
         escenaConf.addActor(btnM);
 
+        //Boton sonido
+        Texture btnSonido = new Texture("botones/btnconfiguracionSonido.png");
+        TextureRegionDrawable trdBtnSonido = new TextureRegionDrawable(new TextureRegion(btnSonido));
+        //inverso boton musica
+        Texture btnSonidoInv = new Texture("botones/btnconfiguracionSonidoInv.png");
+        TextureRegionDrawable trdBtnSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
+
+        //Boton Música (Efecto Apagado/Encendido)
+        final Button.ButtonStyle estiloPrendidoSonido = new Button.ButtonStyle(trdBtnSonido,trdBtnSonidoInv,null);
+        final Button.ButtonStyle estiloApagadosonido = new Button.ButtonStyle(trdBtnSonidoInv,trdBtnSonido,null);
+
+        final ImageButton.ImageButtonStyle PrendidoSonido = new ImageButton.ImageButtonStyle(estiloPrendidoSonido);
+        final ImageButton.ImageButtonStyle ApagadoSonido =new ImageButton.ImageButtonStyle(estiloApagadosonido);
+
+        final ImageButton btnS = new ImageButton(trdBtMusica, trdBtMusicaInv);
+        btnS.setPosition(ANCHO * .7F, ALTO * .3F, Align.center);
+
+        escenaConf.addActor(btnS);
         Gdx.input.setInputProcessor(escenaConf);
+
+        //Configuracion para la vista del boton Musica
     }
 
     @Override
@@ -139,8 +160,10 @@ public class PantallaConfiguracion extends Pantalla {
         juego.getManager().unload("fondos/fondoconfiguracion.png");
         juego.getManager().unload("botones/btnBack1.png");
         juego.getManager().unload("botones/btnBack.png");
-        juego.getManager().unload("botones/btnconfM.PNG");
-        juego.getManager().unload("botones/btnconfMI.PNG");
+        juego.getManager().unload("botones/btnconfiguracionMusica.png");
+        juego.getManager().unload("botones/btnconfiguracionMusicaInv.png");
+        juego.getManager().unload("botones/btnconfiguracionSonido.png");
+        juego.getManager().unload("botones/btnconfiguracionSonidoInv.png");
         batch.dispose();
     }
 }

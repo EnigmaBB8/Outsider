@@ -115,8 +115,9 @@ public class PantallaLucha2 extends Pantalla {
         Gdx.app.log("MUSICA 2"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
-            juego.reproducirMusicaNivel1();
+            juego.reproducirMusicaNivel2();
             juego.detenerMusica();
+            juego.detenerMusicaN1();
         }
     }
 
@@ -616,12 +617,14 @@ public class PantallaLucha2 extends Pantalla {
                     if(musicaFondo==false) {
                         //Prender musica
                         btnMusica.setStyle(PrendidoMusica);
-                        juego.reproducirMusicaNivel1();
+                        juego.reproducirMusicaNivel2();
                         juego.detenerMusica();
+                        juego.detenerMusicaN1();
                         preferencias.putBoolean("General",true);
                     }else{
                         btnMusica.setStyle(ApagadoMusica);
                         juego.detenerMusicaN1();
+                        juego.detenerMusicaN2();
                         juego.detenerMusica();
                         preferencias.putBoolean("General",false);
                     }

@@ -303,8 +303,10 @@ public class PantallaCargando extends Pantalla {
         //Botones
         manager.load("botones/btnBack1.png", Texture.class);
         manager.load("botones/btnBack.png", Texture.class);
-        manager.load("botones/btnconfM.PNG", Texture.class);
-        manager.load("botones/btnconfMI.PNG", Texture.class);
+        manager.load("botones/btnconfiguracionMusicaInv.png", Texture.class);
+        manager.load("botones/btnconfiguracionMusica.png", Texture.class);
+        manager.load("botones/btnconfiguracionSonidoInv.png", Texture.class);
+        manager.load("botones/btnconfiguracionSonido.png", Texture.class);
     }
 
     private void cargarRecursosReanudar() {
