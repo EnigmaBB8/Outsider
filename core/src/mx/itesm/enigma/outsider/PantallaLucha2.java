@@ -137,6 +137,7 @@ public class PantallaLucha2 extends Pantalla {
             juego.reproducirMusicaNivel2();
             juego.detenerMusica();
             juego.detenerMusicaN1();
+            juego.detenerMusicaN3();
         }
     }
 
@@ -714,6 +715,24 @@ public class PantallaLucha2 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Gdx.app.log("SonidoB", " " + Sonido);
+                    if (Sonido == false) {
+                        //Prender Sonido
+                        btnSonido.setStyle(PrendidoSonido);
+                        efectoSalto.play();
+                        efectoFlecha.play();
+                        efectoPocima.play();
+                        preferencias.putBoolean("GeneralSonido", true);
+                    } else {
+                        //Apagar Sonido
+                        btnSonido.setStyle(ApagadoSonido);
+                        efectoSalto.stop();
+                        efectoFlecha.stop();
+                        efectoPocima.stop();
+                        preferencias.putBoolean("GeneralSonido", false);
+                    }
                 }
             });
 

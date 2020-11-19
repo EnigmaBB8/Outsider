@@ -128,6 +128,8 @@ public class PantallaLucha1 extends Pantalla {
             //Prender musica
             juego.reproducirMusicaNivel1();
             juego.detenerMusica();
+            juego.detenerMusicaN2();
+            juego.detenerMusicaN3();
         }
     }
 

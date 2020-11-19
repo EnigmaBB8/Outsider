@@ -102,12 +102,16 @@ public class PantallaCargando extends Pantalla {
 
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bala.mp3", Sound.class);
         manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Proyectiles
         manager.load("Proyectiles/pocimaNivel3.png", Texture.class);
+        manager.load("Proyectiles/bala.png", Texture.class);
+
+        //Enemigos
+        manager.load("Enemigos/Titan1.PNG", Texture.class);
 
         //Botones
         manager.load("botones/BtnPausa3.png", Texture.class);
@@ -131,11 +135,21 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMusic3Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN3Inv.png", Texture.class);
 
+        manager.load("botones/omitir.png", Texture.class);
+        manager.load("botones/avanzar.png", Texture.class);
+
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/Flecha.mp3", Sound.class);
         manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
+
+        //Historieta
+        manager.load("Historieta/VNLvl2_1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_2.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_3.PNG", Texture.class);
+        manager.load("Historieta/VNLvl2_4.PNG", Texture.class);
+        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
     }
 
     private void cargarRecursosNivel2() {
@@ -394,7 +408,7 @@ public class PantallaCargando extends Pantalla {
                     juego.setScreen(new PantallaAyuda(juego));
                     break;
                 case HISTORIA:
-                    juego.setScreen(new PantallaH(juego));
+                    juego.setScreen(new PantallaHistoria(juego));
                     break;
                 case REANUDAR:
                     juego.setScreen(new PantallaReanudar(juego));

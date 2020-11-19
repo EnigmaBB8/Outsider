@@ -104,6 +104,8 @@ public class PantallaConfiguracion extends Pantalla {
                     btnM.setStyle(Apagado);
                     juego.detenerMusica();
                     juego.detenerMusicaN1();
+                    juego.detenerMusicaN2();
+                    juego.detenerMusicaN3();
                     preferencias.putBoolean("General",false);
                 }
                 preferencias.flush();
@@ -117,18 +119,18 @@ public class PantallaConfiguracion extends Pantalla {
         //Boton sonido
         Texture btnSonido = new Texture("botones/btnconfiguracionSonido.png");
         TextureRegionDrawable trdBtnSonido = new TextureRegionDrawable(new TextureRegion(btnSonido));
-        //inverso boton musica
+        //inverso boton sonido
         Texture btnSonidoInv = new Texture("botones/btnconfiguracionSonidoInv.png");
         TextureRegionDrawable trdBtnSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
-        //Boton Música (Efecto Apagado/Encendido)
+        //Boton Sonido (Efecto Apagado/Encendido)
         final Button.ButtonStyle estiloPrendidoSonido = new Button.ButtonStyle(trdBtnSonido,trdBtnSonidoInv,null);
         final Button.ButtonStyle estiloApagadosonido = new Button.ButtonStyle(trdBtnSonidoInv,trdBtnSonido,null);
 
         final ImageButton.ImageButtonStyle PrendidoSonido = new ImageButton.ImageButtonStyle(estiloPrendidoSonido);
         final ImageButton.ImageButtonStyle ApagadoSonido =new ImageButton.ImageButtonStyle(estiloApagadosonido);
 
-        final ImageButton btnS = new ImageButton(trdBtMusica, trdBtMusicaInv);
+        final ImageButton btnS = new ImageButton(trdBtnSonido, trdBtnSonidoInv);
         btnS.setPosition(ANCHO * .7F, ALTO * .3F, Align.center);
 
         escenaConf.addActor(btnS);

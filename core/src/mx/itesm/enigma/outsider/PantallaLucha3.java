@@ -30,9 +30,13 @@ public class PantallaLucha3 extends Pantalla {
     private Personaje personaje;
     private Texture texturaPersonaje;
 
+    //Villano
+    private Villano villano;
+    private Texture texturaVillano;
+
     // Proyectil
     private Texture texturaProyectil;
-    private Array<BolasMagicas> arrBolasMagicas;
+    private Array<Proyectil> arrProyectil;
 
     //Pocimas
     private Texture texturaPocima;
@@ -43,7 +47,7 @@ public class PantallaLucha3 extends Pantalla {
 
     //Sonidos
     private Sound efectoSalto;
-    private Sound efectoFlecha;
+    private Sound efectoBala;
     private Sound efectoPocima;
 
     //Texto
@@ -75,17 +79,29 @@ public class PantallaLucha3 extends Pantalla {
         crearTexto();
         crearPocima();
         configurarMusica();
+        crearProyectil();
         crearSonido();
+        crearVillano();
+    }
+
+    private void crearVillano() {
+        texturaVillano = juego.getManager().get("Enemigos/Titan1.PNG");
+        villano=new Villano(texturaVillano);
+    }
+
+    private void crearProyectil() {
+        texturaProyectil = juego.getManager().get("Proyectiles/bala.png");
+        arrProyectil = new Array<>();
     }
 
     private void crearSonido() {
         AssetManager manager = new AssetManager();
         manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bala.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
-        efectoFlecha = manager.get("Efectos/Flecha.mp3");
+        efectoBala = manager.get("Efectos/bala.mp3");
         efectoPocima = manager.get("Efectos/pocima.mp3");
     }
 
@@ -100,8 +116,10 @@ public class PantallaLucha3 extends Pantalla {
         Gdx.app.log("MUSICA 3"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
-            juego.reproducirMusicaNivel1();
+            juego.reproducirMusicaNivel3();
             juego.detenerMusica();
+            juego.detenerMusicaN2();
+            juego.detenerMusicaN1();
         }
     }
 
@@ -218,11 +236,15 @@ public class PantallaLucha3 extends Pantalla {
         bntDisparas.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
-                if (arrBolasMagicas.size < 5) {
-                    BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
-                    arrBolasMagicas.add(BolasMagicas);
-                    efectoFlecha.play();
-
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                if (arrProyectil.size < 5) {
+                    Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
+                            personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
+                    arrProyectil.add(proyectil);
+                    if(Sonido==true) {
+                        efectoBala.play();
+                    }
                 } }
         });
         //Pausa
@@ -269,12 +291,13 @@ public class PantallaLucha3 extends Pantalla {
             batch.draw(pilaP3,ANCHO*0.03f,ALTO*0.83f);
             batch.draw(pilaV3,ANCHO*0.8f,ALTO*0.83f);
             personaje.render(batch);
+            villano.render(batch);
             escenaNivel3.draw();
 
             dibujarVidaPersonaje();
             dibujarVidaVillano();
             dibujarPocimas();
-
+            dibujarProyectil();
             batch.end();
 
         }else if(estado == PantallaLucha3.EstadoJuego.PAUSADO){
@@ -289,6 +312,13 @@ public class PantallaLucha3 extends Pantalla {
             escenaPerdio.draw();
         }
 
+    }
+
+    private void dibujarProyectil() {
+        for (Proyectil proyectil :
+                arrProyectil) {
+            proyectil.render(batch);
+        }
     }
 
     private void dibujarPocimas() {
@@ -311,8 +341,41 @@ public class PantallaLucha3 extends Pantalla {
 
     private void actualizar() {
         actualizarPocimas();
+        actualizarProyectil();
 
         verificarPocimaTomada();
+        verificarChoquesAEnemigo();
+    }
+
+    private void actualizarProyectil() {
+        for (int i=arrProyectil.size-1; i>=0; i--) {
+            Proyectil proyectil = arrProyectil.get(i);
+            proyectil.moverDerecha();
+            proyectil.caida();
+            if (proyectil.sprite.getX()>ANCHO) {
+                arrProyectil.removeIndex(i);
+            }
+        }
+    }
+
+    private void verificarChoquesAEnemigo() {
+        for (int i=arrProyectil.size-1; i>=0; i--) {
+            Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
+            // COLISION!!!
+            if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
+                arrProyectil.removeIndex(i);
+                // Descontar puntos
+                vidaVillanoN3 -= 100;
+                break;
+            } else if (vidaVillanoN3 == 0) {
+                estado = PantallaLucha3.EstadoJuego.GANANDO1;
+                villano.setEstado(EstadoVillano.MUERTO);
+                if (escenaGanando == null) {
+                    escenaGanando = new PantallaLucha3.EscenaGanando(vista, batch);
+                }
+                Gdx.input.setInputProcessor(escenaGanando);
+            }
+        }
     }
 
     private void verificarPocimaTomada() {
@@ -365,6 +428,10 @@ public class PantallaLucha3 extends Pantalla {
 
         //Proyectiles
         juego.getManager().unload("Proyectiles/pocimaNivel3.png");
+        juego.getManager().unload("Proyectiles/bala.png");
+
+        //Enemigos
+        juego.getManager().unload("Enemigos/Titan1.PNG");
 
         //Botones
         juego.getManager().unload("botones/BtnPausa3.png");
@@ -386,10 +453,12 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("botones/BtnMenuN3Inv.png");
         juego.getManager().unload("botones/BtnMusic3Inv.png");
         juego.getManager().unload("botones/BtnSonidoN3Inv.png");
+        juego.getManager().unload("botones/omitir.png");
+        juego.getManager().unload("botones/avanzar.png");
 
         //Efectos
         juego.getManager().unload("Efectos/salto.mp3");
-        juego.getManager().unload("Efectos/Flecha.mp3");
+        juego.getManager().unload("Efectos/bala.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
     }
 
@@ -485,19 +554,22 @@ public class PantallaLucha3 extends Pantalla {
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
                     Gdx.app.log("MUSICA 3", " " + musicaFondo);
                     if(musicaFondo==false) {
                         //Prender musica
                         btnMusica.setStyle(PrendidoMusica);
-                        juego.reproducirMusicaNivel1();
+                        juego.reproducirMusicaNivel3();
+                        juego.detenerMusicaN2();
+                        juego.detenerMusicaN1();
                         juego.detenerMusica();
                         preferencias.putBoolean("General",true);
                     }else{
                         btnMusica.setStyle(ApagadoMusica);
                         juego.detenerMusicaN1();
+                        juego.detenerMusicaN2();
+                        juego.detenerMusicaN3();
                         juego.detenerMusica();
                         preferencias.putBoolean("General",false);
                     }
@@ -507,6 +579,24 @@ public class PantallaLucha3 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Gdx.app.log("SonidoB", " " + Sonido);
+                    if(Sonido==false) {
+                        //Prender Sonido
+                        btnSonido.setStyle(PrendidoSonido);
+                        efectoSalto.play();
+                        efectoBala.play();
+                        efectoPocima.play();
+                        preferencias.putBoolean("GeneralSonido",true);
+                    }else{
+                        //Apagar Sonido
+                        btnSonido.setStyle(ApagadoSonido);
+                        efectoSalto.stop();
+                        efectoBala.stop();
+                        efectoPocima.stop();
+                        preferencias.putBoolean("GeneralSonido",false);
+                    }
                 }
             });
 
@@ -578,7 +668,7 @@ public class PantallaLucha3 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == PantallaLucha3.EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                         btnAvanza.toFront();
                     }
                 }
@@ -607,7 +697,7 @@ public class PantallaLucha3 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL1));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
                 }
             });
             this.addActor(btnJugarDeNuevoNivel);

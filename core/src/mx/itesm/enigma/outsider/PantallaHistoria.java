@@ -11,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 
-public class PantallaH extends Pantalla {
+public class PantallaHistoria extends Pantalla {
     private Juego juego;
     private Texture fondoHistoria;
     private Stage escenaHistoria;
-    public PantallaH(Juego juego) {
+    public PantallaHistoria(Juego juego) {
         this.juego=juego;
     }
 
