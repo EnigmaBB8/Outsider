@@ -360,7 +360,7 @@ public class PantallaLucha1 extends Pantalla {
             dibujarPiedras();
 
             batch.end();
-        }else if(estado==EstadoJuego.PAUSADO){
+        } else if(estado == EstadoJuego.PAUSADO){
             escenaPausa.draw();
         } else if (estado == EstadoJuego.GANANDO1 || estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
                 || estado == EstadoJuego.GANANDO4) {
@@ -823,7 +823,7 @@ public class PantallaLucha1 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
                         btnAvanza.toFront();
                     }
                 }

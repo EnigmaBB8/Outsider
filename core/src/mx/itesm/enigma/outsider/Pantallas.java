@@ -13,5 +13,6 @@ public enum Pantallas {
     ACERDA_DE_MANUEL,
     NIVEL1,
     NIVEL2,
-    NIVEL3
+    NIVEL3,
+    NIVEL4
 }
