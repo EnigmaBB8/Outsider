@@ -368,10 +368,10 @@ public class PantallaLucha3 extends Pantalla {
                 vidaVillanoN3 -= 100;
                 break;
             } else if (vidaVillanoN3 == 0) {
-                estado = PantallaLucha3.EstadoJuego.GANANDO1;
+                estado = EstadoJuego.GANANDO1;
                 villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaGanando == null) {
-                    escenaGanando = new PantallaLucha3.EscenaGanando(vista, batch);
+                    escenaGanando = new EscenaGanando(vista, batch);
                 }
                 Gdx.input.setInputProcessor(escenaGanando);
             }
@@ -430,6 +430,11 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("Proyectiles/pocimaNivel3.png");
         juego.getManager().unload("Proyectiles/bala.png");
 
+        //Efectos
+        juego.getManager().unload("Efectos/salto.mp3");
+        juego.getManager().unload("Efectos/bala.mp3");
+        juego.getManager().unload("Efectos/pocima.mp3");
+
         //Enemigos
         juego.getManager().unload("Enemigos/Titan1.PNG");
 
@@ -455,11 +460,15 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN3Inv.png");
         juego.getManager().unload("botones/omitir.png");
         juego.getManager().unload("botones/avanzar.png");
+        juego.getManager().unload("botones/PlayAgain.png");
 
-        //Efectos
-        juego.getManager().unload("Efectos/salto.mp3");
-        juego.getManager().unload("Efectos/bala.mp3");
-        juego.getManager().unload("Efectos/pocima.mp3");
+        //Historieta
+        juego.getManager().unload("Historieta/VNLvl2_1.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_2.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_3.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_4.PNG");
+
+        juego.getManager().unload("Historieta/perdistelvl1.PNG");
     }
 
     //Estados Juego
@@ -629,7 +638,7 @@ public class PantallaLucha3 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
             this.addActor(btnOmitirFinal);

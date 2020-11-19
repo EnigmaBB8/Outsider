@@ -23,18 +23,18 @@ public class PantallaAcercaDeKarla extends Pantalla {
 
     @Override
     public void show() {
-        fondoAyuda = new Texture("fondos/fondoacercadeK.png");
+        fondoAyuda = juego.getManager().get("fondos/fondoacercadeK.png");
         crearpantallaAyuda();
     }
 
     private void crearpantallaAyuda() {
         escenaAyuda = new Stage(vista);
         ///Boton de regreso a acerca de
-        Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
+        Texture btnNuevaPartida = juego.getManager().get("botones/btnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Inverso de boton de regreso a acerca de
-        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
+        Texture btnNuevaPartidaInv = juego.getManager().get("botones/btnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);

@@ -3,6 +3,7 @@ package mx.itesm.enigma.outsider;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.utils.TextureBinder;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -22,7 +23,8 @@ public class PantallaAcercaDe extends Pantalla {
 
     @Override
     public void show() {
-        fondoAcercaDe = new Texture("fondos/fondoacercade.png");
+        //fondoAcercaDe = new Texture("fondos/fondoacercade.png");
+        fondoAcercaDe = juego.getManager().get("fondos/fondoacercade.png");
         crearPantallaAD();
     }
 
@@ -34,27 +36,33 @@ public class PantallaAcercaDe extends Pantalla {
          */
 
         ///Boton de regreso a menu
-        Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
+        //Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
+        Texture btnNuevaPartida = juego.getManager().get("botones/btnBack1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton acerca de Karla
-        Texture btnADKarla = new Texture("botones/AD_Karla1.png");
+        //Texture btnADKarla = new Texture("botones/AD_Karla1.png");
+        Texture btnADKarla = juego.getManager().get("botones/AD_Karla1.png");
         TextureRegionDrawable trdBtnADKarla = new TextureRegionDrawable(new TextureRegion(btnADKarla));
 
         //Boton acerca de Manuel
-        Texture btnADManuel = new Texture("botones/AD_Manuel1.png");
+        //Texture btnADManuel = new Texture("botones/AD_Manuel1.png");
+        Texture btnADManuel = juego.getManager().get("botones/AD_Manuel1.png");
         TextureRegionDrawable trdBtnManuel = new TextureRegionDrawable(new TextureRegion(btnADManuel));
 
         //Boton acerca de Itzel
-        Texture btnADItzel = new Texture("botones/AD_Itzel1.png");
+        //Texture btnADItzel = new Texture("botones/AD_Itzel1.png");
+        Texture btnADItzel = juego.getManager().get("botones/AD_Itzel1.png");
         TextureRegionDrawable trdBtnItzel = new TextureRegionDrawable(new TextureRegion(btnADItzel));
 
         //Boton acerca de Abraham
-        Texture btnADAbraham = new Texture("botones/AD_Abraham1.png");
+        //Texture btnADAbraham = new Texture("botones/AD_Abraham1.png");
+        Texture btnADAbraham = juego.getManager().get("botones/AD_Abraham1.png");
         TextureRegionDrawable trdBtnAbraham = new TextureRegionDrawable(new TextureRegion(btnADAbraham));
 
         ///Boton de Historia
-        Texture btnHistoria = new Texture("botones/BtnHistory.png");
+        //Texture btnHistoria = new Texture("botones/BtnHistory.png");
+        Texture btnHistoria = juego.getManager().get("botones/BtnHistory.png");
         TextureRegionDrawable trdBtHistoria = new TextureRegionDrawable(new TextureRegion(btnHistoria));
 
         /*
@@ -62,27 +70,33 @@ public class PantallaAcercaDe extends Pantalla {
          */
 
         //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
+        //Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
+        Texture btnNuevaPartidaInv = juego.getManager().get("botones/btnBack.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de boton de Acerca de Karla
-        Texture btnADKarlaInv = new Texture("botones/AD_Karla.png");
+        //Texture btnADKarlaInv = new Texture("botones/AD_Karla.png");
+        Texture btnADKarlaInv = juego.getManager().get("botones/AD_Karla.png");
         TextureRegionDrawable trdBtnADKarlaInv = new TextureRegionDrawable(new TextureRegion(btnADKarlaInv));
 
         //Inverso de boton de Acerca de Manuel
-        Texture btnADManuelInv = new Texture("botones/AD_Manuel.png");
+        //Texture btnADManuelInv = new Texture("botones/AD_Manuel.png");
+        Texture btnADManuelInv = juego.getManager().get("botones/AD_Manuel.png");
         TextureRegionDrawable trdBtnManuelInv = new TextureRegionDrawable(new TextureRegion(btnADManuelInv));
 
         //Inverso de boton de Acerca de Itzel
-        Texture btnADItzelInv = new Texture("botones/AD_Itzel.png");
+        //Texture btnADItzelInv = new Texture("botones/AD_Itzel.png");
+        Texture btnADItzelInv = juego.getManager().get("botones/AD_Itzel.png");
         TextureRegionDrawable trdBtnItzelInv = new TextureRegionDrawable(new TextureRegion(btnADItzelInv));
 
         //Inverso de boton de Acerca de Abraham
-        Texture btnADAbrahamInv = new Texture("botones/AD_Abraham.png");
+        //Texture btnADAbrahamInv = new Texture("botones/AD_Abraham.png");
+        Texture btnADAbrahamInv = juego.getManager().get("botones/AD_Abraham.png");
         TextureRegionDrawable trdBtnAbrahmInv = new TextureRegionDrawable(new TextureRegion(btnADAbrahamInv));
 
         //Inverso de Historia
-        Texture btnHistoriInv = new Texture("botones/BtnHistory1.png");
+        //Texture btnHistoriInv = new Texture("botones/BtnHistory1.png");
+        Texture btnHistoriInv = juego.getManager().get("botones/BtnHistory1.png");
         TextureRegionDrawable trdBtHistoriaInv = new TextureRegionDrawable(new TextureRegion(btnHistoriInv ));
 
         /*

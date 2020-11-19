@@ -565,6 +565,7 @@ public class PantallaLucha1 extends Pantalla {
 
         //Sprites
         juego.getManager().unload("sprites/pilaP.png");
+        juego.getManager().unload("sprites/pilaP.png");
         juego.getManager().unload("sprites/personaje.png");
 
         //Proyectiles
@@ -581,6 +582,9 @@ public class PantallaLucha1 extends Pantalla {
         //Enemigos
         juego.getManager().unload("Enemigos/Titan1.PNG");
         juego.getManager().unload("Enemigos/BolaDeFuego.png");
+
+        //Texto
+        juego.getManager().unload("Texto/game.fnt");
 
         //Botones
         juego.getManager().unload("botones/BotonIzquierda.png");
@@ -613,6 +617,7 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("Historieta/VNLvl1_4.PNG");
 
         juego.getManager().unload("Historieta/perdistelvl1.PNG");
+
         batch.dispose();
     }
 

@@ -528,6 +528,7 @@ public class PantallaLucha2 extends Pantalla {
 
         //Sprites
         juego.getManager().unload("sprites/pilaP2.png");
+        juego.getManager().unload("sprites/pilaP2.png");
         juego.getManager().unload("sprites/personaje.png");
 
         //Proyectiles
@@ -537,6 +538,7 @@ public class PantallaLucha2 extends Pantalla {
         //Efectos
         juego.getManager().unload("Efectos/salto.mp3");
         juego.getManager().unload("Efectos/Flecha.mp3");
+        juego.getManager().unload("Efectos/bolaDeFuego.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
@@ -545,7 +547,7 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("Enemigos/aspas.png");
 
         //Texto
-        //manager.load("Texto/game.fnt", Texture.class);
+        juego.getManager().unload("Texto/game.fnt");
 
         //Botones
         juego.getManager().unload("botones/BtnPausa2.png");
@@ -569,6 +571,8 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN2Inv.png");
 
         juego.getManager().unload("botones/avanzar.png");
+        juego.getManager().unload("botones/omitir.png");
+        juego.getManager().unload("botones/PlayAgain.png");
 
         //Historieta
         juego.getManager().unload("Historieta/VNLvl2_1.PNG");
@@ -779,31 +783,31 @@ public class PantallaLucha2 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    if (estado == PantallaLucha2.EstadoJuego.GANANDO1) {
-                        estado = PantallaLucha2.EstadoJuego.GANANDO2;
+                    if (estado == EstadoJuego.GANANDO1) {
+                        estado = EstadoJuego.GANANDO2;
                         Gdx.app.log("Ganando2", "Sí cambia");
                         //Texture textura2 = new Texture("Historieta/VNLvl1_2.PNG");
                         Texture textura2 = juego.getManager().get("Historieta/VNLvl2_2.PNG");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura2);
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
-                    } else if (estado == PantallaLucha2.EstadoJuego.GANANDO2) {
-                        estado = PantallaLucha2.EstadoJuego.GANANDO3;
+                    } else if (estado == EstadoJuego.GANANDO2) {
+                        estado = EstadoJuego.GANANDO3;
                         Gdx.app.log("Ganando3", "Sí cambia");
                         //Texture textura3 = new Texture("Historieta/VNLvl1_3.PNG");
                         Texture textura3 = juego.getManager().get("Historieta/VNLvl2_3.PNG");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura3);
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
-                    } else if (estado == PantallaLucha2.EstadoJuego.GANANDO3) {
-                        estado = PantallaLucha2.EstadoJuego. GANANDO4;
+                    } else if (estado == EstadoJuego.GANANDO3) {
+                        estado = EstadoJuego. GANANDO4;
                         Gdx.app.log("Ganando4", "Sí cambia");
                         //Texture textura4 = new Texture("Historieta/VNLvl1_4.PNG");
                         Texture textura4 = juego.getManager().get("Historieta/VNLvl2_4.PNG");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura4);
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
-                    } else if (estado == PantallaLucha2.EstadoJuego.GANANDO4) {
+                    } else if (estado == EstadoJuego.GANANDO4) {
                         juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
                         btnAvanza.toFront();
                     }
@@ -833,7 +837,7 @@ public class PantallaLucha2 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL1));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
                 }
             });
             this.addActor(btnJugarDeNuevoNivel);
