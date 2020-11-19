@@ -42,7 +42,9 @@ public class Personaje extends Objeto{
         //Salto
            yBase = y;
 
-        estado = EstadoKAIM.CAMINANDO;
+        estado = EstadoKAIM.QUIETO;
+        //estado=EstadoKAIM.CAMINANDO;
+
 
         //Dirección de desplazamiento
         estadoCaminando = EstadoCaminando.QUIETO;
@@ -60,11 +62,31 @@ public class Personaje extends Objeto{
     }
 
 
-    public  void render(SpriteBatch batch){
+    public  void render(SpriteBatch batch) {
         actualizar();
-        float delta= Gdx.graphics.getDeltaTime();
-        timerAnimacion +=delta;//calcula
-        if(estado == EstadoKAIM.CAMINANDO) {
+        float delta = Gdx.graphics.getDeltaTime();
+        timerAnimacion += delta;//calcula
+        if(estado==EstadoKAIM.QUIETO){
+            sprite.setY(yBase);
+
+            if(estadoCaminando == EstadoCaminando.DERECHA && sprite.isFlipX()){
+                sprite.flip(true,false);
+
+            }else if(estadoCaminando == EstadoCaminando.IZQUIERDA && !sprite.isFlipX()) {
+                sprite.flip(true, false);
+
+            }else if(estadoCaminando==EstadoCaminando.QUIETO_DERECHA && sprite.isFlipX()){
+                sprite.flip(true, false);
+
+            }else if(estadoCaminando==EstadoCaminando.QUIETO_IZQUIERDA && !sprite.isFlipX()){
+                sprite.flip(true, false);
+
+            }else{
+                sprite.flip(false,false);
+            }
+            batch.draw(sprite,sprite.getX(),sprite.getY());
+
+    }else if(estado == EstadoKAIM.CAMINANDO) {
             TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
             //derecha e izquierda
             if(estadoCaminando == EstadoCaminando.DERECHA && frame.isFlipX()){
@@ -102,9 +124,6 @@ public class Personaje extends Objeto{
                 sprite.setY(yBase);
                 estado = EstadoKAIM.CAMINANDO;
             }
-        }else{
-            sprite.setY(yBase);
-            batch.draw(sprite,sprite.getX(),sprite.getY());
         }
     }
 
@@ -132,5 +151,9 @@ public class Personaje extends Objeto{
 
     public void setEstadoCaminando(EstadoCaminando nuevoEstado) {
         estadoCaminando = nuevoEstado;
+    }
+
+    public void setEstado(EstadoKAIM nuevoEstadoKAIM){
+        estado=nuevoEstadoKAIM;
     }
 }
