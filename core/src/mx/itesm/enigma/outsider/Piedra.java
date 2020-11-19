@@ -15,6 +15,5 @@ public class Piedra extends Objeto {
         float lapso = Gdx.graphics.getDeltaTime();
         float dy = VY*lapso;
         sprite.setY(sprite.getY() - dy);
-
     }
 }

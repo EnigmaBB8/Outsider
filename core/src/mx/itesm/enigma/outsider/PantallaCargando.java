@@ -106,6 +106,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
 
+        //Proyectiles
+        manager.load("Proyectiles/pocimaNivel3.png", Texture.class);
+
         //Botones
         manager.load("botones/BtnPausa3.png", Texture.class);
         manager.load("botones/BotonIzquierda.png", Texture.class);
@@ -127,6 +130,12 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMenuN3Inv.png", Texture.class);
         manager.load("botones/BtnMusic3Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN3Inv.png", Texture.class);
+
+        //Efectos
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
     }
 
     private void cargarRecursosNivel2() {
@@ -151,6 +160,7 @@ public class PantallaCargando extends Pantalla {
         //Enemigos
         manager.load("Enemigos/Dragon1.PNG", Texture.class);
         manager.load("Enemigos/llamaradas.png", Texture.class);
+        manager.load("Enemigos/aspas.png", Texture.class);
 
         //Botones
         manager.load("botones/BtnPausa2.png", Texture.class);
@@ -210,7 +220,6 @@ public class PantallaCargando extends Pantalla {
         //manager.load("Texto/game.fnt", Texture.class);
 
         //Botones
-        manager.load("botones/BtnPausa.png", Texture.class);
         manager.load("botones/BotonIzquierda.png", Texture.class);
         manager.load("botones/BotonDerecha.png", Texture.class);
         manager.load("botones/BotonSaltar.png", Texture.class);

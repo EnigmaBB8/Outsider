@@ -68,6 +68,13 @@ public class PantallaLucha2 extends Pantalla {
     //Sonidos
     private Sound efectoPocima;
 
+    //Aspas
+    private Texture texturaAspas;
+    private Array<Aspas> arrAspas;
+    private float timerCrearAspas;
+    private float TIEMPO_CREA_ASPAS = 10;
+    private float tiempoAspas = 10;
+
 
     public PantallaLucha2(Juego juego) {
         this.juego = juego;
@@ -90,8 +97,14 @@ public class PantallaLucha2 extends Pantalla {
         crearTexto();
         crearLlamaradas();
         crearPocima();
+        crearAspas();
         ConfiguracionMusica();
 
+    }
+
+    private void crearAspas() {
+        texturaAspas = juego.getManager().get("Enemigos/aspas.png");
+        arrAspas= new Array<>();
     }
 
     private void crearLlamaradas() {
@@ -218,12 +231,14 @@ public class PantallaLucha2 extends Pantalla {
         bntDerecha.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstado(EstadoKAIM.CAMINANDO);
                 personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
+                personaje.setEstado(EstadoKAIM.QUIETO);
             }
         });
 
@@ -231,12 +246,14 @@ public class PantallaLucha2 extends Pantalla {
         btnIzquierda.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstado(EstadoKAIM.CAMINANDO);
                 personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
+                personaje.setEstado(EstadoKAIM.QUIETO);
             }
         });
 
@@ -314,6 +331,7 @@ public class PantallaLucha2 extends Pantalla {
             dibujarVidaPersonaje();
             dibujarVidaVillano();
             dibujarPocimas();
+            dibujarAspas();
 
             batch.end();
 
@@ -321,6 +339,14 @@ public class PantallaLucha2 extends Pantalla {
             escenaPausa.draw();
         }
 
+    }
+
+    private void dibujarAspas() {
+        for (Aspas aspas :
+                arrAspas) {
+            aspas.render(batch);
+            aspas.atacar();
+        }
     }
 
     private void dibujarLlamaradas() {
@@ -359,10 +385,36 @@ public class PantallaLucha2 extends Pantalla {
         actualizarProyectil();
         actualizarPocimas();
         actualizarLlamaradas();
+        actualizarAspas();
 
         verificarChoquesAEnemigo();
         verificarPocimaTomada();
         verificarChoquesLlamaradaPersonaje();
+        verficarChoquesAspas();
+    }
+
+    private void verficarChoquesAspas() {
+        for (int i = arrAspas.size-1; i>=0; i--) {
+            Aspas aspas = arrAspas.get(i);
+            if (personaje.sprite.getBoundingRectangle().overlaps(aspas.sprite.getBoundingRectangle())) {
+                arrAspas.removeIndex(i);
+                bateriaN2 -= 8;
+                break;
+            }
+        }
+    }
+
+    private void actualizarAspas() {
+        timerCrearAspas += Gdx.graphics.getDeltaTime();
+        if (timerCrearAspas>=TIEMPO_CREA_ASPAS) {
+            timerCrearAspas = 0;
+            TIEMPO_CREA_ASPAS = tiempoAspas + MathUtils.random()*.4f;
+            if (tiempoAspas>2) {
+                tiempoAspas -= 1;
+            }
+            Aspas aspas = new Aspas(texturaAspas, 0, 120);
+            arrAspas.add(aspas);
+        }
     }
 
     private void verificarChoquesLlamaradaPersonaje() {
@@ -462,6 +514,7 @@ public class PantallaLucha2 extends Pantalla {
         //Enemigos
         juego.getManager().unload("Enemigos/Dragon1.PNG");
         juego.getManager().unload("Enemigos/llamaradas.png");
+        juego.getManager().unload("Enemigos/aspas.png");
 
         //Texto
         //manager.load("Texto/game.fnt", Texture.class);

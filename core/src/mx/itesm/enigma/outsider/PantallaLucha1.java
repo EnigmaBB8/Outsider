@@ -64,7 +64,6 @@ public class PantallaLucha1 extends Pantalla {
     //Sonidos
     private Sound efectoSalto;
     private Sound efectoFlecha;
-    private Sound efectoBolaDeFuego;
     private Sound efectoPocima;
 
     //Pocimas
@@ -115,7 +114,6 @@ public class PantallaLucha1 extends Pantalla {
         Gdx.app.log("SonidoC"," "+Sonido);
         if(Sonido==true){
             //Prender Sonido
-           efectoBolaDeFuego.play();
            efectoFlecha.play();
            efectoSalto.play();
            efectoPocima.play();
@@ -153,7 +151,6 @@ public class PantallaLucha1 extends Pantalla {
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
         efectoFlecha = manager.get("Efectos/Flecha.mp3");
-        efectoBolaDeFuego = manager.get("Efectos/bolaDeFuego.mp3");
         efectoPocima = manager.get("Efectos/pocima.mp3");
     }
 
@@ -189,7 +186,7 @@ public class PantallaLucha1 extends Pantalla {
         escenaNivel1 = new Stage(vista);
         ///Boton de Pausa
         //Texture btnNuevaPartida = new Texture("botones/BtnPausa.png");
-        Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa.png");
+        Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton Izquierda
@@ -295,6 +292,7 @@ public class PantallaLucha1 extends Pantalla {
                 }
             }
         });
+
         // Disparo
         bntDisparas.addListener(new ClickListener() {
             @Override
@@ -583,7 +581,6 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("Enemigos/BolaDeFuego.png");
 
         //Botones
-        juego.getManager().unload("botones/BtnPausa.png");
         juego.getManager().unload("botones/BotonIzquierda.png");
         juego.getManager().unload("botones/BotonDerecha.png");
         juego.getManager().unload("botones/BotonSaltar.png");
@@ -687,10 +684,10 @@ public class PantallaLucha1 extends Pantalla {
             final ImageButton.ImageButtonStyle ApagadoSonido=new ImageButton.ImageButtonStyle(estiloApagadoSonido);
             final ImageButton btnSonido = new ImageButton(trSonido,trdBtSonidoInv);
 
-            btnSonido.setPosition(ANCHO * .82f, ALTO *0.65f, Align.top);
-            btnMusica.setPosition(ANCHO * .62f, ALTO *0.65f, Align.top);
-            btnReanuda.setPosition(ANCHO * .10f, ALTO *0.65f, Align.topLeft);
-            btnMenu.setPosition(ANCHO * .32f, ALTO *0.65f, Align.topLeft);
+            btnSonido.setPosition(ANCHO * .82f, ALTO *0.60f, Align.top);
+            btnMusica.setPosition(ANCHO * .62f, ALTO *0.60f, Align.top);
+            btnReanuda.setPosition(ANCHO * .10f, ALTO *0.60f, Align.topLeft);
+            btnMenu.setPosition(ANCHO * .32f, ALTO *0.60f, Align.topLeft);
 
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
@@ -744,7 +741,6 @@ public class PantallaLucha1 extends Pantalla {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
                         efectoSalto.play();
-                        efectoBolaDeFuego.play();
                         efectoFlecha.play();
                         efectoPocima.play();
                         preferencias.putBoolean("GeneralSonido",true);
@@ -752,7 +748,6 @@ public class PantallaLucha1 extends Pantalla {
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
                         efectoSalto.stop();
-                        efectoBolaDeFuego.stop();
                         efectoFlecha.stop();
                         efectoPocima.stop();
                         preferencias.putBoolean("GeneralSonido",false);

@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -33,9 +34,17 @@ public class PantallaLucha3 extends Pantalla {
     private Texture texturaProyectil;
     private Array<BolasMagicas> arrBolasMagicas;
 
+    //Pocimas
+    private Texture texturaPocima;
+    private Array<Pocimas> arrPocimas;
+    private float timerCrearPocima;
+    private float TIEMPO_CREA_POCIMA = 7;
+    private float tiempoPocima = 10;
+
     //Sonidos
     private Sound efectoSalto;
     private Sound efectoFlecha;
+    private Sound efectoPocima;
 
     //Texto
     private Texto texto;
@@ -58,7 +67,25 @@ public class PantallaLucha3 extends Pantalla {
         crearNivel3();
         crearPersonaje();
         crearTexto();
+        crearPocima();
         configurarMusica();
+        crearSonido();
+    }
+
+    private void crearSonido() {
+        AssetManager manager = new AssetManager();
+        manager.load("Efectos/salto.mp3", Sound.class);
+        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/pocima.mp3", Sound.class);
+        manager.finishLoading();
+        efectoSalto = manager.get("Efectos/salto.mp3");
+        efectoFlecha = manager.get("Efectos/Flecha.mp3");
+        efectoPocima = manager.get("Efectos/pocima.mp3");
+    }
+
+    private void crearPocima() {
+        texturaPocima = juego.getManager().get("Proyectiles/pocimaNivel3.png");
+        arrPocimas = new Array<>();
     }
 
     private void configurarMusica() {
@@ -140,12 +167,14 @@ public class PantallaLucha3 extends Pantalla {
         bntDerecha.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstado(EstadoKAIM.CAMINANDO);
                 personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
+                personaje.setEstado(EstadoKAIM.QUIETO);
             }
         });
 
@@ -153,12 +182,14 @@ public class PantallaLucha3 extends Pantalla {
         btnIzquierda.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstado(EstadoKAIM.CAMINANDO);
                 personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
+                personaje.setEstado(EstadoKAIM.QUIETO);
             }
         });
 
@@ -167,9 +198,13 @@ public class PantallaLucha3 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
                     personaje.saltar();
-                    efectoSalto.play();
+                    if(Sonido==true) {
+                        efectoSalto.play();
+                    }
                 }
             }
         });
@@ -232,6 +267,7 @@ public class PantallaLucha3 extends Pantalla {
 
             dibujarVidaPersonaje();
             dibujarVidaVillano();
+            dibujarPocimas();
 
             batch.end();
 
@@ -239,6 +275,13 @@ public class PantallaLucha3 extends Pantalla {
             escenaPausa.draw();
         }
 
+    }
+
+    private void dibujarPocimas() {
+        for (Pocimas pocimas :
+                arrPocimas) {
+            pocimas.render(batch);
+        }
     }
 
     private void dibujarVidaPersonaje() {
@@ -253,8 +296,38 @@ public class PantallaLucha3 extends Pantalla {
 
 
     private void actualizar() {
+        actualizarPocimas();
+
+        verificarPocimaTomada();
     }
 
+    private void verificarPocimaTomada() {
+        for (int i = arrPocimas.size-1; i >= 0; i--) {
+            Pocimas pocima = arrPocimas.get(i); //Pocima
+            // COLISION!!!
+            if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
+                    && bateriaN3<90) {
+                arrPocimas.removeIndex(i);
+                // Aumentar puntos
+                bateriaN3 += 15;
+                efectoPocima.play();
+                break;
+            }
+        }
+    }
+
+    private void actualizarPocimas() {
+        timerCrearPocima += Gdx.graphics.getDeltaTime();
+        if (timerCrearPocima>=TIEMPO_CREA_POCIMA) {
+            timerCrearPocima = 0;
+            TIEMPO_CREA_POCIMA = tiempoPocima + MathUtils.random()*.4f;
+            if (tiempoPocima>2) {
+                tiempoPocima -= 1;
+            }
+            Pocimas pocima = new Pocimas(texturaPocima, 200+MathUtils.random(1,5)*100, 120);
+            arrPocimas.add(pocima);
+        }
+    }
 
     @Override
     public void pause() {
@@ -276,6 +349,9 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("sprites/pilaP3.png");
         juego.getManager().unload("sprites/personaje.png");
 
+        //Proyectiles
+        juego.getManager().unload("Proyectiles/pocimaNivel3.png");
+
         //Botones
         juego.getManager().unload("botones/BtnPausa3.png");
         juego.getManager().unload("botones/BotonIzquierda.png");
@@ -296,6 +372,11 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("botones/BtnMenuN3Inv.png");
         juego.getManager().unload("botones/BtnMusic3Inv.png");
         juego.getManager().unload("botones/BtnSonidoN3Inv.png");
+
+        //Efectos
+        juego.getManager().unload("Efectos/salto.mp3");
+        juego.getManager().unload("Efectos/Flecha.mp3");
+        juego.getManager().unload("Efectos/pocima.mp3");
     }
 
     //Estados Juego
