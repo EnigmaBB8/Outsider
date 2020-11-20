@@ -97,12 +97,11 @@ public class PantallaCargando extends Pantalla {
 
     private void cargarRecursosNivel4() {
         //Fondos
-        manager.load("fondos/fondonivel2.png", Texture.class);
-        manager.load("fondos/PausaN2.png", Texture.class);
+        manager.load("fondos/fondonivel4.png", Texture.class);
+        manager.load("fondos/PausaN4.png", Texture.class);
 
         //Sprites
-        manager.load("sprites/pilaP2.png", Texture.class);
-        manager.load("sprites/pilaP2.png", Texture.class);
+        manager.load("sprites/pilaP4.png", Texture.class);
         manager.load("sprites/personaje.png", Texture.class);
 
         //Proyectiles
@@ -124,7 +123,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("Texto/game.fnt", BitmapFont.class);
 
         //Botones
-        manager.load("botones/BtnPausa2.png", Texture.class);
+        manager.load("botones/BtnPausa4.png", Texture.class);
         manager.load("botones/BotonIzquierda.png", Texture.class);
         manager.load("botones/BotonDerecha.png", Texture.class);
         manager.load("botones/BotonSaltar.png", Texture.class);
@@ -134,14 +133,16 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BotonDerechaInv.png", Texture.class);
         manager.load("botones/BotonSaltarInv.png", Texture.class);
         manager.load("botones/BotonDispararInv.png", Texture.class);
-        manager.load("botones/BtnReanudarN2.png", Texture.class);
-        manager.load("botones/BtnMenuN2.png", Texture.class);
-        manager.load("botones/BtnMusicN2.png", Texture.class);
-        manager.load("botones/BtnSonidoN2.png", Texture.class);
-        manager.load("botones/BtnReanudarN2Inv.png", Texture.class);
-        manager.load("botones/BtnMenuN2Inv.png", Texture.class);
-        manager.load("botones/BtnMusicN2Inv.png", Texture.class);
-        manager.load("botones/BtnSonidoN2Inv.png", Texture.class);
+
+        manager.load("botones/BtnReanudarN4.png", Texture.class);
+        manager.load("botones/BtnMenuN4.png", Texture.class);
+        manager.load("botones/BtnMusicN4.png", Texture.class);
+        manager.load("botones/BtnSonidoN4.png", Texture.class);
+        manager.load("botones/BtnReanudarN4Inv.png", Texture.class);
+        manager.load("botones/BtnMenuN4Inv.png", Texture.class);
+        manager.load("botones/BtnMusicN4Inv.png", Texture.class);
+        manager.load("botones/BtnSonidoN4Inv.png", Texture.class);
+
         manager.load("botones/omitir.png", Texture.class);
         manager.load("botones/avanzar.png", Texture.class);
         manager.load("botones/PlayAgain.png", Texture.class);
@@ -515,6 +516,8 @@ public class PantallaCargando extends Pantalla {
                 case NIVEL3:
                     juego.setScreen(new PantallaLucha3(juego));
                     break;
+                case NIVEL4:
+                    juego.setScreen(new PantallaLucha4(juego));
             }
         }
         avance = (int)(manager.getProgress()*100);

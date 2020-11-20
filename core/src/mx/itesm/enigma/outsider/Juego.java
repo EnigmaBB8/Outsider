@@ -16,6 +16,7 @@ public class Juego extends Game {
 	protected Music musicaNivel1;
 	protected Music musicaNivel2;
 	protected Music musicaNivel3;
+	protected Music musicaNivel4;
 
 	@Override
 	public void create() {
@@ -47,6 +48,13 @@ public class Juego extends Game {
 		musicaNivel3.setLooping(true);
 		musicaNivel3.setVolume(0.1f);
 
+		AssetManager managerNivel4 = new AssetManager();
+		managerNivel4.load("Musica/musicaNivel4.mp3", Music.class);
+		managerNivel4.finishLoading();
+		musicaNivel4 = managerNivel4.get("Musica/musicaNivel4.mp3");
+		musicaNivel4.setLooping(true);
+		musicaNivel4.setVolume(0.1f);
+
 		//setScreen(new PantallaMenu(this));
 		setScreen(new PantallaCargando(this, Pantallas.MENU));
 	}
@@ -70,6 +78,8 @@ public class Juego extends Game {
 
 	public void reproducirMusicaNivel3 (){ musicaNivel3.play(); }
 
+	public void reproducirMusicaNivel4 (){ musicaNivel4.play(); }
+
 	public void detenerMusica () { musicaFondo.pause(); }
 
 	public void detenerMusicaN1 () { musicaNivel1.pause(); }
@@ -77,4 +87,6 @@ public class Juego extends Game {
 	public void detenerMusicaN2 () { musicaNivel2.pause(); }
 
 	public void detenerMusicaN3 () { musicaNivel3.pause(); }
+
+	public void detenerMusicaN4 () { musicaNivel4.pause(); }
 }

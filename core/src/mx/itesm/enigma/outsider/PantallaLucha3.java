@@ -120,6 +120,7 @@ public class PantallaLucha3 extends Pantalla {
             juego.detenerMusica();
             juego.detenerMusicaN2();
             juego.detenerMusicaN1();
+            juego.detenerMusicaN4();
         }
     }
 
@@ -639,7 +640,7 @@ public class PantallaLucha3 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
                 }
             });
             this.addActor(btnOmitirFinal);
@@ -675,7 +676,7 @@ public class PantallaLucha3 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == PantallaLucha3.EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
                         btnAvanza.toFront();
                     }
                 }

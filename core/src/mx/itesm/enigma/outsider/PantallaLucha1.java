@@ -130,6 +130,7 @@ public class PantallaLucha1 extends Pantalla {
             juego.detenerMusica();
             juego.detenerMusicaN2();
             juego.detenerMusicaN3();
+            juego.detenerMusicaN4();
         }
     }
 

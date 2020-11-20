@@ -57,12 +57,9 @@ public class PantallaLucha4 extends Pantalla {
 
     @Override
     public void show() {
-        //fondoNivel2 = new Texture("fondos/fondonivel2.png");
-        fondoNivel4 = juego.getManager().get("fondos/fondonivel1.JPG");
-        //pilaP2 = new Texture("sprites/pilaP2.png");
-        pilaP4 = juego.getManager().get("sprites/pilaP2.png");
-        //pilaV2 = new Texture("sprites/pilaP2.png");
-        pilaV4 = juego.getManager().get("sprites/pilaP2.png");
+        fondoNivel4 = juego.getManager().get("fondos/fondonivel4.png");
+        pilaP4 = juego.getManager().get("sprites/pilaP4.png");
+        pilaV4 = juego.getManager().get("sprites/pilaP4.png");
         crearNivel3();
         crearPersonaje();
         crearBolaMagica();
@@ -77,7 +74,10 @@ public class PantallaLucha4 extends Pantalla {
         Gdx.app.log("MUSICA 3"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
-            juego.reproducirMusicaNivel1();
+            juego.reproducirMusicaNivel4();
+            juego.detenerMusicaN3();
+            juego.detenerMusicaN2();
+            juego.detenerMusicaN1();
             juego.detenerMusica();
         }
     }
@@ -112,7 +112,7 @@ public class PantallaLucha4 extends Pantalla {
         escenaNivel4 = new Stage(vista);
         ///Boton de Pausa
         //Texture btnNuevaPartida = new Texture("botones/BtnPausa2.png");
-        Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa2.png");
+        Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa4.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton Izquierda
@@ -137,7 +137,7 @@ public class PantallaLucha4 extends Pantalla {
 
         //Inverso de Pausa
         //Texture btnNuevaPartidaInv = new Texture("botones/BtnPausa2.png");
-        Texture btnNuevaPartidaInv = juego.getManager().get("botones/BtnPausa2.png");
+        Texture btnNuevaPartidaInv = juego.getManager().get("botones/BtnPausa4.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de Boton Izquierda
@@ -331,12 +331,11 @@ public class PantallaLucha4 extends Pantalla {
     @Override
     public void dispose() {
         //Fondos
-        juego.getManager().unload("fondos/fondonivel2.png");
-        juego.getManager().unload("fondos/PausaN2.png");
+        juego.getManager().unload("fondos/fondonivel4.png");
+        juego.getManager().unload("fondos/PausaN4.png");
 
         //Sprites
-        juego.getManager().unload("sprites/pilaP2.png");
-        juego.getManager().unload("sprites/pilaP2.png");
+        juego.getManager().unload("sprites/pilaP4.png");
         juego.getManager().unload("sprites/personaje.png");
 
         //Proyectiles
@@ -358,7 +357,7 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("Texto/game.fnt");
 
         //Botones
-        juego.getManager().unload("botones/BtnPausa2.png");
+        juego.getManager().unload("botones/BtnPausa4.png");
         juego.getManager().unload("botones/BotonIzquierda.png");
         juego.getManager().unload("botones/BotonDerecha.png");
         juego.getManager().unload("botones/BotonSaltar.png");
@@ -369,14 +368,14 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("botones/BotonSaltarInv.png");
         juego.getManager().unload("botones/BotonDispararInv.png");
 
-        juego.getManager().unload("botones/BtnReanudarN2.png");
-        juego.getManager().unload("botones/BtnMenuN2.png");
-        juego.getManager().unload("botones/BtnMusicN2.png");
-        juego.getManager().unload("botones/BtnSonidoN2.png");
-        juego.getManager().unload("botones/BtnReanudarN2Inv.png");
-        juego.getManager().unload("botones/BtnMenuN2Inv.png");
-        juego.getManager().unload("botones/BtnMusicN2Inv.png");
-        juego.getManager().unload("botones/BtnSonidoN2Inv.png");
+        juego.getManager().unload("botones/BtnReanudarN4.png");
+        juego.getManager().unload("botones/BtnMenuN4.png");
+        juego.getManager().unload("botones/BtnMusicN4.png");
+        juego.getManager().unload("botones/BtnSonidoN4.png");
+        juego.getManager().unload("botones/BtnReanudarN4Inv.png");
+        juego.getManager().unload("botones/BtnMenuN4Inv.png");
+        juego.getManager().unload("botones/BtnMusicN4Inv.png");
+        juego.getManager().unload("botones/BtnSonidoN4Inv.png");
 
         juego.getManager().unload("botones/avanzar.png");
         juego.getManager().unload("botones/omitir.png");
@@ -407,7 +406,7 @@ public class PantallaLucha4 extends Pantalla {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
             //Texture textura=new Texture("fondos/PausaN2.png");
-            Texture textura = juego.getManager().get("fondos/PausaN2.png");
+            Texture textura = juego.getManager().get("fondos/PausaN4.png");
             Image imgPausa=new Image(textura);
             imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
             this.addActor(imgPausa); //Fondo
@@ -415,36 +414,36 @@ public class PantallaLucha4 extends Pantalla {
             //Botones
             // Boton Reanudar
             //Texture bntReanudar = new Texture("botones/BtnReanudarN2.png");
-            Texture bntReanudar = juego.getManager().get("botones/BtnReanudarN2.png");
+            Texture bntReanudar = juego.getManager().get("botones/BtnReanudarN4.png");
             TextureRegionDrawable trReanudar = new TextureRegionDrawable(new TextureRegion(bntReanudar));
             //Boton Menu
             //Texture bntMenu = new Texture("botones/BtnMenuN2.png");
-            Texture bntMenu = juego.getManager().get("botones/BtnMenuN2.png");
+            Texture bntMenu = juego.getManager().get("botones/BtnMenuN4.png");
             TextureRegionDrawable trMenu = new TextureRegionDrawable(new TextureRegion(bntMenu));
             //Boton Musica
             //Texture bntMusica = new Texture("botones/BtnMusicN2.png");
-            Texture bntMusica = juego.getManager().get("botones/BtnMusicN2.png");
+            Texture bntMusica = juego.getManager().get("botones/BtnMusicN4.png");
             TextureRegionDrawable trMusica= new TextureRegionDrawable(new TextureRegion(bntMusica));
             //Boton Sonido
             //Texture bntSonido = new Texture("botones/BtnSonidoN2.png");
-            Texture bntSonido = juego.getManager().get("botones/BtnSonidoN2.png");
+            Texture bntSonido = juego.getManager().get("botones/BtnSonidoN4.png");
             TextureRegionDrawable trSonido =new TextureRegionDrawable(new TextureRegion(bntSonido));
 
             //Inverso de Reanudar
             //Texture btnReanudarInv= new Texture("botones/BtnReanudarN2Inv.png");
-            Texture btnReanudarInv = juego.getManager().get("botones/BtnReanudarN2Inv.png");
+            Texture btnReanudarInv = juego.getManager().get("botones/BtnReanudarN4Inv.png");
             TextureRegionDrawable trdBtReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
             //Inverso de Menu
             //Texture btnMenuInv= new Texture("botones/BtnMenuN2Inv.png");
-            Texture btnMenuInv = juego.getManager().get("botones/BtnMenuN2Inv.png");
+            Texture btnMenuInv = juego.getManager().get("botones/BtnMenuN4Inv.png");
             TextureRegionDrawable trdBtMenuInv = new TextureRegionDrawable(new TextureRegion(btnMenuInv));
             //Inverso de Musica
             //Texture btnMusicaInv= new Texture("botones/BtnMusicN2Inv.png");
-            Texture btnMusicaInv = juego.getManager().get("botones/BtnMusicN2Inv.png");
+            Texture btnMusicaInv = juego.getManager().get("botones/BtnMusicN4Inv.png");
             TextureRegionDrawable trdBtMusicanv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
             //Inverso de Sonido
             //Texture btnSonidoInv= new Texture("botones/BtnSonidoN2Inv.png");
-            Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN2Inv.png");
+            Texture btnSonidoInv = juego.getManager().get("botones/BtnSonidoN4Inv.png");
             TextureRegionDrawable trdBtSonidoInv = new TextureRegionDrawable(new TextureRegion(btnSonidoInv));
 
             ImageButton btnReanuda = new ImageButton(trReanudar, trdBtReanudarInv);

@@ -138,6 +138,7 @@ public class PantallaLucha2 extends Pantalla {
             juego.detenerMusica();
             juego.detenerMusicaN1();
             juego.detenerMusicaN3();
+            juego.detenerMusicaN4();
         }
     }
 
@@ -269,9 +270,13 @@ public class PantallaLucha2 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
                     personaje.saltar();
-                    efectoSalto.play();
+                    if(Sonido==true) {
+                        efectoSalto.play();
+                    }
                 }
             }
         });
@@ -282,8 +287,6 @@ public class PantallaLucha2 extends Pantalla {
                 if (arrBolasMagicas.size < 5) {
                     BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
                     arrBolasMagicas.add(BolasMagicas);
-                    efectoFlecha.play();
-
                 } }
         });
         //Pausa
