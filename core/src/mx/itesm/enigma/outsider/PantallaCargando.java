@@ -209,16 +209,16 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMusic3Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN3Inv.png", Texture.class);
 
-        manager.load("botones/omitir.png", Texture.class);
-        manager.load("botones/avanzar.png", Texture.class);
-        manager.load("botones/PlayAgain.png", Texture.class);
+        manager.load("botones/omitirN3.png", Texture.class);
+        manager.load("botones/avanzarN3.png", Texture.class);
+        manager.load("botones/PlayAgainN3.png", Texture.class);
 
         //Historieta
-        manager.load("Historieta/VNLvl2_1.PNG", Texture.class);
-        manager.load("Historieta/VNLvl2_2.PNG", Texture.class);
-        manager.load("Historieta/VNLvl2_3.PNG", Texture.class);
-        manager.load("Historieta/VNLvl2_4.PNG", Texture.class);
-        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl3_1.PNG", Texture.class);
+        manager.load("Historieta/VNLvl3_2.PNG", Texture.class);
+        manager.load("Historieta/VNLvl3_3.PNG", Texture.class);
+        manager.load("Historieta/VNLvl3_4.PNG", Texture.class);
+        manager.load("Historieta/perdistelvl3.PNG", Texture.class);
     }
 
     private void cargarRecursosNivel2() {
@@ -268,16 +268,17 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMenuN2Inv.png", Texture.class);
         manager.load("botones/BtnMusicN2Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN2Inv.png", Texture.class);
-        manager.load("botones/omitir.png", Texture.class);
-        manager.load("botones/avanzar.png", Texture.class);
-        manager.load("botones/PlayAgain.png", Texture.class);
+
+        manager.load("botones/omitirN2.png", Texture.class);
+        manager.load("botones/avanzarN2.png", Texture.class);
+        manager.load("botones/PlayAgainN2.png", Texture.class);
 
         //Historieta
         manager.load("Historieta/VNLvl2_1.PNG", Texture.class);
         manager.load("Historieta/VNLvl2_2.PNG", Texture.class);
         manager.load("Historieta/VNLvl2_3.PNG", Texture.class);
         manager.load("Historieta/VNLvl2_4.PNG", Texture.class);
-        manager.load("Historieta/perdistelvl1.PNG", Texture.class);
+        manager.load("Historieta/perdistelvl2.PNG", Texture.class);
     }
 
     private void cargarRecursosNivel1() {
