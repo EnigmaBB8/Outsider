@@ -464,10 +464,10 @@ public class PantallaLucha3 extends Pantalla {
 
         //Historieta
         //
-        juego.getManager().unload("Historieta/VNLvl3_1.PNG");
-        juego.getManager().unload("Historieta/VNLvl3_2.PNG");
-        juego.getManager().unload("Historieta/VNLvl3_3.PNG");
-        juego.getManager().unload("Historieta/VNLvl3_4.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_1.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_2.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_3.PNG");
+        juego.getManager().unload("Historieta/VNLvl2_4.PNG");
 
         juego.getManager().unload("Historieta/perdistelvl1.PNG");
     }
