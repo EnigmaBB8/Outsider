@@ -463,6 +463,7 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("botones/PlayAgain.png");
 
         //Historieta
+        //
         juego.getManager().unload("Historieta/VNLvl3_1.PNG");
         juego.getManager().unload("Historieta/VNLvl3_2.PNG");
         juego.getManager().unload("Historieta/VNLvl3_3.PNG");
