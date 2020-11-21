@@ -63,6 +63,9 @@ public class Personaje extends Objeto{
         return estado;
     }
 
+    public EstadoCaminando getEstadoCaminando() {
+        return estadoCaminando;
+    }
 
     public  void render(SpriteBatch batch) {
         actualizar();

@@ -236,17 +236,22 @@ public class PantallaLucha3 extends Pantalla {
         // Disparo
         bntDisparas.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
-                Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                if (arrProyectil.size < 5) {
-                    Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
-                            personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
-                    arrProyectil.add(proyectil);
-                    if(Sonido==true) {
-                        efectoBala.play();
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
+                        personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    if (arrProyectil.size < 5) {
+                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
+                                personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
+                        arrProyectil.add(proyectil);
+                        if (Sonido == true) {
+                            efectoBala.play();
+                        }
                     }
-                } }
+                }
+            }
         });
         //Pausa
         btnNP.addListener(new ClickListener() {

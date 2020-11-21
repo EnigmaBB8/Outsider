@@ -296,11 +296,16 @@ public class PantallaLucha2 extends Pantalla {
         // Disparo
         bntDisparas.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
-                if (arrBolasMagicas.size < 5) {
-                    BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
-                    arrBolasMagicas.add(BolasMagicas);
-                } }
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
+                        personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
+                    if (arrBolasMagicas.size < 5) {
+                        BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
+                        arrBolasMagicas.add(BolasMagicas);
+                    }
+                }
+            }
         });
         //Pausa
         btnNP.addListener(new ClickListener() {

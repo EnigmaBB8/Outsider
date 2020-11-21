@@ -218,18 +218,21 @@ public class PantallaLucha4 extends Pantalla {
         // Disparo
         bntDisparas.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
-                Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                boolean Sonido = preferencias.getBoolean("GeneralSonido");
-
-                if (arrBolasMagicas.size < 5) {
-                    BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
-                    arrBolasMagicas.add(BolasMagicas);
-                    if(Sonido==true) {
-                        efectoFlecha.play();
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
+                        personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    if (arrBolasMagicas.size < 5) {
+                        BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
+                        arrBolasMagicas.add(BolasMagicas);
+                        if (Sonido == true) {
+                            efectoFlecha.play();
+                        }
                     }
-
-                } }
+                }
+            }
         });
         //Pausa
         btnNP.addListener(new ClickListener() {
