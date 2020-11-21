@@ -541,6 +541,28 @@ public class PantallaLucha3 extends Pantalla {
             btnReanuda.setPosition(ANCHO * .10f, ALTO *0.60f, Align.topLeft);
             btnMenu.setPosition(ANCHO * .32f, ALTO *0.60f, Align.topLeft);
 
+            //Leer Preferencias Música
+            Preferences preferencias = Gdx.app.getPreferences("Musica");
+            boolean musicaFondo = preferencias.getBoolean("General");
+            if(musicaFondo==true){
+                //Música prendida
+                btnMusica.setStyle(PrendidoMusica);
+            }else{
+                //Música Apagada
+                btnMusica.setStyle(ApagadoMusica);
+            }
+
+            //Leer preferencias Sonido
+            Preferences preferences=Gdx.app.getPreferences("Sonido");
+            boolean Sonido=preferences.getBoolean("GeneralSonido");
+            if(Sonido==true){
+                //Sonido Prendido
+                btnSonido.setStyle(PrendidoSonido);
+            }else{
+                //Sonido Apagado
+                btnSonido.setStyle(ApagadoSonido);
+            }
+
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
                 @Override
@@ -597,16 +619,10 @@ public class PantallaLucha3 extends Pantalla {
                     if(Sonido==false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        efectoSalto.play();
-                        efectoBala.play();
-                        efectoPocima.play();
                         preferencias.putBoolean("GeneralSonido",true);
                     }else{
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        efectoSalto.stop();
-                        efectoBala.stop();
-                        efectoPocima.stop();
                         preferencias.putBoolean("GeneralSonido",false);
                     }
                 }

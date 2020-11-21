@@ -105,20 +105,10 @@ public class PantallaLucha1 extends Pantalla {
         crearSonido();
         crearPocima();
         configurarMusica();
-        configurarSoido();
+
     }
 
-    private void configurarSoido() {
-        Preferences preferencias = Gdx.app.getPreferences("Sonido");
-        boolean Sonido = preferencias.getBoolean("GeneralSonido");
-        Gdx.app.log("SonidoC"," "+Sonido);
-        if(Sonido==true){
-            //Prender Sonido
-           efectoFlecha.play();
-           efectoSalto.play();
-           efectoPocima.play();
-        }
-    }
+
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
@@ -126,11 +116,7 @@ public class PantallaLucha1 extends Pantalla {
         Gdx.app.log("MUSICA 2"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
-            juego.reproducirMusicaNivel1();
-            juego.detenerMusica();
-            juego.detenerMusicaN2();
-            juego.detenerMusicaN3();
-            juego.detenerMusicaN4();
+            preferencias.putBoolean("GeneralSonido",true);
         }
     }
 
@@ -697,6 +683,30 @@ public class PantallaLucha1 extends Pantalla {
             btnReanuda.setPosition(ANCHO * .10f, ALTO *0.60f, Align.topLeft);
             btnMenu.setPosition(ANCHO * .32f, ALTO *0.60f, Align.topLeft);
 
+            //Leer Preferencias Música
+            Preferences preferencias = Gdx.app.getPreferences("Musica");
+            boolean musicaFondo = preferencias.getBoolean("General");
+            if(musicaFondo==true){
+                //Música prendida
+                btnMusica.setStyle(PrendidoMusica);
+            }else{
+                //Música Apagada
+                btnMusica.setStyle(ApagadoMusica);
+            }
+
+            //Leer preferencias Sonido
+            Preferences preferences=Gdx.app.getPreferences("Sonido");
+            boolean Sonido=preferences.getBoolean("GeneralSonido");
+            if(Sonido==true){
+                //Sonido Prendido
+                btnSonido.setStyle(PrendidoSonido);
+            }else{
+                //Sonido Apagado
+                btnSonido.setStyle(ApagadoSonido);
+            }
+
+
+
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
                 @Override
@@ -720,7 +730,7 @@ public class PantallaLucha1 extends Pantalla {
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-
+                    super.clicked(event, x, y);
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
                     Gdx.app.log("MUSICA 3", " " + musicaFondo);
@@ -742,22 +752,17 @@ public class PantallaLucha1 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);
                     if(Sonido==false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        efectoSalto.play();
-                        efectoFlecha.play();
-                        efectoPocima.play();
                         preferencias.putBoolean("GeneralSonido",true);
                     }else{
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        efectoSalto.stop();
-                        efectoFlecha.stop();
-                        efectoPocima.stop();
                         preferencias.putBoolean("GeneralSonido",false);
                     }
 

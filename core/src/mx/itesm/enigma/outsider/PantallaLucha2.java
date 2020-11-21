@@ -105,7 +105,20 @@ public class PantallaLucha2 extends Pantalla {
         crearPocima();
         crearAspas();
         ConfiguracionMusica();
+        configuracionSonido();
 
+    }
+
+    private void configuracionSonido() {
+        Preferences preferencias = Gdx.app.getPreferences("Sonido");
+        boolean Sonido = preferencias.getBoolean("GeneralSonido");
+        Gdx.app.log("SonidoC"," "+Sonido);
+        if(Sonido==true){
+            //Prender Sonido
+            efectoFlecha.play();
+            efectoSalto.play();
+            efectoPocima.play();
+        }
     }
 
     private void crearAspas() {
@@ -675,6 +688,31 @@ public class PantallaLucha2 extends Pantalla {
             btnReanuda.setPosition(ANCHO * .10f, ALTO *0.60f, Align.topLeft);
             btnMenu.setPosition(ANCHO * .32f, ALTO *0.60f, Align.topLeft);
 
+            //Leer Preferencias Música
+            Preferences preferencias = Gdx.app.getPreferences("Musica");
+            boolean musicaFondo = preferencias.getBoolean("General");
+            if(musicaFondo==true){
+                //Música prendida
+                btnMusica.setStyle(PrendidoMusica);
+            }else{
+                //Música Apagada
+                btnMusica.setStyle(ApagadoMusica);
+            }
+
+            //Leer preferencias Sonido
+            Preferences preferences=Gdx.app.getPreferences("Sonido");
+            boolean Sonido=preferences.getBoolean("GeneralSonido");
+            if(Sonido==true){
+                //Sonido Prendido
+                btnSonido.setStyle(PrendidoSonido);
+            }else{
+                //Sonido Apagado
+                btnSonido.setStyle(ApagadoSonido);
+            }
+
+
+
+
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
                 @Override
@@ -698,7 +736,7 @@ public class PantallaLucha2 extends Pantalla {
             btnMusica.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-
+                    super.clicked(event, x, y);
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
                     Gdx.app.log("MUSICA 3", " " + musicaFondo);
@@ -722,6 +760,7 @@ public class PantallaLucha2 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);

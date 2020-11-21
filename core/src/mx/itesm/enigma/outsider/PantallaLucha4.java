@@ -204,9 +204,14 @@ public class PantallaLucha4 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
                     personaje.saltar();
-                    efectoSalto.play();
+                    if (Sonido==true) {
+                        efectoSalto.play();
+                    }
+
                 }
             }
         });
@@ -214,10 +219,15 @@ public class PantallaLucha4 extends Pantalla {
         bntDisparas.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
+
                 if (arrBolasMagicas.size < 5) {
                     BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight()*0.5f);
                     arrBolasMagicas.add(BolasMagicas);
-                    efectoFlecha.play();
+                    if(Sonido==true) {
+                        efectoFlecha.play();
+                    }
 
                 } }
         });
@@ -468,6 +478,28 @@ public class PantallaLucha4 extends Pantalla {
             btnReanuda.setPosition(ANCHO * .10f, ALTO *0.60f, Align.topLeft);
             btnMenu.setPosition(ANCHO * .32f, ALTO *0.60f, Align.topLeft);
 
+            //Leer Preferencias Música
+            Preferences preferencias = Gdx.app.getPreferences("Musica");
+            boolean musicaFondo = preferencias.getBoolean("General");
+            if(musicaFondo==true){
+                //Música prendida
+                btnMusica.setStyle(PrendidoMusica);
+            }else{
+                //Música Apagada
+                btnMusica.setStyle(ApagadoMusica);
+            }
+
+            //Leer preferencias Sonido
+            Preferences preferences=Gdx.app.getPreferences("Sonido");
+            boolean Sonido=preferences.getBoolean("GeneralSonido");
+            if(Sonido==true){
+                //Sonido Prendido
+                btnSonido.setStyle(PrendidoSonido);
+            }else{
+                //Sonido Apagado
+                btnSonido.setStyle(ApagadoSonido);
+            }
+
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
                 @Override
@@ -515,6 +547,19 @@ public class PantallaLucha4 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Gdx.app.log("SonidoB", " " + Sonido);
+                    if (Sonido == false) {
+                        //Prender Sonido
+                        btnSonido.setStyle(PrendidoSonido);
+                        preferencias.putBoolean("GeneralSonido", true);
+                    } else {
+                        //Apagar Sonido
+                        btnSonido.setStyle(ApagadoSonido);
+                        preferencias.putBoolean("GeneralSonido", false);
+                    }
                 }
             });
 

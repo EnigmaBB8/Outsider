@@ -33,6 +33,8 @@ public class Personaje extends Objeto{
         sprite=new Sprite(texturasFrame[0][0]);
         sprite.setPosition(x,y);
 
+
+
         //Animación
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.25f,arrFrame);

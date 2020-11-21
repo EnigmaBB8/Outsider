@@ -28,7 +28,13 @@ public class PantallaConfiguracion extends Pantalla {
         fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
         configurarMusica();
+
+
     }
+
+
+
+
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
@@ -84,6 +90,19 @@ public class PantallaConfiguracion extends Pantalla {
         final ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
         btnM.setPosition(ANCHO * .53F, ALTO * .3F, Align.center);
 
+        //Leer Preferencias
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("General");
+        if(musicaFondo==true){
+            //Música prendida
+            btnM.setStyle(Prendido);
+        }else{
+            //Música Apagada
+            btnM.setStyle(Apagado);
+        }
+
+
+
 
         //Listener Música
         btnM.addListener(new ClickListener() {
@@ -114,7 +133,8 @@ public class PantallaConfiguracion extends Pantalla {
             }
         });
 
-        escenaConf.addActor(btnM);
+
+
 
         //Boton sonido
         Texture btnSonido = new Texture("botones/btnconfiguracionSonido.png");
@@ -133,6 +153,38 @@ public class PantallaConfiguracion extends Pantalla {
         final ImageButton btnS = new ImageButton(trdBtnSonido, trdBtnSonidoInv);
         btnS.setPosition(ANCHO * .7F, ALTO * .3F, Align.center);
 
+        //Leer preferencias
+        Preferences preferences=Gdx.app.getPreferences("Sonido");
+        boolean Sonido=preferences.getBoolean("GeneralSonido");
+        if(Sonido==true){
+            btnS.setStyle(PrendidoSonido);
+        }else{
+            btnS.setStyle(ApagadoSonido);
+        }
+
+
+
+        btnS.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                Gdx.app.log("SonidoB", " " + Sonido);
+                if(Sonido==false) {
+                    //Prender Sonido
+                    btnS.setStyle(PrendidoSonido);
+                    preferencias.putBoolean("GeneralSonido",true);
+                }else{
+                    //Apagar Sonido
+                    btnS.setStyle(ApagadoSonido);
+                    preferencias.putBoolean("GeneralSonido",false);
+                }
+
+            }
+        });
+
+        escenaConf.addActor(btnM);
         escenaConf.addActor(btnS);
         Gdx.input.setInputProcessor(escenaConf);
 
