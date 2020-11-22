@@ -423,7 +423,7 @@ public class PantallaLucha1 extends Pantalla {
 
     private void veriicarChoquePiedra() {
         for (int i = arrPiedra.size-1; i >= 0; i--) {
-            Piedra piedra = arrPiedra.get(i); //Pocima
+            Piedra piedra = arrPiedra.get(i);
             // COLISION!!!
             if (piedra.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())){
                 arrPiedra.removeIndex(i);
@@ -729,7 +729,7 @@ public class PantallaLucha1 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     estado=EstadoJuego.JUGANDO;
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
                 }
             });
             //Listener Música
@@ -895,7 +895,7 @@ public class PantallaLucha1 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
 
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");

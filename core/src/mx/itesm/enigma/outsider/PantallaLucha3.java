@@ -38,6 +38,13 @@ public class PantallaLucha3 extends Pantalla {
     private Texture texturaProyectil;
     private Array<Proyectil> arrProyectil;
 
+    //Cerebros
+    private Array<Cerebros> arrCerebros;
+    private float timerCrearCerebros;
+    private float TIEMPO_CREA_CEREBRO = 1;
+    private float tiempoCerebro = 1;
+    private Texture texturaCerebro;
+
     //Pocimas
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
@@ -54,6 +61,13 @@ public class PantallaLucha3 extends Pantalla {
     private Texto texto;
     private float bateriaN3=100;
     private float vidaVillanoN3 = 100;
+
+    //Zombies
+    private Array<Zombies> arrZombies;
+    private float timerCrearZombies;
+    private float TIEMPO_CREA_ZOMBIE = 1;
+    private float tiempoZombie = 1;
+    private Texture texturaZombie;
 
     //Pausa
     private PantallaLucha3.EstadoJuego estado = PantallaLucha3.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -82,6 +96,18 @@ public class PantallaLucha3 extends Pantalla {
         crearProyectil();
         crearSonido();
         crearVillano();
+        crearCerebros();
+        crearZombies();
+    }
+
+    private void crearZombies() {
+        texturaZombie = juego.getManager().get("Enemigos/zombie.png");
+        arrZombies = new Array<>();
+    }
+
+    private void crearCerebros() {
+        texturaCerebro = juego.getManager().get("Enemigos/cerebro.png");
+        arrCerebros = new Array<>();
     }
 
     private void crearVillano() {
@@ -304,6 +330,8 @@ public class PantallaLucha3 extends Pantalla {
             dibujarVidaVillano();
             dibujarPocimas();
             dibujarProyectil();
+            dibujarCerebros();
+            dibujarZombies();
             batch.end();
 
         }else if(estado == PantallaLucha3.EstadoJuego.PAUSADO){
@@ -318,6 +346,22 @@ public class PantallaLucha3 extends Pantalla {
             escenaPerdio.draw();
         }
 
+    }
+
+    private void dibujarZombies() {
+        for (Zombies zombies :
+                arrZombies) {
+            zombies.render(batch);
+            zombies.atacar();
+        }
+    }
+
+    private void dibujarCerebros() {
+        for (Cerebros cerebros :
+                arrCerebros) {
+            cerebros.render(batch);
+            cerebros.atacar();
+        }
     }
 
     private void dibujarProyectil() {
@@ -348,9 +392,73 @@ public class PantallaLucha3 extends Pantalla {
     private void actualizar() {
         actualizarPocimas();
         actualizarProyectil();
+        actualizarCerebros();
+        actuzalizarZombies();
 
         verificarPocimaTomada();
         verificarChoquesAEnemigo();
+        verificarChoquesCerebroPersonaje();
+        verificarChoquesZombiesPersonaje();
+    }
+
+    private void verificarChoquesZombiesPersonaje() {
+        for (int i = arrZombies.size-1; i>=0; i--) {
+            Zombies zombies = arrZombies.get(i);
+            if (personaje.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
+                arrZombies.removeIndex(i);
+                bateriaN3 -= 15;
+                break;
+            } else if (bateriaN3 <= 0) {
+                estado = PantallaLucha3.EstadoJuego.PERDIO;
+                if (escenaPerdio == null) {
+                    escenaPerdio = new PantallaLucha3.EscenaPerdio(vista, batch);
+                }
+                Gdx.input.setInputProcessor(escenaPerdio);
+            }
+        }
+    }
+
+    private void actuzalizarZombies() {
+        timerCrearZombies += Gdx.graphics.getDeltaTime();
+        if (timerCrearZombies>=TIEMPO_CREA_ZOMBIE) {
+            timerCrearZombies = 0;
+            TIEMPO_CREA_ZOMBIE = tiempoZombie + MathUtils.random()*.4f;
+            if (tiempoZombie>2) {
+                tiempoZombie -= 1;
+            }
+            Zombies zombies = new Zombies(texturaZombie, ANCHO*0.0001f, 120);
+            arrZombies.add(zombies);
+        }
+    }
+
+    private void verificarChoquesCerebroPersonaje() {
+        for (int i = arrCerebros.size-1; i>=0; i--) {
+            Cerebros cerebros = arrCerebros.get(i);
+            if (personaje.sprite.getBoundingRectangle().overlaps(cerebros.sprite.getBoundingRectangle())) {
+                arrCerebros.removeIndex(i);
+                bateriaN3 -= 15;
+                break;
+            } else if (bateriaN3 <= 0) {
+                estado = PantallaLucha3.EstadoJuego.PERDIO;
+                if (escenaPerdio == null) {
+                    escenaPerdio = new PantallaLucha3.EscenaPerdio(vista, batch);
+                }
+                Gdx.input.setInputProcessor(escenaPerdio);
+            }
+        }
+    }
+
+    private void actualizarCerebros() {
+        timerCrearCerebros += Gdx.graphics.getDeltaTime();
+        if (timerCrearCerebros>=TIEMPO_CREA_CEREBRO) {
+            timerCrearCerebros = 0;
+            TIEMPO_CREA_CEREBRO = tiempoCerebro + MathUtils.random()*.4f;
+            if (tiempoCerebro>2) {
+                tiempoCerebro -= 1;
+            }
+            Cerebros cerebros = new Cerebros(texturaCerebro, 950, 400);
+            arrCerebros.add(cerebros);
+        }
     }
 
     private void actualizarProyectil() {
@@ -443,6 +551,8 @@ public class PantallaLucha3 extends Pantalla {
 
         //Enemigos
         juego.getManager().unload("Enemigos/Titan1.PNG");
+        juego.getManager().unload("Enemigos/cerebro.png");
+        juego.getManager().unload("Enemigos/zombie.png");
 
         //Botones
         juego.getManager().unload("botones/BtnPausa3.png");
@@ -467,6 +577,7 @@ public class PantallaLucha3 extends Pantalla {
 
         juego.getManager().unload("botones/omitirN3.png");
         juego.getManager().unload("botones/avanzarN3.png");
+        juego.getManager().unload("botones/avanzarN31.png");
         juego.getManager().unload("botones/PlayAgainN3.png");
 
         //Historieta
@@ -585,7 +696,7 @@ public class PantallaLucha3 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     estado= PantallaLucha3.EstadoJuego.JUGANDO;
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
                 }
             });
 
@@ -732,7 +843,7 @@ public class PantallaLucha3 extends Pantalla {
 
             // Boton Avanzar
             //Texture btnAvanzar = new Texture("botones/avanzar.png");
-            Texture btnAvanzar = juego.getManager().get("botones/avanzarN3.png");
+            Texture btnAvanzar = juego.getManager().get("botones/avanzarN31.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
             btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
@@ -740,7 +851,7 @@ public class PantallaLucha3 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
 
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");

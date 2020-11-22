@@ -55,11 +55,6 @@ public class PantallaMenu extends Pantalla  {
         Texture btnNuevaPartida = juego.getManager().get("botones/botonNP.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
-        //Boton de Reanudar
-        //Texture btnReanudar = new Texture("botones/botonR.png");
-        Texture btnReanudar = juego.getManager().get("botones/botonR.png");
-        TextureRegionDrawable trdBtnReanudar = new TextureRegionDrawable(new TextureRegion(btnReanudar));
-
         //Boton de Acerca De
         //Texture btnAcercaDe = new Texture("botones/botonAD.png");
         Texture btnAcercaDe = juego.getManager().get("botones/botonAD.png");
@@ -89,11 +84,6 @@ public class PantallaMenu extends Pantalla  {
         Texture btnNuevaPartidaInv = juego.getManager().get("botones/botonNPInv.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
-        //Inverso de boton de Reanudar
-        //Texture btnReanudarInv = new Texture("botones/botonRInv.png");
-        Texture btnReanudarInv = juego.getManager().get("botones/botonRInv.png");
-        TextureRegionDrawable trdBtnReanudarInv = new TextureRegionDrawable(new TextureRegion(btnReanudarInv));
-
         //Inverso de boton de Acerca De
         //Texture btnAcercaDeInv = new Texture("botones/botonADInv.png");
         Texture btnAcercaDeInv = juego.getManager().get("botones/botonADInv.png");
@@ -113,7 +103,6 @@ public class PantallaMenu extends Pantalla  {
         Creacion de los botones y sus inversos
          */
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
-        ImageButton btnR = new ImageButton(trdBtnReanudar, trdBtnReanudarInv);
         ImageButton btnL = new ImageButton(trdBtnLogo, trdBtnLogoInv);
         ImageButton btnAD =  new ImageButton(trdBtnAcercaDe,trdBtnAcercaDeInv);
         ImageButton btnAy = new ImageButton(trdBtnAyuda,trdBtnAyudaDeInv);
@@ -123,14 +112,12 @@ public class PantallaMenu extends Pantalla  {
         Presentacion de los botones
          */
         btnL.setPosition(ANCHO*.47f,ALTO*.98f, Align.topRight);
-        btnNP.setPosition(ANCHO*.60f,ALTO*.9F, Align.topLeft);
-        btnR.setPosition(ANCHO*.6f,ALTO*.74F, Align.topLeft);
+        btnNP.setPosition(ANCHO*.68f,ALTO*.9F, Align.topLeft);
         btnAD.setPosition(ANCHO*.6f,ALTO*.58F, Align.topLeft);
         btnC.setPosition(ANCHO*.6f,ALTO*.42F, Align.topLeft);
         btnAy.setPosition(ANCHO*.6f,ALTO*.26F, Align.topLeft);
 
         escenaMenu.addActor(btnNP);
-        escenaMenu.addActor(btnR);
         escenaMenu.addActor(btnL);
         escenaMenu.addActor(btnAD);
         escenaMenu.addActor(btnC);
@@ -143,15 +130,7 @@ public class PantallaMenu extends Pantalla  {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //juego.setScreen(new PantallaLucha1(juego));
-                juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL1));
-            }
-        });
-
-        boolean c = btnR.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                juego.setScreen(new PantallaCargando(juego, Pantallas.REANUDAR));
+                juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
             }
         });
 

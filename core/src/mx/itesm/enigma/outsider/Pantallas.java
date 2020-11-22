@@ -4,7 +4,7 @@ public enum Pantallas {
     MENU,
     CONFIGURACION,
     AYUDA,
-    REANUDAR,
+    MAPA,
     HISTORIA,
     ACERCA_DE,
     ACERCA_DE_ABRAHAM,

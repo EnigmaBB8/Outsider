@@ -734,7 +734,7 @@ public class PantallaLucha2 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     estado= PantallaLucha2.EstadoJuego.JUGANDO;
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
                 }
             });
             //Listener Música
@@ -899,7 +899,7 @@ public class PantallaLucha2 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
 
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");

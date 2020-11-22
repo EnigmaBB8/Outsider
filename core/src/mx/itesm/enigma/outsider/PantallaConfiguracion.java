@@ -28,12 +28,7 @@ public class PantallaConfiguracion extends Pantalla {
         fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
         configurarMusica();
-
-
     }
-
-
-
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
@@ -90,18 +85,6 @@ public class PantallaConfiguracion extends Pantalla {
         final ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
         btnM.setPosition(ANCHO * .53F, ALTO * .3F, Align.center);
 
-        //Leer Preferencias
-        Preferences preferencias = Gdx.app.getPreferences("Musica");
-        boolean musicaFondo = preferencias.getBoolean("General");
-        if(musicaFondo==true){
-            //Música prendida
-            btnM.setStyle(Prendido);
-        }else{
-            //Música Apagada
-            btnM.setStyle(Apagado);
-        }
-
-
 
 
         //Listener Música
@@ -133,9 +116,6 @@ public class PantallaConfiguracion extends Pantalla {
             }
         });
 
-
-
-
         //Boton sonido
         Texture btnSonido = new Texture("botones/btnconfiguracionSonido.png");
         TextureRegionDrawable trdBtnSonido = new TextureRegionDrawable(new TextureRegion(btnSonido));
@@ -161,9 +141,6 @@ public class PantallaConfiguracion extends Pantalla {
         }else{
             btnS.setStyle(ApagadoSonido);
         }
-
-
-
         btnS.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -189,7 +166,19 @@ public class PantallaConfiguracion extends Pantalla {
         Gdx.input.setInputProcessor(escenaConf);
 
         //Configuracion para la vista del boton Musica
+        //Leer Preferencias
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("General");
+        if(musicaFondo==true){
+            //Música prendida
+            btnM.setStyle(Prendido);
+        }else{
+            //Música Apagada
+            btnM.setStyle(Apagado);
+        }
     }
+
+
 
     @Override
     public void render(float delta) {

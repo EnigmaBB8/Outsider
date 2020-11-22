@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Proyectil extends Objeto {
-    private final float VX = 700;
-    private final float VY = 35;
+    private final float VX = 1700;
+    private final float VY = 3;
 
     public Proyectil(Texture textura, float x, float y) {
         super(textura, x, y);
