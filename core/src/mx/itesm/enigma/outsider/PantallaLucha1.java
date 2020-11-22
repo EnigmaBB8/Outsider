@@ -42,7 +42,7 @@ public class PantallaLucha1 extends Pantalla {
     private Array<BolasDeFuego> arrBolasFuego;
     private float timerCrearBola;
     private float TIEMPO_CREA_BOLA = 1;
-    private float tiempoBola = 1;
+    private float tiempoBola = 3;
     private Texture texturaBolas;
 
     // Proyectil
@@ -70,8 +70,8 @@ public class PantallaLucha1 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 7;
-    private float tiempoPocima = 10;
+    private float TIEMPO_CREA_POCIMA = 5;
+    private float tiempoPocima = 6;
 
     //Pausa
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -90,7 +90,7 @@ public class PantallaLucha1 extends Pantalla {
     @Override
     public void show() {
         //fondoNivel1 = new Texture("fondos/fondonivel1.JPG");
-        fondoNivel1 = juego.getManager().get("fondos/fondonivel1.JPG");
+        fondoNivel1 = juego.getManager().get("fondos/fondonivel1.png");
         //pilaP = new Texture("sprites/pilaP.png");
         pilaP = juego.getManager().get("sprites/pilaP.png");
         //pilaV = new Texture("sprites/pilaP.png");
@@ -105,18 +105,20 @@ public class PantallaLucha1 extends Pantalla {
         crearSonido();
         crearPocima();
         configurarMusica();
-
     }
-
-
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 2"," "+musicaFondo);
+        Gdx.app.log("MUSICA NIVEL 1"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             preferencias.putBoolean("GeneralSonido",true);
+            juego.detenerMusica();
+            juego.detenerMusicaN4();
+            juego.detenerMusicaN3();
+            juego.detenerMusicaN2();
+            juego.reproducirMusicaNivel1();
         }
     }
 
@@ -135,7 +137,6 @@ public class PantallaLucha1 extends Pantalla {
         AssetManager manager = new AssetManager();
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/Flecha.mp3", Sound.class);
-        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
@@ -428,7 +429,7 @@ public class PantallaLucha1 extends Pantalla {
             if (piedra.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())){
                 arrPiedra.removeIndex(i);
                 // Aumentar puntos
-                bateria -= 10;
+                bateria -= 9;
                 break;
             }
         }
@@ -444,7 +445,7 @@ public class PantallaLucha1 extends Pantalla {
                     && bateria<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateria += 15;
+                bateria += 7;
                 if(Sonido==true) {
                     efectoPocima.play();
                 }
@@ -460,9 +461,9 @@ public class PantallaLucha1 extends Pantalla {
             if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
                 arrProyectil.removeIndex(i);
                 // Descontar puntos
-                vidaVillano -= 100;
+                vidaVillano -= 2;
                 break;
-            } else if (vidaVillano == 0) {
+            } else if (vidaVillano <= 0) {
                 estado = EstadoJuego.GANANDO1;
                 villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaGanando == null) {
@@ -478,7 +479,7 @@ public class PantallaLucha1 extends Pantalla {
             BolasDeFuego bola = arrBolasFuego.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(bola.sprite.getBoundingRectangle())) {
                 arrBolasFuego.removeIndex(i);
-                bateria -= 15;
+                bateria -= 10;
                 break;
             } else if (bateria <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -498,7 +499,7 @@ public class PantallaLucha1 extends Pantalla {
             if (tiempoPiedra>1) {
                 tiempoPiedra -= 1;
             }
-            Piedra piedra = new Piedra(texturaPiedra, 1+MathUtils.random(1,40)*10, ALTO*0.9f);
+            Piedra piedra = new Piedra(texturaPiedra, 1+MathUtils.random(1,70)*10, ALTO*0.9f);
             arrPiedra.add(piedra);
         }
     }
@@ -553,8 +554,8 @@ public class PantallaLucha1 extends Pantalla {
     @Override
     public void dispose() {
         //Fondos
-        juego.getManager().unload("fondos/fondonivel1.JPG");
-        juego.getManager().unload("fondos/PausaN1.jpeg");
+        juego.getManager().unload("fondos/fondonivel1.png");
+        juego.getManager().unload("fondos/PausaN1.png");
 
         //Sprites
         juego.getManager().unload("sprites/pilaP.png");
@@ -569,7 +570,6 @@ public class PantallaLucha1 extends Pantalla {
         //Efectos
         juego.getManager().unload("Efectos/salto.mp3");
         juego.getManager().unload("Efectos/Flecha.mp3");
-        juego.getManager().unload("Efectos/bolaDeFuego.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
@@ -628,7 +628,7 @@ public class PantallaLucha1 extends Pantalla {
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
-            Texture textura = juego.getManager().get("fondos/PausaN1.jpeg");
+            Texture textura = juego.getManager().get("fondos/PausaN1.png");
             Image imgPausa = new Image(textura);
             imgPausa.setPosition(ANCHO/2-textura.getWidth()/2,ALTO/2-textura.getHeight()/2);
             this.addActor(imgPausa); //Fondo
@@ -710,8 +710,6 @@ public class PantallaLucha1 extends Pantalla {
                 //Sonido Apagado
                 btnSonido.setStyle(ApagadoSonido);
             }
-
-
 
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
@@ -848,16 +846,6 @@ public class PantallaLucha1 extends Pantalla {
                 }
             });
             this.addActor(btnAvanza);
-
-            // Esto solo es para que se reproduzca una vez
-            Preferences preferencias = Gdx.app.getPreferences("Musica");
-            boolean musicaFondo = preferencias.getBoolean("General");
-            Gdx.app.log("MUSICA 3", " " + musicaFondo);
-            if(musicaFondo==true) {
-                //Prender musica
-                juego.reproducirMusica();
-                juego.detenerMusicaN1();
-            }
         }
     }
 

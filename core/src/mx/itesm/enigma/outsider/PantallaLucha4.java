@@ -43,12 +43,12 @@ public class PantallaLucha4 extends Pantalla {
 
     //Sonidos
     private Sound efectoSalto;
-    private Sound efectoFlecha;
+    private Sound efectoLaser;
     private Sound efectoPocima;
 
     //Texto
     private Texto texto;
-    private float bateriaN4=100;
+    private float bateriaN4 = 100;
     private float vidaVillanoN4 = 100;
 
     //Pausa
@@ -128,7 +128,7 @@ public class PantallaLucha4 extends Pantalla {
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 3"," "+musicaFondo);
+        Gdx.app.log("MUSICA NIVEL 4"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusicaNivel4();
@@ -146,11 +146,11 @@ public class PantallaLucha4 extends Pantalla {
     private void crearSonido() {
         AssetManager manager = new AssetManager();
         manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/laser.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
-        efectoFlecha = manager.get("Efectos/Flecha.mp3");
+        efectoLaser = manager.get("Efectos/laser.mp3");
         efectoPocima = manager.get("Efectos/pocima.mp3");
 
     }
@@ -286,7 +286,7 @@ public class PantallaLucha4 extends Pantalla {
                                 personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
                         arrProyectil.add(proyectil);
                         if (Sonido == true) {
-                            efectoFlecha.play();
+                            efectoLaser.play();
                         }
                     }
                 }
@@ -557,8 +557,7 @@ public class PantallaLucha4 extends Pantalla {
 
         //Efectos
         juego.getManager().unload("Efectos/salto.mp3");
-        juego.getManager().unload("Efectos/Flecha.mp3");
-        juego.getManager().unload("Efectos/bolaDeFuego.mp3");
+        juego.getManager().unload("Efectos/laser.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
@@ -796,7 +795,7 @@ public class PantallaLucha4 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
                 }
             });
             this.addActor(btnOmitirFinal);
@@ -876,15 +875,6 @@ public class PantallaLucha4 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
-
-                    Preferences preferencias = Gdx.app.getPreferences("Musica");
-                    boolean musicaFondo = preferencias.getBoolean("General");
-                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
-                    if(musicaFondo==true) {
-                        //Prender musica
-                        juego.reproducirMusica();
-                        juego.detenerMusicaN1();
-                    }
                 }
             });
             this.addActor(btnAvanza);

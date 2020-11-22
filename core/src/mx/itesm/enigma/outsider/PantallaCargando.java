@@ -110,8 +110,7 @@ public class PantallaCargando extends Pantalla {
 
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
-        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/laser.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Enemigos
@@ -175,11 +174,10 @@ public class PantallaCargando extends Pantalla {
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/bala.mp3", Sound.class);
-        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Enemigos
-        manager.load("Enemigos/Dragon1.PNG", Texture.class);
+        manager.load("Enemigos/Zombie1.PNG", Texture.class);
         manager.load("Enemigos/cerebro.png", Texture.class);
         manager.load("Enemigos/zombie.png", Texture.class);
 
@@ -240,8 +238,7 @@ public class PantallaCargando extends Pantalla {
 
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
-        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
+        manager.load("Efectos/magia.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Enemigos
@@ -286,8 +283,8 @@ public class PantallaCargando extends Pantalla {
 
     private void cargarRecursosNivel1() {
         //Fondos
-        manager.load("fondos/fondonivel1.JPG", Texture.class);
-        manager.load("fondos/PausaN1.jpeg", Texture.class);
+        manager.load("fondos/fondonivel1.png", Texture.class);
+        manager.load("fondos/PausaN1.png", Texture.class);
 
         //Sprites
         manager.load("sprites/pilaP.png", Texture.class);
@@ -302,7 +299,6 @@ public class PantallaCargando extends Pantalla {
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/Flecha.mp3", Sound.class);
-        manager.load("Efectos/bolaDeFuego.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Enemigos

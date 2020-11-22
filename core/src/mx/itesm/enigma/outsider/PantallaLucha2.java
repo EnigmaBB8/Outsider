@@ -40,7 +40,8 @@ public class PantallaLucha2 extends Pantalla {
 
     //Sonidos
     private Sound efectoSalto;
-    private Sound efectoFlecha;
+    private Sound efectoPocima;
+    private Sound efectoMagia;
 
     //Texto
     private Texto texto;
@@ -58,8 +59,8 @@ public class PantallaLucha2 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 7;
-    private float tiempoPocima = 10;
+    private float TIEMPO_CREA_POCIMA = 6;
+    private float tiempoPocima = 7;
 
     //Pausa
     private PantallaLucha2.EstadoJuego estado = PantallaLucha2.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -71,15 +72,12 @@ public class PantallaLucha2 extends Pantalla {
     //Perdió
     private EscenaPerdio escenaPerdio;
 
-    //Sonidos
-    private Sound efectoPocima;
-
     //Aspas
     private Texture texturaAspas;
     private Array<Aspas> arrAspas;
     private float timerCrearAspas;
-    private float TIEMPO_CREA_ASPAS = 10;
-    private float tiempoAspas = 10;
+    private float TIEMPO_CREA_ASPAS = 1;
+    private float tiempoAspas = 4;
 
 
     public PantallaLucha2(Juego juego) {
@@ -115,7 +113,7 @@ public class PantallaLucha2 extends Pantalla {
         Gdx.app.log("SonidoC"," "+Sonido);
         if(Sonido==true){
             //Prender Sonido
-            efectoFlecha.play();
+            efectoMagia.play();
             efectoSalto.play();
             efectoPocima.play();
         }
@@ -144,7 +142,7 @@ public class PantallaLucha2 extends Pantalla {
     private void ConfiguracionMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 2"," "+musicaFondo);
+        Gdx.app.log("MUSICA NIVEL 2"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusicaNivel2();
@@ -162,11 +160,11 @@ public class PantallaLucha2 extends Pantalla {
     private void crearSonido() {
         AssetManager manager = new AssetManager();
         manager.load("Efectos/salto.mp3", Sound.class);
-        manager.load("Efectos/Flecha.mp3", Sound.class);
+        manager.load("Efectos/magia.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
         manager.finishLoading();
         efectoSalto = manager.get("Efectos/salto.mp3");
-        efectoFlecha = manager.get("Efectos/Flecha.mp3");
+        efectoMagia = manager.get("Efectos/magia.mp3");
         efectoPocima = manager.get("Efectos/pocima.mp3");
 
     }
@@ -300,9 +298,14 @@ public class PantallaLucha2 extends Pantalla {
                 super.clicked(event, x, y);
                 if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
                         personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrBolasMagicas.size < 5) {
                         BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
                         arrBolasMagicas.add(BolasMagicas);
+                        if (Sonido == true) {
+                            efectoMagia.play();
+                        }
                     }
                 }
             }
@@ -458,7 +461,7 @@ public class PantallaLucha2 extends Pantalla {
             Llamaradas llamaradas = arrLlamaradas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(llamaradas.sprite.getBoundingRectangle())) {
                 arrLlamaradas.removeIndex(i);
-                bateriaN2 -= 15;
+                bateriaN2 -= 10;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -504,7 +507,7 @@ public class PantallaLucha2 extends Pantalla {
                     && bateriaN2<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN2 += 15;
+                bateriaN2 += 6;
                 efectoPocima.play();
                 break;
             }
@@ -518,9 +521,9 @@ public class PantallaLucha2 extends Pantalla {
             if (bolasMagicas.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
                 arrBolasMagicas.removeIndex(i);
                 // Descontar puntos
-                vidaVillano2 -= 10;
+                vidaVillano2 -= 2;
                 break;
-            } else if (vidaVillano2 == 0) {
+            } else if (vidaVillano2 <= 0) {
                 estado = EstadoJuego.GANANDO1;
                 villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaGanando == null) {
@@ -558,8 +561,7 @@ public class PantallaLucha2 extends Pantalla {
 
         //Efectos
         juego.getManager().unload("Efectos/salto.mp3");
-        juego.getManager().unload("Efectos/Flecha.mp3");
-        juego.getManager().unload("Efectos/bolaDeFuego.mp3");
+        juego.getManager().unload("Efectos/magia.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
@@ -715,9 +717,6 @@ public class PantallaLucha2 extends Pantalla {
                 btnSonido.setStyle(ApagadoSonido);
             }
 
-
-
-
             //Listener Reanudar
             btnReanuda.addListener(new ClickListener() {
                 @Override
@@ -772,16 +771,10 @@ public class PantallaLucha2 extends Pantalla {
                     if (Sonido == false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        efectoSalto.play();
-                        efectoFlecha.play();
-                        efectoPocima.play();
                         preferencias.putBoolean("GeneralSonido", true);
                     } else {
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        efectoSalto.stop();
-                        efectoFlecha.stop();
-                        efectoPocima.stop();
                         preferencias.putBoolean("GeneralSonido", false);
                     }
                 }

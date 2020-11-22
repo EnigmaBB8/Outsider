@@ -23,14 +23,14 @@ public class Zombies extends Objeto {
         animacion=new Animation<TextureRegion>(0.1f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
-        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de la bola de fuego
+        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de los zombies
         sprite.setPosition(x,y);
     }
     /*
     Método que hace que se muevan los zombies
      */
     public void atacar(){
-        sprite.setX(sprite.getX()+1);
+        sprite.setX(sprite.getX()+5);
     }
 
     /*

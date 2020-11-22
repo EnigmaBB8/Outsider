@@ -24,7 +24,6 @@ public class Juego extends Game {
 		manager.load("Musica/musicaMenu.mp3", Music.class);
 		manager.finishLoading();
 		musicaFondo = manager.get("Musica/musicaMenu.mp3");
-		musicaFondo.setVolume(0.1f);
 		musicaFondo.setLooping(true);
 
 		AssetManager managerNivel1 = new AssetManager();
@@ -32,28 +31,24 @@ public class Juego extends Game {
 		managerNivel1.finishLoading();
 		musicaNivel1 = managerNivel1.get("Musica/musicaNivel1.mp3");
 		musicaNivel1.setLooping(true);
-		musicaNivel1.setVolume(0.1f);
 
 		AssetManager managerNivel2 = new AssetManager();
 		managerNivel2.load("Musica/musicaNivel2.mp3", Music.class);
 		managerNivel2.finishLoading();
 		musicaNivel2 = managerNivel2.get("Musica/musicaNivel2.mp3");
 		musicaNivel2.setLooping(true);
-		musicaNivel2.setVolume(0.1f);
 
 		AssetManager managerNivel3 = new AssetManager();
 		managerNivel3.load("Musica/musicaNivel3.mp3", Music.class);
 		managerNivel3.finishLoading();
 		musicaNivel3 = managerNivel3.get("Musica/musicaNivel3.mp3");
 		musicaNivel3.setLooping(true);
-		musicaNivel3.setVolume(0.1f);
 
 		AssetManager managerNivel4 = new AssetManager();
 		managerNivel4.load("Musica/musicaNivel4.mp3", Music.class);
 		managerNivel4.finishLoading();
 		musicaNivel4 = managerNivel4.get("Musica/musicaNivel4.mp3");
 		musicaNivel4.setLooping(true);
-		musicaNivel4.setVolume(0.1f);
 
 		//setScreen(new PantallaMenu(this));
 		setScreen(new PantallaCargando(this, Pantallas.MENU));

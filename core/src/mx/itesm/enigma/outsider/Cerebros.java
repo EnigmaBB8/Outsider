@@ -14,7 +14,7 @@ public class Cerebros extends Objeto {
     private float timerAnimacion;
 
     /*
-    Inicializacion de las bolas de fuego
+    Inicializacion de los cerebros
      */
     public Cerebros(Texture textura, float x, float y){
         TextureRegion region = new TextureRegion(textura);
@@ -23,18 +23,18 @@ public class Cerebros extends Objeto {
         animacion=new Animation<TextureRegion>(0.1f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
-        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de la bola de fuego
+        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de los cerebros
         sprite.setPosition(x,y);
     }
     /*
-    Método que hace que se muevan las bolas de fuego
+    Método que hace que se muevan las cerebros
      */
     public void atacar(){
-        sprite.setPosition(sprite.getX()- 7,sprite.getY() - 5);
+        sprite.setPosition(sprite.getX()- 10,sprite.getY() - 5);
     }
 
     /*
-    Método que hace que aparezcan las bolas de fuego como animación
+    Método que hace que aparezcan los cerebros
      */
     public void render(SpriteBatch batch){
         timerAnimacion += Gdx.graphics.getDeltaTime();

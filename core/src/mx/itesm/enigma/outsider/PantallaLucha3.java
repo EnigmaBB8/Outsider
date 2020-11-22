@@ -49,8 +49,8 @@ public class PantallaLucha3 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 7;
-    private float tiempoPocima = 10;
+    private float TIEMPO_CREA_POCIMA = 5;
+    private float tiempoPocima = 8;
 
     //Sonidos
     private Sound efectoSalto;
@@ -66,7 +66,7 @@ public class PantallaLucha3 extends Pantalla {
     private Array<Zombies> arrZombies;
     private float timerCrearZombies;
     private float TIEMPO_CREA_ZOMBIE = 1;
-    private float tiempoZombie = 1;
+    private float tiempoZombie = 5;
     private Texture texturaZombie;
 
     //Pausa
@@ -111,7 +111,7 @@ public class PantallaLucha3 extends Pantalla {
     }
 
     private void crearVillano() {
-        texturaVillano = juego.getManager().get("Enemigos/Titan1.PNG");
+        texturaVillano = juego.getManager().get("Enemigos/Zombie1.PNG");
         villano=new Villano(texturaVillano);
     }
 
@@ -139,7 +139,7 @@ public class PantallaLucha3 extends Pantalla {
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 3"," "+musicaFondo);
+        Gdx.app.log("MUSICA NIVEL 3"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusicaNivel3();
@@ -406,7 +406,7 @@ public class PantallaLucha3 extends Pantalla {
             Zombies zombies = arrZombies.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
                 arrZombies.removeIndex(i);
-                bateriaN3 -= 15;
+                bateriaN3 -= 10;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = PantallaLucha3.EstadoJuego.PERDIO;
@@ -423,7 +423,7 @@ public class PantallaLucha3 extends Pantalla {
         if (timerCrearZombies>=TIEMPO_CREA_ZOMBIE) {
             timerCrearZombies = 0;
             TIEMPO_CREA_ZOMBIE = tiempoZombie + MathUtils.random()*.4f;
-            if (tiempoZombie>2) {
+            if (tiempoZombie>4) {
                 tiempoZombie -= 1;
             }
             Zombies zombies = new Zombies(texturaZombie, ANCHO*0.0001f, 120);
@@ -436,7 +436,7 @@ public class PantallaLucha3 extends Pantalla {
             Cerebros cerebros = arrCerebros.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(cerebros.sprite.getBoundingRectangle())) {
                 arrCerebros.removeIndex(i);
-                bateriaN3 -= 15;
+                bateriaN3 -= 10;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = PantallaLucha3.EstadoJuego.PERDIO;
@@ -479,9 +479,9 @@ public class PantallaLucha3 extends Pantalla {
             if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
                 arrProyectil.removeIndex(i);
                 // Descontar puntos
-                vidaVillanoN3 -= 100;
+                vidaVillanoN3 -= 2;
                 break;
-            } else if (vidaVillanoN3 == 0) {
+            } else if (vidaVillanoN3 <= 0) {
                 estado = EstadoJuego.GANANDO1;
                 villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaGanando == null) {
@@ -500,7 +500,7 @@ public class PantallaLucha3 extends Pantalla {
                     && bateriaN3<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN3 += 15;
+                bateriaN3 += 5;
                 efectoPocima.play();
                 break;
             }
@@ -550,7 +550,7 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
-        juego.getManager().unload("Enemigos/Titan1.PNG");
+        juego.getManager().unload("Enemigos/Zombie1.PNG");
         juego.getManager().unload("Enemigos/cerebro.png");
         juego.getManager().unload("Enemigos/zombie.png");
 
@@ -853,7 +853,7 @@ public class PantallaLucha3 extends Pantalla {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
 
-                    Preferences preferencias = Gdx.app.getPreferences("Musica");
+                    /*Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
                     Gdx.app.log("MUSICA 3", " " + musicaFondo);
                     if(musicaFondo==true) {
@@ -861,6 +861,8 @@ public class PantallaLucha3 extends Pantalla {
                         juego.reproducirMusica();
                         juego.detenerMusicaN1();
                     }
+
+                     */
                 }
             });
             this.addActor(btnAvanza);

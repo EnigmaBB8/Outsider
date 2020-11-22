@@ -141,6 +141,7 @@ public class PantallaConfiguracion extends Pantalla {
         }else{
             btnS.setStyle(ApagadoSonido);
         }
+
         btnS.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -177,8 +178,6 @@ public class PantallaConfiguracion extends Pantalla {
             btnM.setStyle(Apagado);
         }
     }
-
-
 
     @Override
     public void render(float delta) {

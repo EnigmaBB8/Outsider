@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,7 +25,22 @@ public class PantallaMapa extends Pantalla {
     public void show() {
         fondoPantallaReanudar = new Texture("fondos/fondoMapa.png");
         crearReanudar();
+        configurarMusica();
 
+    }
+
+    private void configurarMusica() {
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("General");
+        Gdx.app.log("MUSICA Mapa", " " + musicaFondo);
+        if(musicaFondo==true) {
+            //Prender musica
+            juego.reproducirMusica();
+            juego.detenerMusicaN1();
+            juego.detenerMusicaN2();
+            juego.detenerMusicaN3();
+            juego.detenerMusicaN4();
+        }
     }
 
     private void crearReanudar() {
