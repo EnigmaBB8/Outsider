@@ -48,6 +48,7 @@ public class PantallaLucha1 extends Pantalla {
     // Proyectil
     private Texture texturaProyectil;
     private Array<Proyectil> arrProyectil;
+    private Texture texturaExplosion;
 
     // Piedras
     private Texture texturaPiedra;
@@ -156,6 +157,7 @@ public class PantallaLucha1 extends Pantalla {
 
     private void crearProyectil() {
         //texturaProyectil = new Texture("Proyectiles/flecha1.png");
+        texturaExplosion=new Texture("Efectos/explosion.png");
         texturaProyectil = juego.getManager().get("Proyectiles/flecha1.png");
         arrProyectil = new Array<>();
     }
@@ -460,6 +462,7 @@ public class PantallaLucha1 extends Pantalla {
             // COLISION!!!
             if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
                 arrProyectil.removeIndex(i);
+                proyectil.setTextura(texturaExplosion);
                 // Descontar puntos
                 vidaVillano -= 2;
                 break;

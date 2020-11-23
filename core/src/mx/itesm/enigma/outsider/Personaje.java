@@ -74,6 +74,7 @@ public class Personaje extends Objeto{
         if(estado==EstadoKAIM.QUIETO){
             sprite.setY(yBase);
 
+
             if(estadoCaminando == EstadoCaminando.DERECHA && sprite.isFlipX()){
                 sprite.flip(true,false);
 
@@ -161,4 +162,7 @@ public class Personaje extends Objeto{
     public void setEstado(EstadoKAIM nuevoEstadoKAIM){
         estado=nuevoEstadoKAIM;
     }
+
+
+
 }

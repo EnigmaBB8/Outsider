@@ -41,6 +41,7 @@ public class PantallaLucha4 extends Pantalla {
     private Texture texturaProyectil;
     private Array<Proyectil> arrProyectil;
 
+
     //Sonidos
     private Sound efectoSalto;
     private Sound efectoLaser;
@@ -473,6 +474,7 @@ public class PantallaLucha4 extends Pantalla {
             Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
             // COLISION!!!
             if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
+
                 arrProyectil.removeIndex(i);
                 // Descontar puntos
                 vidaVillanoN4 -= 100;

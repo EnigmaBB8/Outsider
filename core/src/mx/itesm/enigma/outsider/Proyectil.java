@@ -22,4 +22,8 @@ public class Proyectil extends Objeto {
         float dy = VY*lapso;
         sprite.setY(sprite.getY() - dy);
     }
+
+    public void setTextura(Texture nuevaTextura){
+        sprite.setTexture(nuevaTextura);
+    }
 }
