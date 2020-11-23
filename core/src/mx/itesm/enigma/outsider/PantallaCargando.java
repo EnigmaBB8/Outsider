@@ -211,7 +211,7 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN3.png", Texture.class);
         manager.load("botones/avanzarN3.png", Texture.class);
-        manager.load("botones/avanzarN31.png", Texture.class);
+        manager.load("botones/AvanzarN31.png", Texture.class);
         manager.load("botones/PlayAgainN3.png", Texture.class);
 
         //Historieta
