@@ -21,7 +21,7 @@ public class Personaje extends Objeto{
     private float yBase;
     private float tAire;
     private final float V0 = 100;
-    private final float G = 20;
+    private final float G = 15;
     private float tVuelo;
     private EstadoKAIM estado;
 
@@ -33,8 +33,6 @@ public class Personaje extends Objeto{
         sprite=new Sprite(texturasFrame[0][0]);
         sprite.setPosition(x,y);
 
-
-
         //Animación
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.25f,arrFrame);
@@ -42,11 +40,9 @@ public class Personaje extends Objeto{
         timerAnimacion=0;
 
         //Salto
-           yBase = y;
+        yBase = y;
 
         estado = EstadoKAIM.QUIETO;
-        //estado=EstadoKAIM.CAMINANDO;
-
 
         //Dirección de desplazamiento
         estadoCaminando = EstadoCaminando.QUIETO;
@@ -73,8 +69,6 @@ public class Personaje extends Objeto{
         timerAnimacion += delta;//calcula
         if(estado==EstadoKAIM.QUIETO){
             sprite.setY(yBase);
-
-
             if(estadoCaminando == EstadoCaminando.DERECHA && sprite.isFlipX()){
                 sprite.flip(true,false);
 
@@ -162,7 +156,5 @@ public class Personaje extends Objeto{
     public void setEstado(EstadoKAIM nuevoEstadoKAIM){
         estado=nuevoEstadoKAIM;
     }
-
-
 
 }

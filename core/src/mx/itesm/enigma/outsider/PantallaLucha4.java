@@ -70,8 +70,8 @@ public class PantallaLucha4 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 2;
-    private float tiempoPocima = 1;
+    private float TIEMPO_CREA_POCIMA = 6;
+    private float tiempoPocima = 10;
 
     //Drones
     private Texture texturaDrones;
@@ -122,7 +122,7 @@ public class PantallaLucha4 extends Pantalla {
     }
 
     private void crearVillano() {
-        texturaVillano = juego.getManager().get("Enemigos/Titan1.PNG");
+        texturaVillano = juego.getManager().get("Enemigos/Robot1.PNG");
         villano=new Villano(texturaVillano);
     }
 
@@ -157,7 +157,6 @@ public class PantallaLucha4 extends Pantalla {
     }
 
     private void crearPersonaje() {
-        //texturaPersonaje=new Texture("sprites/personaje.png");
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
         personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
     }
@@ -165,27 +164,22 @@ public class PantallaLucha4 extends Pantalla {
     private void crearNivel3() {
         escenaNivel4 = new Stage(vista);
         ///Boton de Pausa
-        //Texture btnNuevaPartida = new Texture("botones/BtnPausa2.png");
         Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa4.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton Izquierda
-        //Texture bntIz = new Texture("botones/BotonIzquierda.png");
         Texture bntIz = juego.getManager().get("botones/BotonIzquierda.png");
         TextureRegionDrawable trBntIz = new TextureRegionDrawable(new TextureRegion(bntIz));
 
         //Boton Derecha
-        //Texture bntDer = new Texture("botones/BotonDerecha.png");
         Texture bntDer = juego.getManager().get("botones/BotonDerecha.png");
         TextureRegionDrawable trBntDer = new TextureRegionDrawable(new TextureRegion(bntDer));
 
         //Boton Saltar
-        //Texture bntSaltar = new Texture("botones/BotonSaltar.png");
         Texture bntSaltar = juego.getManager().get("botones/BotonSaltar.png");
         TextureRegionDrawable trBntSaltar = new TextureRegionDrawable(new TextureRegion(bntSaltar));
 
         // Boton Disparar
-        //Texture bntDispara = new Texture("botones/BotonDisparar.png");
         Texture bntDispara = juego.getManager().get("botones/BotonDisparar.png");
         TextureRegionDrawable trTirar = new TextureRegionDrawable(new TextureRegion(bntDispara));
 
@@ -477,7 +471,7 @@ public class PantallaLucha4 extends Pantalla {
 
                 arrProyectil.removeIndex(i);
                 // Descontar puntos
-                vidaVillanoN4 -= 100;
+                vidaVillanoN4 -= 10;
                 break;
             } else if (vidaVillanoN4 == 0) {
                 estado = PantallaLucha4.EstadoJuego.GANANDO1;
@@ -500,7 +494,7 @@ public class PantallaLucha4 extends Pantalla {
                     && bateriaN4<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN4 += 15;
+                bateriaN4 += 10;
                 if(Sonido==true) {
                     efectoPocima.play();
                 }
@@ -563,7 +557,7 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
-        juego.getManager().unload("Enemigos/Titan1.PNG");
+        juego.getManager().unload("Enemigos/Robot1.PNG");
         juego.getManager().unload("Enemigos/misil.png");
         juego.getManager().unload("Enemigos/dron.png");
 

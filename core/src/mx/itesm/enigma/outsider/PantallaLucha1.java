@@ -45,12 +45,12 @@ public class PantallaLucha1 extends Pantalla {
     private float tiempoBola = 3;
     private Texture texturaBolas;
 
-    // Proyectil
-    private Texture texturaProyectil;
-    private Array<Proyectil> arrProyectil;
-    private Texture texturaExplosion;
+    // Flechas
+    private Texture texturaFlecha;
+    private Array<Flecha> arrFlecha;
+    private Texture texturaFlechaExplotando;
 
-    // Piedras
+    // Piedra
     private Texture texturaPiedra;
     private Array<Piedra> arrPiedra;
     private float timerCrearPiedra;
@@ -72,7 +72,7 @@ public class PantallaLucha1 extends Pantalla {
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
     private float TIEMPO_CREA_POCIMA = 5;
-    private float tiempoPocima = 6;
+    private float tiempoPocima = 10;
 
     //Pausa
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -90,11 +90,8 @@ public class PantallaLucha1 extends Pantalla {
 
     @Override
     public void show() {
-        //fondoNivel1 = new Texture("fondos/fondonivel1.JPG");
         fondoNivel1 = juego.getManager().get("fondos/fondonivel1.png");
-        //pilaP = new Texture("sprites/pilaP.png");
         pilaP = juego.getManager().get("sprites/pilaP.png");
-        //pilaV = new Texture("sprites/pilaP.png");
         pilaV = juego.getManager().get("sprites/pilaP.png");
         crearNivel1();
         crearPiedra();
@@ -124,7 +121,6 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearPiedra() {
-        //texturaPiedra = new Texture("Proyectiles/piedra.png");
         texturaPiedra = juego.getManager().get("Proyectiles/piedra.png");
         arrPiedra = new Array<>();
     }
@@ -146,7 +142,6 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearVillano() {
-        //texturaVillano=new Texture("Enemigos/Titan1.PNG");
         texturaVillano = juego.getManager().get("Enemigos/Titan1.PNG");
         villano=new Villano(texturaVillano);
     }
@@ -156,20 +151,17 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearProyectil() {
-        //texturaProyectil = new Texture("Proyectiles/flecha1.png");
-        texturaExplosion=new Texture("Efectos/explosion.png");
-        texturaProyectil = juego.getManager().get("Proyectiles/flecha1.png");
-        arrProyectil = new Array<>();
+        texturaFlechaExplotando = juego.getManager().get("Efectos/explosion.png");
+        texturaFlecha = juego.getManager().get("Proyectiles/flecha1.png");
+        arrFlecha = new Array<>();
     }
 
     private void crearBolasFuego() {
-        //texturaBolas = new Texture("Enemigos/BolaDeFuego.png");
         texturaBolas = juego.getManager().get("Enemigos/BolaDeFuego.png");
         arrBolasFuego = new Array<>();
     }
 
     private void crearPersonaje() {
-        //texturaPersonaje=new Texture("sprites/personaje.png");
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
         personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
     }
@@ -177,7 +169,6 @@ public class PantallaLucha1 extends Pantalla {
     private void crearNivel1() {
         escenaNivel1 = new Stage(vista);
         ///Boton de Pausa
-        //Texture btnNuevaPartida = new Texture("botones/BtnPausa.png");
         Texture btnNuevaPartida = juego.getManager().get("botones/BtnPausa1.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
@@ -294,10 +285,10 @@ public class PantallaLucha1 extends Pantalla {
                         personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                    if (arrProyectil.size < 5) {
-                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
+                    if (arrFlecha.size < 5) {
+                        Flecha flecha = new Flecha(texturaFlecha, personaje.sprite.getX(),
                                 personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
-                        arrProyectil.add(proyectil);
+                        arrFlecha.add(flecha);
                         if (Sonido == true) {
                             efectoFlecha.play();
                         }
@@ -397,9 +388,9 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void dibujarProyectil() {
-        for (Proyectil proyectil :
-                arrProyectil) {
-            proyectil.render(batch);
+        for (Flecha flecha :
+                arrFlecha) {
+           flecha.render(batch);
         }
     }
 
@@ -457,12 +448,14 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void verificarChoquesAEnemigo() {
-        for (int i=arrProyectil.size-1; i>=0; i--) {
-            Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
+        for (int i=arrFlecha.size-1; i>=0; i--) {
+            Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
-            if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
-                arrProyectil.removeIndex(i);
-                proyectil.setTextura(texturaExplosion);
+            if (flecha.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
+                if(flecha.getEstado()!= EstadoObjeto.EXPLOTANDO) {
+                    flecha.setEstado(EstadoObjeto.EXPLOTANDO);
+                }
+                arrFlecha.removeIndex(i);
                 // Descontar puntos
                 vidaVillano -= 2;
                 break;
@@ -521,12 +514,13 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void actualizarProyectil() {
-        for (int i=arrProyectil.size-1; i>=0; i--) {
-            Proyectil proyectil = arrProyectil.get(i);
-            proyectil.moverDerecha();
-            proyectil.caida();
-            if (proyectil.sprite.getX()>ANCHO) {
-                arrProyectil.removeIndex(i);
+        for (int i=arrFlecha.size-1; i>=0; i--) {
+            Flecha flecha = arrFlecha.get(i);
+            flecha.moverDerecha();
+            flecha.caida();
+            if (flecha.sprite.getX()>ANCHO) {
+                arrFlecha.removeIndex(i);
+                flecha.setEstado(EstadoObjeto.MOVIENDO);
             }
         }
     }
