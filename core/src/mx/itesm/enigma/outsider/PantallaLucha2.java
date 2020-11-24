@@ -532,6 +532,7 @@ public class PantallaLucha2 extends Pantalla {
                 NivelDisponible=3;
                 villano.setEstado(EstadoVillano.MUERTO);
                 preferences.putInteger("NivelGeneral",NivelDisponible);
+                preferences.flush();
                 if (escenaGanando == null) {
                     escenaGanando = new EscenaGanando(vista, batch);
                 }

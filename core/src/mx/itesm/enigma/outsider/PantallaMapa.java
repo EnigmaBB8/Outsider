@@ -130,6 +130,7 @@ public class PantallaMapa extends Pantalla {
         // Nivel 2
         Preferences preferences=Gdx.app.getPreferences("Nivel");
         int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
+        preferences.flush();
         if(NivelActivado>=2){
             btnNivel2.setStyle(AccesoNivel2);
         }else{
@@ -174,6 +175,7 @@ public class PantallaMapa extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Preferences preferences=Gdx.app.getPreferences("Nivel");
+                preferences.flush();
                 int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
                 if(NivelActivado>=2) {
                     btnNivel2.setStyle(AccesoNivel2);
@@ -189,6 +191,7 @@ public class PantallaMapa extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferences=Gdx.app.getPreferences("Nivel");
                 int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
+                preferences.flush();
                 if(NivelActivado>=3) {
                     btnNivel3.setStyle(AccesoNivel3);
                     juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
@@ -203,6 +206,7 @@ public class PantallaMapa extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 Preferences preferences=Gdx.app.getPreferences("Nivel");
                 int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
+                preferences.flush();
                 super.clicked(event, x, y);
                 if(NivelActivado==4) {
                     btnNivel4.setStyle(AccesoNivel4);
