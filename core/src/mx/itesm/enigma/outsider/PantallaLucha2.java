@@ -79,6 +79,9 @@ public class PantallaLucha2 extends Pantalla {
     private float TIEMPO_CREA_ASPAS = 1;
     private float tiempoAspas = 4;
 
+    //Generador de Niveles
+    private int NivelDisponible=2;
+
 
     public PantallaLucha2(Juego juego) {
         this.juego = juego;
@@ -516,6 +519,7 @@ public class PantallaLucha2 extends Pantalla {
 
     private void verificarChoquesAEnemigo() {
         for (int i=arrBolasMagicas.size-1; i>=0; i--) {
+            Preferences preferences=Gdx.app.getPreferences("Nivel");
             BolasMagicas bolasMagicas = arrBolasMagicas.get(i);
             // COLISION!!!
             if (bolasMagicas.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
@@ -525,7 +529,9 @@ public class PantallaLucha2 extends Pantalla {
                 break;
             } else if (vidaVillano2 <= 0) {
                 estado = EstadoJuego.GANANDO1;
+                NivelDisponible=3;
                 villano.setEstado(EstadoVillano.MUERTO);
+                preferences.putInteger("NivelGeneral",NivelDisponible);
                 if (escenaGanando == null) {
                     escenaGanando = new EscenaGanando(vista, batch);
                 }

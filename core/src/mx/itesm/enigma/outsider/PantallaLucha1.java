@@ -84,6 +84,9 @@ public class PantallaLucha1 extends Pantalla {
     //Perdió
     private EscenaPerdio escenaPerdio;
 
+    //Generador de Niveles
+    private int NivelDisponible;
+
     public PantallaLucha1(Juego juego) {
         this.juego = juego;
     }
@@ -448,6 +451,8 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void verificarChoquesAEnemigo() {
+        Preferences preferences=Gdx.app.getPreferences("Nivel");
+        //int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
         for (int i=arrFlecha.size-1; i>=0; i--) {
             Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
@@ -461,7 +466,9 @@ public class PantallaLucha1 extends Pantalla {
                 break;
             } else if (vidaVillano <= 0) {
                 estado = EstadoJuego.GANANDO1;
+                NivelDisponible=2;
                 villano.setEstado(EstadoVillano.MUERTO);
+                preferences.putInteger("NivelGeneral",NivelDisponible);
                 if (escenaGanando == null) {
                     escenaGanando = new EscenaGanando(vista, batch);
                 }
@@ -537,6 +544,7 @@ public class PantallaLucha1 extends Pantalla {
             arrBolasFuego.add(bola);
         }
     }
+
 
     @Override
     public void pause() {

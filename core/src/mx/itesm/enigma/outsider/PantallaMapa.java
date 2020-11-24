@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -16,6 +17,7 @@ public class PantallaMapa extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
     private Texture fondoPantallaReanudar;
+    private int NivelDisponible;
 
     public PantallaMapa(Juego juego) {
         this.juego = juego;
@@ -33,7 +35,7 @@ public class PantallaMapa extends Pantalla {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
         Gdx.app.log("MUSICA Mapa", " " + musicaFondo);
-        if(musicaFondo==true) {
+        if (musicaFondo == true) {
             //Prender musica
             juego.reproducirMusica();
             juego.detenerMusicaN1();
@@ -86,17 +88,68 @@ public class PantallaMapa extends Pantalla {
         Texture botonNivel4Inv = new Texture("botones/BotonNivel4Inv.png");
         TextureRegionDrawable trBotonVivel4Inv = new TextureRegionDrawable(new TextureRegion(botonNivel4Inv));
 
-        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+        //Botón Nivel 1 (Efecto Acceso/Sin Acceso al Nivel)
+        final Button.ButtonStyle estiloAccesoNivel1 = new Button.ButtonStyle(trBotonNivel1, trBotonVivel1Inv, null);
+        final Button.ButtonStyle estiloSinAccesoNivel1 = new Button.ButtonStyle(trBotonVivel1Inv, trBotonNivel1, null);
+        final ImageButton.ImageButtonStyle AccesoNivel1 = new ImageButton.ImageButtonStyle(estiloAccesoNivel1);
+        final ImageButton.ImageButtonStyle SinAccesoNivel1 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel1);
         ImageButton btnNivel1 = new ImageButton(trBotonNivel1, trBotonVivel1Inv);
-        ImageButton btnNivel2 = new ImageButton(trBotonNivel2, trBotonVivel2Inv);
-        ImageButton btnNivel3 = new ImageButton(trBotonNivel3, trBotonVivel3Inv);
-        ImageButton btnNivel4 = new ImageButton(trBotonNivel4, trBotonVivel4Inv);
+
+        //Botón Nivel 2 (Efecto Acceso/Sin Acceso al Nivel)
+        final Button.ButtonStyle estiloAccesoNivel2 = new Button.ButtonStyle(trBotonNivel2, trBotonNivel2, null);
+        final Button.ButtonStyle estiloSinAccesoNivel2 = new Button.ButtonStyle(trBotonVivel2Inv, trBotonVivel2Inv, null);
+        final ImageButton.ImageButtonStyle AccesoNivel2 = new ImageButton.ImageButtonStyle(estiloAccesoNivel2);
+        final ImageButton.ImageButtonStyle SinAccesoNivel2 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel2);
+        final ImageButton btnNivel2 = new ImageButton(trBotonNivel2, trBotonVivel2Inv);
+
+        //Botón Nivel 3 (Efecto Acceso/Sin Acceso al Nivel)
+        final Button.ButtonStyle estiloAccesoNivel3 = new Button.ButtonStyle(trBotonNivel3, trBotonNivel3, null);
+        final Button.ButtonStyle estiloSinAccesoNivel3 = new Button.ButtonStyle(trBotonVivel3Inv, trBotonVivel3Inv, null);
+        final ImageButton.ImageButtonStyle AccesoNivel3 = new ImageButton.ImageButtonStyle(estiloAccesoNivel3);
+        final ImageButton.ImageButtonStyle SinAccesoNivel3 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel3);
+        final ImageButton btnNivel3 = new ImageButton(trBotonNivel3, trBotonVivel3Inv);
+
+        //Botón Nivel 4 (Efecto Acceso/Sin Acceso al Nivel)
+        final Button.ButtonStyle estiloAccesoNivel4 = new Button.ButtonStyle(trBotonNivel4, trBotonNivel4, null);
+        final Button.ButtonStyle estiloSinAccesoNivel4 = new Button.ButtonStyle(trBotonVivel4Inv, trBotonVivel4Inv, null);
+        final ImageButton.ImageButtonStyle AccesoNivel4 = new ImageButton.ImageButtonStyle(estiloAccesoNivel4);
+        final ImageButton.ImageButtonStyle SinAccesoNivel4 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel4);
+        final ImageButton btnNivel4 = new ImageButton(trBotonNivel4, trBotonVivel4Inv);
+
+
+        ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
+
 
         btnNP.setPosition(ANCHO * .85f, ALTO * .23F, Align.topLeft);
         btnNivel1.setPosition(ANCHO * .42f, ALTO * .32F, Align.topLeft);
         btnNivel2.setPosition(ANCHO * .7f, ALTO * .62F, Align.topLeft);
         btnNivel3.setPosition(ANCHO * .38f, ALTO * .77F, Align.topLeft);
         btnNivel4.setPosition(ANCHO * .57f, ALTO * .96F, Align.topLeft);
+
+        //Leer Preferencias
+        // Nivel 2
+        Preferences preferences=Gdx.app.getPreferences("Nivel");
+        int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
+        if(NivelActivado>=2){
+            btnNivel2.setStyle(AccesoNivel2);
+        }else{
+            btnNivel2.setStyle(SinAccesoNivel2);
+        }
+
+        // Nivel 3
+        if(NivelActivado>=3){
+            btnNivel3.setStyle(AccesoNivel3);
+        }else{
+            btnNivel3.setStyle(SinAccesoNivel3);
+        }
+
+        // Nivel 4
+        if(NivelActivado==4){
+            btnNivel4.setStyle(AccesoNivel4);
+        }else{
+            btnNivel4.setStyle(SinAccesoNivel4);
+        }
+
 
         btnNP.addListener(new ClickListener() {
             @Override
@@ -110,7 +163,9 @@ public class PantallaMapa extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL1));
+
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL1));
+
             }
         });
 
@@ -118,7 +173,13 @@ public class PantallaMapa extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
+                Preferences preferences=Gdx.app.getPreferences("Nivel");
+                int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
+                if(NivelActivado>=2) {
+                    btnNivel2.setStyle(AccesoNivel2);
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
+                }
+                btnNivel2.setStyle(SinAccesoNivel2);
             }
         });
 
@@ -126,15 +187,28 @@ public class PantallaMapa extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
+                Preferences preferences=Gdx.app.getPreferences("Nivel");
+                int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
+                if(NivelActivado>=3) {
+                    btnNivel3.setStyle(AccesoNivel3);
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL3));
+                }
+                btnNivel3.setStyle(SinAccesoNivel3);
             }
         });
 
         btnNivel4.addListener(new ClickListener() {
+
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Preferences preferences=Gdx.app.getPreferences("Nivel");
+                int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
+                if(NivelActivado==4) {
+                    btnNivel4.setStyle(AccesoNivel4);
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
+                }
+                btnNivel4.setStyle(SinAccesoNivel4);
             }
         });
 
@@ -158,6 +232,7 @@ public class PantallaMapa extends Pantalla {
         escenaNivel1.draw();
 
     }
+
 
     @Override
     public void pause() {
