@@ -66,7 +66,7 @@ public class PantallaLucha3 extends Pantalla {
     private Array<Zombies> arrZombies;
     private float timerCrearZombies;
     private float TIEMPO_CREA_ZOMBIE = 1;
-    private float tiempoZombie = 5;
+    private float tiempoZombie = 1;
     private Texture texturaZombie;
 
     //Pausa
@@ -401,6 +401,21 @@ public class PantallaLucha3 extends Pantalla {
         verificarChoquesAEnemigo();
         verificarChoquesCerebroPersonaje();
         verificarChoquesZombiesPersonaje();
+        verificarChoquesBalasZombies();
+    }
+
+    private void verificarChoquesBalasZombies() {
+        for (int i=arrProyectil.size-1; i>=0; i--) {
+            Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
+            for (int j=arrZombies.size-1; j>=0; j--){
+                Zombies zombies = arrZombies.get(j);
+                // COLISION!!!
+                if (proyectil.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
+                    arrProyectil.removeIndex(i);
+                    arrZombies.removeIndex(j);
+                }
+            }
+        }
     }
 
     private void verificarChoquesZombiesPersonaje() {
@@ -428,7 +443,7 @@ public class PantallaLucha3 extends Pantalla {
             if (tiempoZombie>4) {
                 tiempoZombie -= 1;
             }
-            Zombies zombies = new Zombies(texturaZombie, ANCHO*0.0001f, 120);
+            Zombies zombies = new Zombies(texturaZombie, ANCHO*.9f, 120);
             arrZombies.add(zombies);
         }
     }
@@ -502,12 +517,16 @@ public class PantallaLucha3 extends Pantalla {
         for (int i = arrPocimas.size-1; i >= 0; i--) {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
+            Preferences preferencias = Gdx.app.getPreferences("Sonido");
+            boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
                     && bateriaN3<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateriaN3 += 5;
-                efectoPocima.play();
+                if (Sonido == true) {
+                    efectoPocima.play();
+                }
                 break;
             }
         }
@@ -583,7 +602,7 @@ public class PantallaLucha3 extends Pantalla {
 
         juego.getManager().unload("botones/omitirN3.png");
         juego.getManager().unload("botones/avanzarN3.png");
-        juego.getManager().unload("botones/AvanzarN31.png");
+        juego.getManager().unload("botones/avanzarN31.png");
         juego.getManager().unload("botones/PlayAgainN3.png");
 
         //Historieta
@@ -735,6 +754,7 @@ public class PantallaLucha3 extends Pantalla {
             btnSonido.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);
@@ -775,7 +795,7 @@ public class PantallaLucha3 extends Pantalla {
             Texture btnOmitir = juego.getManager().get("botones/omitirN3.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.94F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -789,7 +809,7 @@ public class PantallaLucha3 extends Pantalla {
             Texture btnAvanzar = juego.getManager().get("botones/avanzarN3.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.8f, Align.topRight);
+            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -839,7 +859,7 @@ public class PantallaLucha3 extends Pantalla {
             Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgainN3.png");
             TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
             final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
-            btnJugarDeNuevoNivel.setPosition(ANCHO*.7f,ALTO*0.3F, Align.topRight);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.8f,ALTO*0.4F, Align.topRight);
             btnJugarDeNuevoNivel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -861,16 +881,6 @@ public class PantallaLucha3 extends Pantalla {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
 
-                    /*Preferences preferencias = Gdx.app.getPreferences("Musica");
-                    boolean musicaFondo = preferencias.getBoolean("General");
-                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
-                    if(musicaFondo==true) {
-                        //Prender musica
-                        juego.reproducirMusica();
-                        juego.detenerMusicaN1();
-                    }
-
-                     */
                 }
             });
             this.addActor(btnAvanza);

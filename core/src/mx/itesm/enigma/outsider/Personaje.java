@@ -21,7 +21,7 @@ public class Personaje extends Objeto{
     private float yBase;
     private float tAire;
     private final float V0 = 100;
-    private final float G = 15;
+    private final float G = 20;
     private float tVuelo;
     private EstadoKAIM estado;
 

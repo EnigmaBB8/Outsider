@@ -211,7 +211,7 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN3.png", Texture.class);
         manager.load("botones/avanzarN3.png", Texture.class);
-        manager.load("botones/AvanzarN31.png", Texture.class);
+        manager.load("botones/avanzarN31.png", Texture.class);
         manager.load("botones/PlayAgainN3.png", Texture.class);
 
         //Historieta
@@ -416,13 +416,12 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/btnBack1.png", Texture.class);
         manager.load("botones/btnBack.png", Texture.class);
         manager.load("botones/BotonNivel1.png", Texture.class);
-        manager.load("botones/BotonNivel1Inv.png", Texture.class);
         manager.load("botones/BotonNivel2.png", Texture.class);
-        manager.load("botones/BotonNivel2Inv.png", Texture.class);
         manager.load("botones/BotonNivel3.png", Texture.class);
-        manager.load("botones/BotonNivel3Inv.png", Texture.class);
         manager.load("botones/BotonNivel4.png", Texture.class);
-        manager.load("botones/BotonNivel4Inv.png", Texture.class);
+        manager.load("fondos/bloqueoNivel3.png", Texture.class);
+        manager.load("fondos/bloqueoNivel2.png", Texture.class);
+        manager.load("fondos/bloqueoNivel4.png", Texture.class);
     }
 
     private void cargarRecursosHistoria() {

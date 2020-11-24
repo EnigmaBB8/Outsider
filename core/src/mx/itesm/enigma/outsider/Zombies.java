@@ -18,7 +18,7 @@ public class Zombies extends Objeto {
      */
     public Zombies(Texture textura, float x, float y){
         TextureRegion region = new TextureRegion(textura);
-        TextureRegion[][] texturasFrame = region.split(113,140);
+        TextureRegion[][] texturasFrame = region.split(114,138);
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.1f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
@@ -30,7 +30,7 @@ public class Zombies extends Objeto {
     Método que hace que se muevan los zombies
      */
     public void atacar(){
-        sprite.setX(sprite.getX()+5);
+        sprite.setX(sprite.getX()-10);
     }
 
     /*

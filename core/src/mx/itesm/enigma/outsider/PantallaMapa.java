@@ -55,68 +55,54 @@ public class PantallaMapa extends Pantalla {
         ///Boton a Nivel 1
         Texture botonNivel1 = new Texture("botones/BotonNivel1.png");
         TextureRegionDrawable trBotonNivel1 = new TextureRegionDrawable(new TextureRegion(botonNivel1));
+        ImageButton btnNivel1 = new ImageButton(trBotonNivel1, trBotonNivel1);
 
         ///Boton a Nivel 2
         Texture botonNivel2 = new Texture("botones/BotonNivel2.png");
         TextureRegionDrawable trBotonNivel2 = new TextureRegionDrawable(new TextureRegion(botonNivel2));
 
+        Texture botonNivelSAcc2 = new Texture("fondos/bloqueoNivel2.png");
+        TextureRegionDrawable botonNivelSAcc2I = new TextureRegionDrawable(new TextureRegion(botonNivelSAcc2));
+
+        //Botón Nivel 2 (Efecto Acceso/Sin Acceso al Nivel)
+        final Button.ButtonStyle estiloAccesoNivel2 = new Button.ButtonStyle(trBotonNivel2, trBotonNivel2, null);
+        final Button.ButtonStyle estiloSinAccesoNivel2 = new Button.ButtonStyle(botonNivelSAcc2I, botonNivelSAcc2I, null);
+        final ImageButton.ImageButtonStyle AccesoNivel2 = new ImageButton.ImageButtonStyle(estiloAccesoNivel2);
+        final ImageButton.ImageButtonStyle SinAccesoNivel2 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel2);
+        final ImageButton btnNivel2 = new ImageButton(trBotonNivel2, trBotonNivel2);
+
         ///Boton a Nivel 3
         Texture botonNivel3 = new Texture("botones/BotonNivel3.png");
         TextureRegionDrawable trBotonNivel3 = new TextureRegionDrawable(new TextureRegion(botonNivel3));
+
+        Texture botonNivelSAcc = new Texture("fondos/bloqueoNivel3.png");
+        TextureRegionDrawable botonNivelSAcc3 = new TextureRegionDrawable(new TextureRegion(botonNivelSAcc));
+
+        //Botón Nivel 3 (Efecto Acceso/Sin Acceso al Nivel)
+        final Button.ButtonStyle estiloAccesoNivel3 = new Button.ButtonStyle(trBotonNivel3, trBotonNivel3, null);
+        final Button.ButtonStyle estiloSinAccesoNivel3 = new Button.ButtonStyle(botonNivelSAcc3, botonNivelSAcc3, null);
+        final ImageButton.ImageButtonStyle AccesoNivel3 = new ImageButton.ImageButtonStyle(estiloAccesoNivel3);
+        final ImageButton.ImageButtonStyle SinAccesoNivel3 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel3);
+        final ImageButton btnNivel3 = new ImageButton(trBotonNivel3, trBotonNivel3);
 
         ///Boton a Nivel 4
         Texture botonNivel4 = new Texture("botones/BotonNivel4.png");
         TextureRegionDrawable trBotonNivel4 = new TextureRegionDrawable(new TextureRegion(botonNivel4));
 
-        //Inverso de boton de regreso a menu
-        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
-        TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
-
-        //Inverso de boton Nivel 1
-        Texture botonNivel1Inv = new Texture("botones/BotonNivel1Inv.png");
-        TextureRegionDrawable trBotonVivel1Inv = new TextureRegionDrawable(new TextureRegion(botonNivel1Inv));
-
-        //Inverso de boton Nivel 2
-        Texture botonNivel2Inv = new Texture("botones/BotonNivel2Inv.png");
-        TextureRegionDrawable trBotonVivel2Inv = new TextureRegionDrawable(new TextureRegion(botonNivel2Inv));
-
-        //Inverso de boton Nivel 3
-        Texture botonNivel3Inv = new Texture("botones/BotonNivel3Inv.png");
-        TextureRegionDrawable trBotonVivel3Inv = new TextureRegionDrawable(new TextureRegion(botonNivel3Inv));
-
-        //Inverso de boton Nivel 4
-        Texture botonNivel4Inv = new Texture("botones/BotonNivel4Inv.png");
-        TextureRegionDrawable trBotonVivel4Inv = new TextureRegionDrawable(new TextureRegion(botonNivel4Inv));
-
-        //Botón Nivel 1 (Efecto Acceso/Sin Acceso al Nivel)
-        final Button.ButtonStyle estiloAccesoNivel1 = new Button.ButtonStyle(trBotonNivel1, trBotonVivel1Inv, null);
-        final Button.ButtonStyle estiloSinAccesoNivel1 = new Button.ButtonStyle(trBotonVivel1Inv, trBotonNivel1, null);
-        final ImageButton.ImageButtonStyle AccesoNivel1 = new ImageButton.ImageButtonStyle(estiloAccesoNivel1);
-        final ImageButton.ImageButtonStyle SinAccesoNivel1 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel1);
-        ImageButton btnNivel1 = new ImageButton(trBotonNivel1, trBotonVivel1Inv);
-
-        //Botón Nivel 2 (Efecto Acceso/Sin Acceso al Nivel)
-        final Button.ButtonStyle estiloAccesoNivel2 = new Button.ButtonStyle(trBotonNivel2, trBotonNivel2, null);
-        final Button.ButtonStyle estiloSinAccesoNivel2 = new Button.ButtonStyle(trBotonVivel2Inv, trBotonVivel2Inv, null);
-        final ImageButton.ImageButtonStyle AccesoNivel2 = new ImageButton.ImageButtonStyle(estiloAccesoNivel2);
-        final ImageButton.ImageButtonStyle SinAccesoNivel2 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel2);
-        final ImageButton btnNivel2 = new ImageButton(trBotonNivel2, trBotonVivel2Inv);
-
-        //Botón Nivel 3 (Efecto Acceso/Sin Acceso al Nivel)
-        final Button.ButtonStyle estiloAccesoNivel3 = new Button.ButtonStyle(trBotonNivel3, trBotonNivel3, null);
-        final Button.ButtonStyle estiloSinAccesoNivel3 = new Button.ButtonStyle(trBotonVivel3Inv, trBotonVivel3Inv, null);
-        final ImageButton.ImageButtonStyle AccesoNivel3 = new ImageButton.ImageButtonStyle(estiloAccesoNivel3);
-        final ImageButton.ImageButtonStyle SinAccesoNivel3 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel3);
-        final ImageButton btnNivel3 = new ImageButton(trBotonNivel3, trBotonVivel3Inv);
+        Texture botonNivelSAcc4 = new Texture("fondos/bloqueoNivel4.png");
+        TextureRegionDrawable botonNivelSAcc4I = new TextureRegionDrawable(new TextureRegion(botonNivelSAcc4));
 
         //Botón Nivel 4 (Efecto Acceso/Sin Acceso al Nivel)
         final Button.ButtonStyle estiloAccesoNivel4 = new Button.ButtonStyle(trBotonNivel4, trBotonNivel4, null);
-        final Button.ButtonStyle estiloSinAccesoNivel4 = new Button.ButtonStyle(trBotonVivel4Inv, trBotonVivel4Inv, null);
+        final Button.ButtonStyle estiloSinAccesoNivel4 = new Button.ButtonStyle(botonNivelSAcc4I, botonNivelSAcc4I, null);
         final ImageButton.ImageButtonStyle AccesoNivel4 = new ImageButton.ImageButtonStyle(estiloAccesoNivel4);
         final ImageButton.ImageButtonStyle SinAccesoNivel4 = new ImageButton.ImageButtonStyle(estiloSinAccesoNivel4);
-        final ImageButton btnNivel4 = new ImageButton(trBotonNivel4, trBotonVivel4Inv);
+        final ImageButton btnNivel4 = new ImageButton(trBotonNivel4, trBotonNivel4);
 
+        //Inverso de boton de regreso a menu
 
+        Texture btnNuevaPartidaInv = new Texture("botones/btnBack.png");
+        TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
 
@@ -131,19 +117,18 @@ public class PantallaMapa extends Pantalla {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
         int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
         preferences.flush();
+
         if(NivelActivado>=2){
             btnNivel2.setStyle(AccesoNivel2);
         }else{
             btnNivel2.setStyle(SinAccesoNivel2);
         }
-
         // Nivel 3
         if(NivelActivado>=3){
             btnNivel3.setStyle(AccesoNivel3);
         }else{
             btnNivel3.setStyle(SinAccesoNivel3);
         }
-
         // Nivel 4
         if(NivelActivado==4){
             btnNivel4.setStyle(AccesoNivel4);
@@ -254,13 +239,12 @@ public class PantallaMapa extends Pantalla {
         juego.getManager().unload("botones/btnBack1.png");
         juego.getManager().unload("botones/btnBack.png");
         juego.getManager().unload("botones/BotonNivel1.png");
-        juego.getManager().unload("botones/BotonNivel1Inv.png");
         juego.getManager().unload("botones/BotonNivel2.png");
-        juego.getManager().unload("botones/BotonNivel2Inv.png");
         juego.getManager().unload("botones/BotonNivel3.png");
-        juego.getManager().unload("botones/BotonNivel3Inv.png");
         juego.getManager().unload("botones/BotonNivel4.png");
-        juego.getManager().unload("botones/BotonNivel4Inv.png");
+        juego.getManager().unload("fondos/bloqueoNivel2.png");
+        juego.getManager().unload("fondos/bloqueoNivel3.png");
+        juego.getManager().unload("fondos/bloqueoNivel4.png");
         batch.dispose();
     }
 }

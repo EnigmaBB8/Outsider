@@ -804,7 +804,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnOmitir = juego.getManager().get("botones/omitir.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.94F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -818,7 +818,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.8f, Align.topRight);
+            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -871,7 +871,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgain.png");
             TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
             final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
-            btnJugarDeNuevoNivel.setPosition(ANCHO*.7f,ALTO*0.3F, Align.topRight);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.8f,ALTO*0.4F, Align.topRight);
             btnJugarDeNuevoNivel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
