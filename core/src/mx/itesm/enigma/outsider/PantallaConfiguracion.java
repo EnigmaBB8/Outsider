@@ -134,7 +134,7 @@ public class PantallaConfiguracion extends Pantalla {
         btnS.setPosition(ANCHO * .7F, ALTO * .3F, Align.center);
 
         //Leer preferencias
-        Preferences preferences=Gdx.app.getPreferences("Sonido");
+        final Preferences preferences=Gdx.app.getPreferences("Sonido");
         boolean Sonido=preferences.getBoolean("GeneralSonido");
         if(Sonido==true){
             btnS.setStyle(PrendidoSonido);
@@ -153,10 +153,12 @@ public class PantallaConfiguracion extends Pantalla {
                     //Prender Sonido
                     btnS.setStyle(PrendidoSonido);
                     preferencias.putBoolean("GeneralSonido",true);
+                    preferences.flush();
                 }else{
                     //Apagar Sonido
                     btnS.setStyle(ApagadoSonido);
                     preferencias.putBoolean("GeneralSonido",false);
+                    preferences.flush();
                 }
 
             }

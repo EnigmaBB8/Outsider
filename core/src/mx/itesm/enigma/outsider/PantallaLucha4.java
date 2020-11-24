@@ -689,7 +689,7 @@ public class PantallaLucha4 extends Pantalla {
             }
 
             //Leer preferencias Sonido
-            Preferences preferences=Gdx.app.getPreferences("Sonido");
+            final Preferences preferences=Gdx.app.getPreferences("Sonido");
             boolean Sonido=preferences.getBoolean("GeneralSonido");
             if(Sonido==true){
                 //Sonido Prendido
@@ -754,10 +754,12 @@ public class PantallaLucha4 extends Pantalla {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
                         preferencias.putBoolean("GeneralSonido", true);
+                        preferences.flush();
                     } else {
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
                         preferencias.putBoolean("GeneralSonido", false);
+                        preferences.flush();
                     }
                 }
             });
