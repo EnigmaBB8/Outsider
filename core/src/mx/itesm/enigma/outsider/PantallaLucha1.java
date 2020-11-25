@@ -458,11 +458,13 @@ public class PantallaLucha1 extends Pantalla {
             Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
             if (flecha.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
-                //if(flecha.getEstado()!= EstadoObjeto.EXPLOTANDO) {
+                //if(flecha.getEstado()!= EstadoObjeto.MOVIENDO) {
                     //flecha.setEstado(EstadoObjeto.EXPLOTANDO);
-                    //flecha.
-               // }
+               //    if(flecha.getEstado()!= EstadoObjeto.EXPLOTANDO){
+                        //flecha.setEstado(EstadoObjeto.DESAPARECE);
                 arrFlecha.removeIndex(i);
+                //}
+             //}
                 // Descontar puntos
                 vidaVillano -= 2;
                 break;
