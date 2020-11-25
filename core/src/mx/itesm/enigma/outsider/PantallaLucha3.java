@@ -19,6 +19,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.awt.event.PaintEvent;
+
 public class PantallaLucha3 extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel3;
@@ -266,20 +268,16 @@ public class PantallaLucha3 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
-                        personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
-                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrProyectil.size < 5) {
-                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
-                                personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
+                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
                         arrProyectil.add(proyectil);
                         if (Sonido == true) {
                             efectoBala.play();
                         }
                     }
                 }
-            }
         });
         //Pausa
         btnNP.addListener(new ClickListener() {
@@ -479,12 +477,24 @@ public class PantallaLucha3 extends Pantalla {
     }
 
     private void actualizarProyectil() {
-        for (int i=arrProyectil.size-1; i>=0; i--) {
-            Proyectil proyectil = arrProyectil.get(i);
-            proyectil.moverDerecha();
-            proyectil.caida();
-            if (proyectil.sprite.getX()>ANCHO) {
-                arrProyectil.removeIndex(i);
+        for (int i = arrProyectil.size - 1; i >= 0; i--) {
+            if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA
+                    || personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA ||
+                    personaje.getEstado() == EstadoKAIM.QUIETO) {
+                Proyectil proyectil = arrProyectil.get(i);
+                proyectil.moverDerecha();
+                proyectil.caida();
+                if (proyectil.sprite.getX() > ANCHO) {
+                    arrProyectil.removeIndex(i);
+                }
+            } else if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_IZQUIERDA
+                    || personaje.getEstadoCaminando() == EstadoCaminando.SALTA_IZQUIERDA) {
+                Proyectil proyectil = arrProyectil.get(i);
+                proyectil.moverIzquierda();
+                proyectil.caida();
+                if (proyectil.sprite.getX() < ANCHO) {
+                    arrProyectil.removeIndex(i);
+                }
             }
         }
     }

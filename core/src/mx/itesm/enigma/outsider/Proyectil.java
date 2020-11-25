@@ -46,4 +46,10 @@ public class Proyectil extends Objeto {
                 break;
         }
     }
+
+    public void moverIzquierda() {
+        float lapso = Gdx.graphics.getDeltaTime();
+        float dx = VX*lapso;
+        sprite.setX(sprite.getX() - dx);
+    }
 }

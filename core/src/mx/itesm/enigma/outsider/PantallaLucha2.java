@@ -506,12 +506,16 @@ public class PantallaLucha2 extends Pantalla {
         for (int i = arrPocimas.size-1; i >= 0; i--) {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
+            Preferences preferencias = Gdx.app.getPreferences("Sonido");
+            boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
                     && bateriaN2<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateriaN2 += 6;
-                efectoPocima.play();
+                if (Sonido == true) {
+                    efectoPocima.play();
+                }
                 break;
             }
         }

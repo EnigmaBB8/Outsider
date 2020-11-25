@@ -139,7 +139,7 @@ public class Personaje extends Objeto{
             if(sprite.getX() == ANCHO -sprite.getWidth()) {
                 setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
             }
-            else {//if (personaje.sprite.getWidth() <= 0) {
+            else {
                 setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
             }
         }
