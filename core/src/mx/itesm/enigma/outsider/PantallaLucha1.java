@@ -48,7 +48,6 @@ public class PantallaLucha1 extends Pantalla {
     // Flechas
     private Texture texturaFlecha;
     private Array<Flecha> arrFlecha;
-    private Texture texturaFlechaExplotando;
 
     // Piedra
     private Texture texturaPiedra;
@@ -154,9 +153,11 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearProyectil() {
-        texturaFlechaExplotando = juego.getManager().get("Efectos/explosion.png");
-        texturaFlecha = juego.getManager().get("Proyectiles/flecha1.png");
+        texturaFlecha=juego.getManager().get("Proyectiles/flecha1.png");
+       //Texture texturaFlechaMoviendo= new Texture("Proyectiles/flecha1.png");
+       //Texture texturaFlechaExplotando=new Texture("Efectos/explosion.png");
         arrFlecha = new Array<>();
+        //Proyectil flecha=new Proyectil(texturaFlechaMoviendo,texturaFlechaExplotando,)
     }
 
     private void crearBolasFuego() {
@@ -457,9 +458,10 @@ public class PantallaLucha1 extends Pantalla {
             Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
             if (flecha.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
-                if(flecha.getEstado()!= EstadoObjeto.EXPLOTANDO) {
-                    flecha.setEstado(EstadoObjeto.EXPLOTANDO);
-                }
+                //if(flecha.getEstado()!= EstadoObjeto.EXPLOTANDO) {
+                    //flecha.setEstado(EstadoObjeto.EXPLOTANDO);
+                    //flecha.
+               // }
                 arrFlecha.removeIndex(i);
                 // Descontar puntos
                 vidaVillano -= 2;
@@ -524,11 +526,13 @@ public class PantallaLucha1 extends Pantalla {
     private void actualizarProyectil() {
         for (int i=arrFlecha.size-1; i>=0; i--) {
             Flecha flecha = arrFlecha.get(i);
+            //flecha.setEstado(EstadoObjeto.MOVIENDO);
             flecha.moverDerecha();
             flecha.caida();
             if (flecha.sprite.getX()>ANCHO) {
+                //flecha.setEstado(EstadoObjeto.EXPLOTANDO);
                 arrFlecha.removeIndex(i);
-                flecha.setEstado(EstadoObjeto.MOVIENDO);
+
             }
         }
     }
