@@ -41,7 +41,6 @@ public class Personaje extends Objeto{
 
         //Salto
         yBase = y;
-
         estado = EstadoKAIM.QUIETO;
 
         //Dirección de desplazamiento
@@ -122,7 +121,7 @@ public class Personaje extends Objeto{
             batch.draw(frame,sprite.getX(),sprite.getY());
             if (tAire >= tVuelo) {
                 sprite.setY(yBase);
-                estado = EstadoKAIM.CAMINANDO;
+                estado = EstadoKAIM.QUIETO;
             }
         }
     }

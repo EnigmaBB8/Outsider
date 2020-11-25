@@ -238,8 +238,10 @@ public class PantallaLucha1 extends Pantalla {
         bntDerecha.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstado(EstadoKAIM.CAMINANDO);
-                personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
+                if(personaje.getEstado() != EstadoKAIM.SALTANDO){
+                    personaje.setEstado(EstadoKAIM.CAMINANDO);
+                    personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
+                }
                 return true;
             }
             @Override
@@ -253,8 +255,10 @@ public class PantallaLucha1 extends Pantalla {
         btnIzquierda.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstado(EstadoKAIM.CAMINANDO);
-                personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
+                if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.setEstado(EstadoKAIM.CAMINANDO);
+                    personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
+                }
                 return true;
             }
             @Override
@@ -272,12 +276,12 @@ public class PantallaLucha1 extends Pantalla {
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
-                    personaje.saltar();
-                    if(Sonido==true) {
-                        efectoSalto.play();
+                        personaje.saltar();
+                        if(Sonido==true) {
+                            efectoSalto.play();
+                        }
                     }
                 }
-            }
         });
 
         // Disparo
