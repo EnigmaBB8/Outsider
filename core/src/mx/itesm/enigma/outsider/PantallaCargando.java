@@ -245,6 +245,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/Dragon1.PNG", Texture.class);
         manager.load("Enemigos/aspas.png", Texture.class);
         manager.load("Enemigos/llamaradas.png", Texture.class);
+        manager.load("Enemigos/Espinas.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);

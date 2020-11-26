@@ -61,6 +61,13 @@ public class PantallaLucha2 extends Pantalla {
     private float timerCrearPocima;
     private float TIEMPO_CREA_POCIMA = 6;
     private float tiempoPocima = 7;
+    
+    //Espinas
+    private Array<Espinas> arrEspinas;
+    private float timerCrearEspinas;
+    private float TIEMPO_CREA_ESPINAS = 1;
+    private float tiempoEspinas = 1;
+    private Texture texturaEspinas;
 
     //Pausa
     private PantallaLucha2.EstadoJuego estado = PantallaLucha2.EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -105,9 +112,15 @@ public class PantallaLucha2 extends Pantalla {
         crearLlamaradas();
         crearPocima();
         crearAspas();
+        crearEspinas();
         ConfiguracionMusica();
         configuracionSonido();
 
+    }
+
+    private void crearEspinas() {
+        texturaEspinas = juego.getManager().get("Enemigos/Espinas.png");
+        arrEspinas = new Array<>();
     }
 
     private void configuracionSonido() {
@@ -366,6 +379,7 @@ public class PantallaLucha2 extends Pantalla {
             dibujarVidaVillano();
             dibujarPocimas();
             dibujarAspas();
+            dibujarEspinas();
 
             batch.end();
 
@@ -381,6 +395,13 @@ public class PantallaLucha2 extends Pantalla {
             escenaPerdio.draw();
         }
 
+    }
+
+    private void dibujarEspinas() {
+        for (Espinas espinas : arrEspinas) {
+            espinas.render(batch);
+            espinas.atacar();
+        }
     }
 
     private void dibujarAspas() {
@@ -428,11 +449,58 @@ public class PantallaLucha2 extends Pantalla {
         actualizarPocimas();
         actualizarLlamaradas();
         actualizarAspas();
+        actualizarEspinas();
 
         verificarChoquesAEnemigo();
         verificarPocimaTomada();
         verificarChoquesLlamaradaPersonaje();
         verficarChoquesAspas();
+        verificarChoquesEspinas();
+        verificarChoquesBalasEspinas();
+    }
+
+    private void verificarChoquesBalasEspinas() {
+        for (int i=arrBolasMagicas.size-1; i>=0; i--) {
+            BolasMagicas bolasMagicas = arrBolasMagicas.get(i); //Proyectil atacante
+            for (int j=arrEspinas.size-1; j>=0; j--){
+                Espinas espinas = arrEspinas.get(j);
+                // COLISION!!!
+                if (bolasMagicas.sprite.getBoundingRectangle().overlaps(espinas.sprite.getBoundingRectangle())) {
+                    //arrBolasMagicas.removeIndex(i);
+                    arrEspinas.removeIndex(j);
+                }
+            }
+        }
+    }
+
+    private void verificarChoquesEspinas() {
+        for (int i = arrEspinas.size-1; i>=0; i--) {
+            Espinas espinas = arrEspinas.get(i);
+            if (personaje.sprite.getBoundingRectangle().overlaps(espinas.sprite.getBoundingRectangle())) {
+                arrEspinas.removeIndex(i);
+                bateriaN2 -= 5;
+                break;
+            } else if (bateriaN2 <= 0) {
+                estado = EstadoJuego.PERDIO;
+                if (escenaPerdio == null) {
+                    escenaPerdio = new EscenaPerdio(vista, batch);
+                }
+                Gdx.input.setInputProcessor(escenaPerdio);
+            }
+        }
+    }
+
+    private void actualizarEspinas() {
+        timerCrearEspinas += Gdx.graphics.getDeltaTime();
+        if (timerCrearEspinas >= TIEMPO_CREA_ESPINAS) {
+            timerCrearEspinas = 0;
+            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*30;
+            if (tiempoEspinas > 2) {
+                tiempoEspinas -= 1;
+            }
+            Espinas espinas = new Espinas(texturaEspinas, 300, 125);
+            arrEspinas.add(espinas);
+        }
     }
 
     private void verficarChoquesAspas() {
@@ -579,6 +647,7 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("Enemigos/Dragon1.PNG");
         juego.getManager().unload("Enemigos/llamaradas.png");
         juego.getManager().unload("Enemigos/aspas.png");
+        juego.getManager().unload("Enemigos/Espinas.png");
 
         //Texto
         juego.getManager().unload("Texto/game.fnt");

@@ -278,7 +278,7 @@ public class PantallaLucha1 extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                if (personaje.getEstado() != EstadoKAIM.SALTANDO ) {
                         personaje.saltar();
                         if(Sonido==true) {
                             efectoSalto.play();
@@ -292,8 +292,8 @@ public class PantallaLucha1 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
-                        personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
+                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA
+                        ||personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrFlecha.size < 5) {

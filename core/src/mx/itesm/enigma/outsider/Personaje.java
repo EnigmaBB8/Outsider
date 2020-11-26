@@ -117,7 +117,7 @@ public class Personaje extends Objeto{
                 frame.flip(true,false);
             }
 
-            tAire += 10*delta;
+            tAire += 20*delta;
             float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
             sprite.setY(y);
             batch.draw(frame,sprite.getX(),sprite.getY());
