@@ -20,8 +20,8 @@ public class Personaje extends Objeto{
     // Salto
     private float yBase;
     private float tAire;
-    private final float V0 = 100;
-    private final float G = 20;
+    private final float V0 = 80;
+    private final float G = 10;
     private TextureRegion[][] texturasFrame;
     private float tVuelo;
     private EstadoKAIM estado;
