@@ -293,16 +293,13 @@ public class PantallaLucha1 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA
-                        ||personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
-                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                    if (arrFlecha.size < 50) {
-                        Flecha flecha = crearProyectil();
-                        arrFlecha.add(flecha);
-                        if (Sonido == true) {
-                            efectoFlecha.play();
-                        }
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                if (arrFlecha.size < 50) {
+                    Flecha flecha = crearProyectil();
+                    arrFlecha.add(flecha);
+                    if (Sonido == true) {
+                        efectoFlecha.play();
                     }
                 }
             }
@@ -532,13 +529,12 @@ public class PantallaLucha1 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i=arrFlecha.size-1; i>=0; i--) {
-            Flecha flecha = arrFlecha.get(i);
-            flecha.moverDerecha();
-            flecha.caida();
-            if (flecha.sprite.getX()>ANCHO) {
-                arrFlecha.removeIndex(i);
-
-            }
+                Flecha flecha = arrFlecha.get(i);
+                flecha.moverDerecha();
+                flecha.caida();
+                if (flecha.sprite.getX() > ANCHO) {
+                    arrFlecha.removeIndex(i);
+                }
         }
     }
 

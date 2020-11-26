@@ -33,6 +33,7 @@ public class Personaje extends Objeto{
         //Quieto
         sprite=new Sprite(texturasFrame[0][0]);
         sprite.setPosition(x,y);
+        estado = EstadoKAIM.QUIETO;
 
         //Animación
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
@@ -42,10 +43,9 @@ public class Personaje extends Objeto{
 
         //Salto
         yBase = y;
-        estado = EstadoKAIM.QUIETO;
 
         //Dirección de desplazamiento
-        estadoCaminando = EstadoCaminando.QUIETO;
+        estadoCaminando = EstadoCaminando.QUIETO_DERECHA;
 
     }
 
