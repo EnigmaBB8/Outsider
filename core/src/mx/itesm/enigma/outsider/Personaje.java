@@ -22,12 +22,13 @@ public class Personaje extends Objeto{
     private float tAire;
     private final float V0 = 100;
     private final float G = 20;
+    private TextureRegion[][] texturasFrame;
     private float tVuelo;
     private EstadoKAIM estado;
 
     public Personaje(Texture textura, float x, float y){
         TextureRegion region=new TextureRegion(textura);
-        TextureRegion[][] texturasFrame=region.split(80,125);
+        texturasFrame=region.split(80,125);
 
         //Quieto
         sprite=new Sprite(texturasFrame[0][0]);
@@ -67,6 +68,7 @@ public class Personaje extends Objeto{
         float delta = Gdx.graphics.getDeltaTime();
         timerAnimacion += delta;//calcula
         if(estado==EstadoKAIM.QUIETO){
+            sprite.setRegion(texturasFrame [0][0]);
             sprite.setY(yBase);
             if(estadoCaminando == EstadoCaminando.DERECHA && sprite.isFlipX()){
                 sprite.flip(true,false);

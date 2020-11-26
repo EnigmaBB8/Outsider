@@ -99,7 +99,8 @@ public class PantallaLucha1 extends Pantalla {
         crearPiedra();
         crearPersonaje();
         crearBolasFuego();
-        crearProyectil();
+        //crearProyectil();
+        arrFlecha = new Array<>();
         crearTexto();
         crearVillano();
         crearSonido();
@@ -152,12 +153,14 @@ public class PantallaLucha1 extends Pantalla {
         texto=new Texto("Texto/game.fnt");
     }
 
-    private void crearProyectil() {
+    private Flecha crearProyectil() { //El Manager cambia las texturas
         texturaFlecha=juego.getManager().get("Proyectiles/flecha1.png");
-       //Texture texturaFlechaMoviendo= new Texture("Proyectiles/flecha1.png");
-       //Texture texturaFlechaExplotando=new Texture("Efectos/explosion.png");
-        arrFlecha = new Array<>();
-        //Proyectil flecha=new Proyectil(texturaFlechaMoviendo,texturaFlechaExplotando,)
+       Texture texturaFlechaMoviendo= new Texture("Proyectiles/flecha1.png");
+       Texture texturaFlechaExplotando=new Texture("Efectos/explosion.png");
+        //arrFlecha = new Array<>();
+        Flecha flecha=new Flecha(texturaFlechaMoviendo,texturaFlechaExplotando, personaje.sprite.getX()+ personaje.sprite.getWidth(),
+                personaje.sprite.getY()+ personaje.sprite.getHeight()*0.75f);
+        return flecha;
     }
 
     private void crearBolasFuego() {
@@ -294,8 +297,7 @@ public class PantallaLucha1 extends Pantalla {
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrFlecha.size < 5) {
-                        Flecha flecha = new Flecha(texturaFlecha, personaje.sprite.getX(),
-                                personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
+                        Flecha flecha = crearProyectil();
                         arrFlecha.add(flecha);
                         if (Sonido == true) {
                             efectoFlecha.play();
@@ -462,13 +464,12 @@ public class PantallaLucha1 extends Pantalla {
             Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
             if (flecha.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
-                //if(flecha.getEstado()!= EstadoObjeto.MOVIENDO) {
-                    //flecha.setEstado(EstadoObjeto.EXPLOTANDO);
-               //    if(flecha.getEstado()!= EstadoObjeto.EXPLOTANDO){
-                        //flecha.setEstado(EstadoObjeto.DESAPARECE);
-                arrFlecha.removeIndex(i);
-                //}
-             //}
+                if(flecha.getEstado()== EstadoObjeto.MOVIENDO) {
+                    flecha.setEstado(EstadoObjeto.EXPLOTANDO);
+                }else if(flecha.getEstado()== EstadoObjeto.DESAPARECE){
+                    arrFlecha.removeIndex(i);
+                }
+
                 // Descontar puntos
                 vidaVillano -= 2;
                 break;
