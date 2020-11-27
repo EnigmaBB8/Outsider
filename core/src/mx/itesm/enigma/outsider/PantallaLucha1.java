@@ -158,9 +158,9 @@ public class PantallaLucha1 extends Pantalla {
         texturaFlechaMoviendo = juego.getManager().get("Proyectiles/flecha1.png");
        texturaFlechaExplotando = juego.getManager().get("Efectos/explosion.png");
 
-        //arrFlecha = new Array<>();
-        Flecha flecha=new Flecha(texturaFlechaMoviendo,texturaFlechaExplotando, personaje.sprite.getX()+ personaje.sprite.getWidth(),
-                personaje.sprite.getY()+ personaje.sprite.getHeight()*0.55f);
+        Flecha flecha=new Flecha(texturaFlechaMoviendo,texturaFlechaExplotando,
+                personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
+                personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
         return flecha;
     }
 

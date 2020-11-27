@@ -28,7 +28,7 @@ public class Personaje extends Objeto{
 
     public Personaje(Texture textura, float x, float y){
         TextureRegion region=new TextureRegion(textura);
-        texturasFrame=region.split(80,125);
+        texturasFrame=region.split(65,125);
 
         //Quieto
         sprite=new Sprite(texturasFrame[0][0]);
@@ -36,7 +36,8 @@ public class Personaje extends Objeto{
         estado = EstadoKAIM.QUIETO;
 
         //Animación
-        TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
+        TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3],
+                texturasFrame[0][4],texturasFrame[0][5],texturasFrame[0][6],texturasFrame[0][7]};
         animacion=new Animation<TextureRegion>(0.25f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
