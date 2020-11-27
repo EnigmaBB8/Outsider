@@ -122,7 +122,7 @@ public class PantallaLucha4 extends Pantalla {
     }
 
     private void crearVillano() {
-        texturaVillano = juego.getManager().get("Enemigos/Robot1.PNG");
+        texturaVillano = juego.getManager().get("Enemigos/Robot1.png");
         villano=new Villano(texturaVillano);
     }
 
@@ -572,7 +572,7 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
-        juego.getManager().unload("Enemigos/Robot1.PNG");
+        juego.getManager().unload("Enemigos/Robot1.png");
         juego.getManager().unload("Enemigos/misil.png");
         juego.getManager().unload("Enemigos/dron.png");
 

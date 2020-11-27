@@ -114,7 +114,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("Efectos/pocima.mp3", Sound.class);
 
         //Enemigos
-        manager.load("Enemigos/Robot1.PNG", Texture.class);
+        manager.load("Enemigos/Robot1.png", Texture.class);
         manager.load("Enemigos/misil.png", Texture.class);
         manager.load("Enemigos/dron.png", Texture.class);
 
@@ -211,7 +211,6 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN3.png", Texture.class);
         manager.load("botones/avanzarN3.png", Texture.class);
-        manager.load("botones/avanzarN31.png", Texture.class);
         manager.load("botones/PlayAgainN3.png", Texture.class);
 
         //Historieta
