@@ -22,6 +22,7 @@ public class PantallaMenu extends Pantalla  {
     }
 
     @Override
+    /awa
     public void show() {
         //fondomenu = new Texture("fondos/fondomenu.jpeg");
         fondomenu = juego.getManager().get("fondos/fondomenu.jpeg");
