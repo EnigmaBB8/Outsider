@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -464,14 +465,15 @@ public class PantallaLucha1 extends Pantalla {
 
     private void verificarChoquesAEnemigo() {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
-        //int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
         for (int i=arrFlecha.size-1; i>=0; i--) {
             Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
-            if (flecha.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
+            Rectangle rectVillano = villano.sprite.getBoundingRectangle();
+            rectVillano.x += rectVillano.width/3;
+            if (flecha.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(flecha.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillano -= 1;
+                    vidaVillano -= 10;
                     flecha.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(flecha.getEstado()== EstadoObjeto.DESAPARECE){
                     arrFlecha.removeIndex(i);
@@ -822,7 +824,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnOmitir = juego.getManager().get("botones/omitir.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*0.2F,ALTO*0.98F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -836,7 +838,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
+            btnAvanza.setPosition(ANCHO * 0.2f, ALTO * 0.84f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -941,7 +943,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnOmitir = juego.getManager().get("botones/omitir.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*0.2F,ALTO*0.98F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -955,7 +957,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
+            btnAvanza.setPosition(ANCHO * 0.2f, ALTO * 0.84f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

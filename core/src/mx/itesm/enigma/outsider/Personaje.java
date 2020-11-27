@@ -121,34 +121,58 @@ public class Personaje extends Objeto{
 
             }else if(estadoCaminando==EstadoCaminando.QUIETO_IZQUIERDA && !frame.isFlipX()){
                 frame.flip(true, false);
-
             }
-
             tAire += 20*delta;
             float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
             sprite.setY(y);
-            batch.draw(frame,sprite.getX(),sprite.getY());
             if (tAire >= tVuelo) {
                 sprite.setY(yBase);
                 estado = EstadoKAIM.QUIETO;
             }
+            batch.draw(frame,sprite.getX(),sprite.getY());
         }else if(estado==EstadoKAIM.DISPARANDO_FLECHAS){
             sprite.setRegion(texturasFrame[0][5]);
-            sprite.setY(yBase);
             batch.draw(sprite,sprite.getX(),sprite.getY());
+            tAire += 20*delta;
+            float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
+            sprite.setY(y);
+            if (tAire >= tVuelo) {
+                sprite.setY(yBase);
+                estado = EstadoKAIM.QUIETO;
+            }
 
         }else if(estado==EstadoKAIM.DISPARANDO_BOLASMAGICAS){
             sprite.setRegion(texturasFrame[0][6]);
             batch.draw(sprite,sprite.getX(),sprite.getY());
+            tAire += 20*delta;
+            float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
+            sprite.setY(y);
+            if (tAire >= tVuelo) {
+                sprite.setY(yBase);
+                estado = EstadoKAIM.QUIETO;
+            }
 
         }else if(estado==EstadoKAIM.DISPARANDO_BALAS){
             sprite.setRegion(texturasFrame[0][7]);
             batch.draw(sprite,sprite.getX(),sprite.getY());
+            tAire += 20*delta;
+            float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
+            sprite.setY(y);
+            if (tAire >= tVuelo) {
+                sprite.setY(yBase);
+                estado = EstadoKAIM.QUIETO;
+            }
 
         }else if(estado==EstadoKAIM.DISPARANDO_LASERS){
             sprite.setRegion(texturasFrame[0][4]);
             batch.draw(sprite,sprite.getX(),sprite.getY());
-
+            tAire += 20*delta;
+            float y = yBase + V0*tAire - 0.5f*G*tAire*tAire;
+            sprite.setY(y);
+            if (tAire >= tVuelo) {
+                sprite.setY(yBase);
+                estado = EstadoKAIM.QUIETO;
+            }
         }
     }
 
@@ -181,5 +205,4 @@ public class Personaje extends Objeto{
     public void setEstado(EstadoKAIM nuevoEstadoKAIM){
         estado=nuevoEstadoKAIM;
     }
-
 }

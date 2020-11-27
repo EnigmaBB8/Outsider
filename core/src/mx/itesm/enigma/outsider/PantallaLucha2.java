@@ -900,7 +900,7 @@ public class PantallaLucha2 extends Pantalla {
             Texture btnOmitir = juego.getManager().get("botones/omitirN2.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*0.2F,ALTO*0.98F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -914,7 +914,7 @@ public class PantallaLucha2 extends Pantalla {
             Texture btnAvanzar = juego.getManager().get("botones/avanzarN2.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
+            btnAvanza.setPosition(ANCHO * 0.2f, ALTO * 0.84f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -1018,7 +1018,7 @@ public class PantallaLucha2 extends Pantalla {
             Texture btnOmitir = juego.getManager().get("botones/omitirN2.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*0.2F,ALTO*0.98F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -1032,7 +1032,7 @@ public class PantallaLucha2 extends Pantalla {
             Texture btnAvanzar = juego.getManager().get("botones/avanzarN2.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
+            btnAvanza.setPosition(ANCHO * 0.2f, ALTO * 0.84f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
