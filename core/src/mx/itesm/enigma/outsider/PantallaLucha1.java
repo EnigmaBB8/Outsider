@@ -279,6 +279,7 @@ public class PantallaLucha1 extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferencias.getBoolean("GeneralSonido");
+
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO ) {
                         personaje.saltar();
                         if(Sonido==true) {
@@ -298,10 +299,16 @@ public class PantallaLucha1 extends Pantalla {
                 if (arrFlecha.size < 50) {
                     Flecha flecha = crearProyectil();
                     arrFlecha.add(flecha);
+                    if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_FLECHAS){
+                        personaje.setEstado(EstadoKAIM.DISPARANDO_FLECHAS);
+                    }
                     if (Sonido == true) {
                         efectoFlecha.play();
                     }
                 }
+
+
+
             }
         });
 

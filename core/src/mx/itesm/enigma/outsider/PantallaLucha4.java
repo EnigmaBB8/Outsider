@@ -280,6 +280,9 @@ public class PantallaLucha4 extends Pantalla {
                         Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(),
                                 personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
                         arrProyectil.add(proyectil);
+                        if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_LASERS){
+                            personaje.setEstado(EstadoKAIM.DISPARANDO_LASERS);
+                        }
                         if (Sonido == true) {
                             efectoLaser.play();
                         }

@@ -36,8 +36,7 @@ public class Personaje extends Objeto{
         estado = EstadoKAIM.QUIETO;
 
         //Animación
-        TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3],
-                texturasFrame[0][4],texturasFrame[0][5],texturasFrame[0][6],texturasFrame[0][7]};
+        TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.25f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
@@ -70,7 +69,7 @@ public class Personaje extends Objeto{
         timerAnimacion += delta;//calcula
         if(estado==EstadoKAIM.QUIETO){
             sprite.setRegion(texturasFrame [0][0]);
-            sprite.setY(yBase);
+           sprite.setY(yBase);
             if(estadoCaminando == EstadoCaminando.DERECHA && sprite.isFlipX()){
                 sprite.flip(true,false);
 
@@ -116,6 +115,12 @@ public class Personaje extends Objeto{
 
             }else if(estadoCaminando == EstadoCaminando.SALTA_IZQUIERDA && !frame.isFlipX()){
                 frame.flip(true,false);
+            }else if(estadoCaminando==EstadoCaminando.QUIETO_DERECHA && frame.isFlipX()){
+                frame.flip(true, false);
+
+            }else if(estadoCaminando==EstadoCaminando.QUIETO_IZQUIERDA && !frame.isFlipX()){
+                frame.flip(true, false);
+
             }
 
             tAire += 20*delta;
@@ -126,6 +131,23 @@ public class Personaje extends Objeto{
                 sprite.setY(yBase);
                 estado = EstadoKAIM.QUIETO;
             }
+        }else if(estado==EstadoKAIM.DISPARANDO_FLECHAS){
+            sprite.setRegion(texturasFrame[0][5]);
+            sprite.setY(yBase);
+            batch.draw(sprite,sprite.getX(),sprite.getY());
+
+        }else if(estado==EstadoKAIM.DISPARANDO_BOLASMAGICAS){
+            sprite.setRegion(texturasFrame[0][6]);
+            batch.draw(sprite,sprite.getX(),sprite.getY());
+
+        }else if(estado==EstadoKAIM.DISPARANDO_BALAS){
+            sprite.setRegion(texturasFrame[0][7]);
+            batch.draw(sprite,sprite.getX(),sprite.getY());
+
+        }else if(estado==EstadoKAIM.DISPARANDO_LASERS){
+            sprite.setRegion(texturasFrame[0][4]);
+            batch.draw(sprite,sprite.getX(),sprite.getY());
+
         }
     }
 

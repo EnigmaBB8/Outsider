@@ -273,6 +273,9 @@ public class PantallaLucha3 extends Pantalla {
                     if (arrProyectil.size < 5) {
                         Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
                         arrProyectil.add(proyectil);
+                        if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BALAS){
+                            personaje.setEstado(EstadoKAIM.DISPARANDO_BALAS);
+                        }
                         if (Sonido == true) {
                             efectoBala.play();
                         }

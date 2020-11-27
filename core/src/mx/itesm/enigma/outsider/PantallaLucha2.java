@@ -319,6 +319,9 @@ public class PantallaLucha2 extends Pantalla {
                     if (arrBolasMagicas.size < 5) {
                         BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
                         arrBolasMagicas.add(BolasMagicas);
+                        if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
+                            personaje.setEstado(EstadoKAIM.DISPARANDO_BOLASMAGICAS);
+                        }
                         if (Sonido == true) {
                             efectoMagia.play();
                         }
