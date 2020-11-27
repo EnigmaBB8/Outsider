@@ -117,6 +117,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/Robot1.png", Texture.class);
         manager.load("Enemigos/misil.png", Texture.class);
         manager.load("Enemigos/dron.png", Texture.class);
+        manager.load("MuerteVillanos/muerteT1.png", Texture.class);
+        manager.load("MuerteVillanos/muerteT2.png", Texture.class);
+        manager.load("MuerteVillanos/muerteT3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
