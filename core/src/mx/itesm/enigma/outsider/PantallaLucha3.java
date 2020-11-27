@@ -481,15 +481,12 @@ public class PantallaLucha3 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i = arrProyectil.size - 1; i >= 0; i--) {
-            if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA
-                    || personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
                 Proyectil proyectil = arrProyectil.get(i);
                 proyectil.moverDerecha();
                 proyectil.caida();
                 if (proyectil.sprite.getX() > ANCHO) {
                     arrProyectil.removeIndex(i);
                 }
-            }
         }
     }
 

@@ -100,7 +100,6 @@ public class PantallaLucha1 extends Pantalla {
         crearPiedra();
         crearPersonaje();
         crearBolasFuego();
-        //crearProyectil();
         arrFlecha = new Array<>();
         crearTexto();
         crearVillano();
@@ -279,13 +278,12 @@ public class PantallaLucha1 extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferencias.getBoolean("GeneralSonido");
-
                 if (personaje.getEstado() != EstadoKAIM.SALTANDO ) {
-                        personaje.saltar();
-                        if(Sonido==true) {
-                            efectoSalto.play();
-                        }
+                    personaje.saltar();
+                    if(Sonido==true) {
+                        efectoSalto.play();
                     }
+                }
                 }
         });
 
@@ -307,8 +305,6 @@ public class PantallaLucha1 extends Pantalla {
                     }
                 }
 
-
-
             }
         });
 
@@ -327,7 +323,6 @@ public class PantallaLucha1 extends Pantalla {
                 }else if (estado==EstadoJuego.PAUSADO){
                     estado=EstadoJuego.JUGANDO;
                     Gdx.app.log("Pausa","Cambia a Jugando");
-
                 }
                 return true;
             }
@@ -470,12 +465,12 @@ public class PantallaLucha1 extends Pantalla {
             // COLISION!!!
             if (flecha.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
                 if(flecha.getEstado()== EstadoObjeto.MOVIENDO) {
+                    // Descontar puntos
                     vidaVillano -= 1;
                     flecha.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(flecha.getEstado()== EstadoObjeto.DESAPARECE){
                     arrFlecha.removeIndex(i);
                 }
-                // Descontar puntos
                 break;
             } else if (vidaVillano <= 0) {
                 estado = EstadoJuego.GANANDO1;
@@ -536,12 +531,12 @@ public class PantallaLucha1 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i=arrFlecha.size-1; i>=0; i--) {
-                Flecha flecha = arrFlecha.get(i);
-                flecha.moverDerecha();
-                flecha.caida();
-                if (flecha.sprite.getX() > ANCHO) {
-                    arrFlecha.removeIndex(i);
-                }
+            Flecha flecha = arrFlecha.get(i);
+            flecha.moverDerecha();
+            flecha.caida();
+            if (flecha.sprite.getX() > ANCHO) {
+                arrFlecha.removeIndex(i);
+            }
         }
     }
 

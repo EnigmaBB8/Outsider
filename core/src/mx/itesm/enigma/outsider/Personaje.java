@@ -87,7 +87,7 @@ public class Personaje extends Objeto{
             }
             batch.draw(sprite,sprite.getX(),sprite.getY());
 
-    }else if(estado == EstadoKAIM.CAMINANDO) {
+        }else if(estado == EstadoKAIM.CAMINANDO) {
             TextureRegion frame = animacion.getKeyFrame(timerAnimacion);
             //derecha e izquierda
             if(estadoCaminando == EstadoCaminando.DERECHA && frame.isFlipX()){
@@ -115,6 +115,7 @@ public class Personaje extends Objeto{
 
             }else if(estadoCaminando == EstadoCaminando.SALTA_IZQUIERDA && !frame.isFlipX()){
                 frame.flip(true,false);
+
             }else if(estadoCaminando==EstadoCaminando.QUIETO_DERECHA && frame.isFlipX()){
                 frame.flip(true, false);
 
