@@ -80,6 +80,10 @@ public class PantallaLucha3 extends Pantalla {
 
     //Perdió
     private EscenaPerdio escenaPerdio;
+
+    //Zombie muriendo
+    private  EscenaMuriendo escenaMuriendo;
+
     //Generador de Niveles
     private int NivelDisponible;
 
@@ -318,13 +322,13 @@ public class PantallaLucha3 extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-        if(estado == PantallaLucha3.EstadoJuego.JUGANDO) {
+        if (estado == PantallaLucha3.EstadoJuego.JUGANDO) {
             actualizar();
 
             batch.begin();
             batch.draw(fondoNivel3, 0, 0);
-            batch.draw(pilaP3,ANCHO*0.03f,ALTO*0.83f);
-            batch.draw(pilaV3,ANCHO*0.8f,ALTO*0.83f);
+            batch.draw(pilaP3, ANCHO * 0.03f, ALTO * 0.83f);
+            batch.draw(pilaV3, ANCHO * 0.8f, ALTO * 0.83f);
             personaje.render(batch);
             villano.render(batch);
             escenaNivel3.draw();
@@ -337,9 +341,11 @@ public class PantallaLucha3 extends Pantalla {
             dibujarZombies();
             batch.end();
 
-        }else if(estado == PantallaLucha3.EstadoJuego.PAUSADO){
+        } else if (estado == PantallaLucha3.EstadoJuego.PAUSADO) {
             escenaPausa.draw();
-        } else if (estado == EstadoJuego.GANANDO1|| estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
+        }else if (estado == EstadoJuego.MURIENDO1 || estado == EstadoJuego.MURIENDO2 || estado == EstadoJuego.MURIENDO3){
+            escenaMuriendo.draw();
+        }else if (estado == EstadoJuego.GANANDO1|| estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
                 || estado == EstadoJuego.GANANDO4) {
             batch.begin();
             batch.draw(fondoNivel3, 0, 0);
@@ -427,7 +433,7 @@ public class PantallaLucha3 extends Pantalla {
                 bateriaN3 -= 10;
                 break;
             } else if (bateriaN3 <= 0) {
-                estado = PantallaLucha3.EstadoJuego.PERDIO;
+                estado = EstadoJuego.PERDIO;
                 if (escenaPerdio == null) {
                     escenaPerdio = new PantallaLucha3.EscenaPerdio(vista, batch);
                 }
@@ -457,7 +463,7 @@ public class PantallaLucha3 extends Pantalla {
                 bateriaN3 -= 10;
                 break;
             } else if (bateriaN3 <= 0) {
-                estado = PantallaLucha3.EstadoJuego.PERDIO;
+                estado = EstadoJuego.PERDIO;
                 if (escenaPerdio == null) {
                     escenaPerdio = new PantallaLucha3.EscenaPerdio(vista, batch);
                 }
@@ -501,15 +507,15 @@ public class PantallaLucha3 extends Pantalla {
                 vidaVillanoN3 -= 2;
                 break;
             } else if (vidaVillanoN3 <= 0) {
-                estado = EstadoJuego.GANANDO1;
+                estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=4;
                 villano.setEstado(EstadoVillano.MUERTO);
                 preferences.putInteger("NivelGeneral",NivelDisponible);
                 preferences.flush();
-                if (escenaGanando == null) {
-                    escenaGanando = new EscenaGanando(vista, batch);
+                if (escenaMuriendo == null) {
+                    escenaMuriendo = new EscenaMuriendo(vista, batch);
                 }
-                Gdx.input.setInputProcessor(escenaGanando);
+                Gdx.input.setInputProcessor(escenaMuriendo);
             }
         }
     }
@@ -579,6 +585,9 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("Enemigos/Zombie1.PNG");
         juego.getManager().unload("Enemigos/cerebro.png");
         juego.getManager().unload("Enemigos/zombie.png");
+        juego.getManager().unload("MuerteVillanos/muerteZ1.png");
+        juego.getManager().unload("MuerteVillanos/muerteZ2.png");
+        juego.getManager().unload("MuerteVillanos/muerteZ3.png");
 
         //Botones
         juego.getManager().unload("botones/BtnPausa3.png");
@@ -619,6 +628,9 @@ public class PantallaLucha3 extends Pantalla {
     private enum EstadoJuego {
         JUGANDO,
         PAUSADO,
+        MURIENDO1,
+        MURIENDO2,
+        MURIENDO3,
         GANANDO1,
         GANANDO2,
         GANANDO3,
@@ -881,6 +893,69 @@ public class PantallaLucha3 extends Pantalla {
                     super.clicked(event, x, y);
                     juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
 
+                }
+            });
+            this.addActor(btnAvanza);
+        }
+    }
+
+    private class EscenaMuriendo extends Stage{
+        private Image imgMuriendo;
+        public EscenaMuriendo(final Viewport vista, final SpriteBatch batch) {
+            super(vista, batch);
+            if (estado == EstadoJuego.MURIENDO1) {
+                Texture textura1 = juego.getManager().get("MuerteVillanos/muerteZ1.png");
+                imgMuriendo = new Image(textura1);
+                imgMuriendo.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
+                Gdx.app.log("Muriendo1", "Sí entra");
+                this.addActor(imgMuriendo);
+            }
+
+            //Boton Omitir
+            Texture btnOmitir = juego.getManager().get("botones/omitirN3.png");
+            TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
+            final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
+            btnOmitirFinal.setPosition(ANCHO*0.91F,ALTO*0.98F, Align.topRight);
+            btnOmitirFinal.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
+                }
+            });
+            this.addActor(btnOmitirFinal);
+
+            // Boton Avanzar
+            Texture btnAvanzar = juego.getManager().get("botones/avanzarN3.png");
+            TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
+            final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
+            btnAvanza.setPosition(ANCHO * 0.9f, ALTO * 0.84f, Align.topRight);
+            btnAvanza.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    if (estado == EstadoJuego.MURIENDO1) {
+                        estado = EstadoJuego.MURIENDO2;
+                        Gdx.app.log("Muriendo2", "Sí cambia");
+                        Texture textura2 = juego.getManager().get("MuerteVillanos/muerteZ2.png");
+                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura2);
+                        imgMuriendo.setDrawable(nuevaImagen);
+                        btnAvanza.toFront();
+                    } else if (estado == EstadoJuego.MURIENDO2) {
+                        estado = EstadoJuego.MURIENDO3;
+                        Gdx.app.log("Muriendo3", "Sí cambia");
+                        Texture textura3 = juego.getManager().get("MuerteVillanos/muerteZ3.png");
+                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura3);
+                        imgMuriendo.setDrawable(nuevaImagen);
+                        btnAvanza.toFront();
+                    } else if (estado == EstadoJuego.MURIENDO3) {
+                        estado = EstadoJuego.GANANDO1;
+                        if (escenaGanando == null) {
+                            escenaGanando = new EscenaGanando(vista, batch);;
+                        }
+                        Gdx.input.setInputProcessor(escenaGanando);
+                        btnAvanza.toFront();
+                    }
                 }
             });
             this.addActor(btnAvanza);

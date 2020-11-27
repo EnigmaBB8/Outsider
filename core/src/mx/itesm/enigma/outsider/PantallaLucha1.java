@@ -364,7 +364,7 @@ public class PantallaLucha1 extends Pantalla {
             batch.end();
         } else if(estado == EstadoJuego.PAUSADO){
             escenaPausa.draw();
-        } else if (estado == EstadoJuego.MURIENDO1){
+        } else if (estado == EstadoJuego.MURIENDO1 || estado == EstadoJuego.MURIENDO2 || estado == EstadoJuego.MURIENDO3){
             escenaMuriendo.draw();
         } else if (estado == EstadoJuego.GANANDO1 || estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
                 || estado == EstadoJuego.GANANDO4) {
@@ -928,8 +928,8 @@ public class PantallaLucha1 extends Pantalla {
     private class EscenaMuriendo extends Stage {
         private Image imgMuriendo;
         public EscenaMuriendo(final Viewport vista, final SpriteBatch batch) {
-            if (estado == EstadoJuego.GANANDO1) {
-                //Texture textura1 = new Texture("Historieta/VNLvl1_1.PNG");
+            super(vista, batch);
+            if (estado == EstadoJuego.MURIENDO1) {
                 Texture textura1 = juego.getManager().get("MuerteVillanos/muerteT1.png");
                 imgMuriendo = new Image(textura1);
                 imgMuriendo.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
@@ -977,7 +977,7 @@ public class PantallaLucha1 extends Pantalla {
                     } else if (estado == EstadoJuego.MURIENDO3) {
                         estado = EstadoJuego.GANANDO1;
                         if (escenaGanando == null) {
-                            escenaGanando = new EscenaGanando(vista, batch);
+                            escenaGanando = new EscenaGanando(vista, batch);;
                         }
                         Gdx.input.setInputProcessor(escenaGanando);
                         btnAvanza.toFront();

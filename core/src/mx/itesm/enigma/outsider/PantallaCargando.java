@@ -117,9 +117,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/Robot1.png", Texture.class);
         manager.load("Enemigos/misil.png", Texture.class);
         manager.load("Enemigos/dron.png", Texture.class);
-        manager.load("MuerteVillanos/muerteT1.png", Texture.class);
-        manager.load("MuerteVillanos/muerteT2.png", Texture.class);
-        manager.load("MuerteVillanos/muerteT3.png", Texture.class);
+        manager.load("MuerteVillanos/muerteR1.png", Texture.class);
+        manager.load("MuerteVillanos/muerteR2.png", Texture.class);
+        manager.load("MuerteVillanos/muerteR3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
@@ -183,12 +183,12 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/Zombie1.PNG", Texture.class);
         manager.load("Enemigos/cerebro.png", Texture.class);
         manager.load("Enemigos/zombie.png", Texture.class);
+        manager.load("MuerteVillanos/muerteZ1.png", Texture.class);
+        manager.load("MuerteVillanos/muerteZ2.png", Texture.class);
+        manager.load("MuerteVillanos/muerteZ3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
-
-        //Enemigos
-        manager.load("Enemigos/Titan1.PNG", Texture.class);
 
         //Botones
         manager.load("botones/BtnPausa3.png", Texture.class);
@@ -248,6 +248,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/aspas.png", Texture.class);
         manager.load("Enemigos/llamaradas.png", Texture.class);
         manager.load("Enemigos/Espinas.png", Texture.class);
+        manager.load("MuerteVillanos/muerteD1.png", Texture.class);
+        manager.load("MuerteVillanos/muerteD2.png", Texture.class);
+        manager.load("MuerteVillanos/muerteD3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
@@ -308,6 +311,9 @@ public class PantallaCargando extends Pantalla {
         //Enemigos
         manager.load("Enemigos/Titan1.PNG", Texture.class);
         manager.load("Enemigos/BolaDeFuego.png", Texture.class);
+        manager.load("MuerteVillanos/muerteT1.png", Texture.class);
+        manager.load("MuerteVillanos/muerteT2.png", Texture.class);
+        manager.load("MuerteVillanos/muerteT3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
