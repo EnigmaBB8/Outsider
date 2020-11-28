@@ -602,8 +602,9 @@ public class PantallaLucha2 extends Pantalla {
     }
 
     private void verificarChoquesAEnemigo() {
+        Preferences preferences=Gdx.app.getPreferences("Nivel");
+        int Nivel=preferences.getInteger("NivelGeneral");
         for (int i=arrBolasMagicas.size-1; i>=0; i--) {
-            Preferences preferences=Gdx.app.getPreferences("Nivel");
             Flecha bolasMagicas = arrBolasMagicas.get(i);
             // COLISION!!!
             Rectangle rectVillano = villano.sprite.getBoundingRectangle();
@@ -621,8 +622,10 @@ public class PantallaLucha2 extends Pantalla {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=3;
                 villano.setEstado(EstadoVillano.MUERTO);
-                preferences.putInteger("NivelGeneral",NivelDisponible);
-                preferences.flush();
+                if(Nivel<3) {
+                    preferences.putInteger("NivelGeneral", NivelDisponible);
+                    preferences.flush();
+                }
                 if (escenaMuriendo == null) {
                     escenaMuriendo = new EscenaMuriendo(vista, batch);
                 }

@@ -110,7 +110,10 @@ public class PantallaLucha1 extends Pantalla {
         crearSonido();
         crearPocima();
         configurarMusica();
+
     }
+
+
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
@@ -465,6 +468,7 @@ public class PantallaLucha1 extends Pantalla {
 
     private void verificarChoquesAEnemigo() {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
+        int Nivel=preferences.getInteger("NivelGeneral");
         for (int i=arrFlecha.size-1; i>=0; i--) {
             Flecha flecha = arrFlecha.get(i);
             // COLISION!!!
@@ -483,8 +487,10 @@ public class PantallaLucha1 extends Pantalla {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=2;
                 villano.setEstado(EstadoVillano.MUERTO);
-                preferences.putInteger("NivelGeneral",NivelDisponible);
-                preferences.flush();
+                if(Nivel<2) {
+                    preferences.putInteger("NivelGeneral", NivelDisponible);
+                    preferences.flush();
+                }
                 if (escenaMuriendo == null) {
                     escenaMuriendo = new EscenaMuriendo(vista, batch);
                 }

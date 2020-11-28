@@ -85,6 +85,9 @@ public class PantallaLucha4 extends Pantalla {
     private float TIEMPO_CREA_DRONES = 1;
     private float tiempoDrones = 1;
 
+    //Nivel Disponible
+    private int NivelDisponible=4;
+
     public PantallaLucha4(Juego juego) {
         this.juego = juego;
     }
@@ -494,6 +497,7 @@ public class PantallaLucha4 extends Pantalla {
     private void verificarChoquesAEnemigo() {
         for (int i=arrProyectil.size-1; i>=0; i--) {
            Flecha proyectil = arrProyectil.get(i); //Proyectil atacante
+
             // COLISION!!!
             Rectangle rectVillano = villano.sprite.getBoundingRectangle();
             rectVillano.x += rectVillano.width/3;
@@ -513,6 +517,7 @@ public class PantallaLucha4 extends Pantalla {
                     escenaMuriendo = new EscenaMuriendo(vista, batch);
                 }
                 Gdx.input.setInputProcessor(escenaMuriendo);
+
             }
         }
     }

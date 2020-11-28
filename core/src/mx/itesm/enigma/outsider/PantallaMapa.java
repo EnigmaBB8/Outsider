@@ -17,7 +17,7 @@ public class PantallaMapa extends Pantalla {
     private final Juego juego;
     private Stage escenaNivel1;
     private Texture fondoPantallaReanudar;
-    private int NivelDisponible;
+
 
     public PantallaMapa(Juego juego) {
         this.juego = juego;
@@ -47,6 +47,7 @@ public class PantallaMapa extends Pantalla {
 
     private void crearReanudar() {
         escenaNivel1 = new Stage(vista);
+        final int NivelDisponible=0;
 
         ///Boton de regreso a menu
         Texture btnNuevaPartida = new Texture("botones/btnBack1.png");
@@ -114,6 +115,7 @@ public class PantallaMapa extends Pantalla {
 
         //Leer Preferencias
         // Nivel 2
+
         Preferences preferences=Gdx.app.getPreferences("Nivel");
         int NivelActivado=preferences.getInteger("NivelGeneral",NivelDisponible);
         preferences.flush();

@@ -87,7 +87,7 @@ public class PantallaLucha3 extends Pantalla {
     private  EscenaMuriendo escenaMuriendo;
 
     //Generador de Niveles
-    private int NivelDisponible;
+    private int NivelDisponible=3;
 
     public PantallaLucha3(Juego juego) {
         this.juego = juego;
@@ -504,6 +504,7 @@ public class PantallaLucha3 extends Pantalla {
 
     private void verificarChoquesAEnemigo() {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
+        int Nivel=preferences.getInteger("NivelGeneral");
         for (int i=arrProyectil.size-1; i>=0; i--) {
             Flecha bala = arrProyectil.get(i); //Proyectil atacante
             // COLISION!!!
@@ -522,12 +523,15 @@ public class PantallaLucha3 extends Pantalla {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=4;
                 villano.setEstado(EstadoVillano.MUERTO);
-                preferences.putInteger("NivelGeneral",NivelDisponible);
-                preferences.flush();
+                if (Nivel<4) {
+                    preferences.putInteger("NivelGeneral", NivelDisponible);
+                    preferences.flush();
+                }
                 if (escenaMuriendo == null) {
                     escenaMuriendo = new EscenaMuriendo(vista, batch);
                 }
                 Gdx.input.setInputProcessor(escenaMuriendo);
+
             }
         }
     }
