@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -37,8 +38,9 @@ public class PantallaLucha3 extends Pantalla {
     private Texture texturaVillano;
 
     // Proyectil
-    private Texture texturaProyectil;
-    private Array<Proyectil> arrProyectil;
+    private Texture texturaProyectilMoviendose;
+    private Texture texturaProyectilExplotando;
+    private Array<Flecha> arrProyectil;
 
     //Cerebros
     private Array<Cerebros> arrCerebros;
@@ -101,7 +103,7 @@ public class PantallaLucha3 extends Pantalla {
         crearTexto();
         crearPocima();
         configurarMusica();
-        crearProyectil();
+        arrProyectil=new Array<>();
         crearSonido();
         crearVillano();
         crearCerebros();
@@ -123,9 +125,13 @@ public class PantallaLucha3 extends Pantalla {
         villano=new Villano(texturaVillano);
     }
 
-    private void crearProyectil() {
-        texturaProyectil = juego.getManager().get("Proyectiles/bala.png");
-        arrProyectil = new Array<>();
+    private Flecha crearProyectil() {
+       texturaProyectilMoviendose= new Texture("Proyectiles/bala.png");
+       texturaProyectilExplotando=new Texture("Efectos/explosion.png");
+        Flecha bala=new Flecha(texturaProyectilMoviendose,texturaProyectilExplotando,
+                personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
+                personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
+        return bala;
     }
 
     private void crearSonido() {
@@ -275,8 +281,8 @@ public class PantallaLucha3 extends Pantalla {
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrProyectil.size < 5) {
-                        Proyectil proyectil = new Proyectil(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
-                        arrProyectil.add(proyectil);
+                        Flecha bala = crearProyectil();
+                        arrProyectil.add(bala);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BALAS){
                             personaje.setEstado(EstadoKAIM.DISPARANDO_BALAS);
                         }
@@ -374,7 +380,7 @@ public class PantallaLucha3 extends Pantalla {
     }
 
     private void dibujarProyectil() {
-        for (Proyectil proyectil :
+        for (Flecha proyectil :
                 arrProyectil) {
             proyectil.render(batch);
         }
@@ -413,11 +419,11 @@ public class PantallaLucha3 extends Pantalla {
 
     private void verificarChoquesBalasZombies() {
         for (int i=arrProyectil.size-1; i>=0; i--) {
-            Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
+            Flecha bala = arrProyectil.get(i); //Proyectil atacante
             for (int j=arrZombies.size-1; j>=0; j--){
                 Zombies zombies = arrZombies.get(j);
                 // COLISION!!!
-                if (proyectil.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
+                if (bala.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
                     arrProyectil.removeIndex(i);
                     arrZombies.removeIndex(j);
                 }
@@ -487,10 +493,10 @@ public class PantallaLucha3 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i = arrProyectil.size - 1; i >= 0; i--) {
-                Proyectil proyectil = arrProyectil.get(i);
-                proyectil.moverDerecha();
-                proyectil.caida();
-                if (proyectil.sprite.getX() > ANCHO) {
+                Flecha bala = arrProyectil.get(i);
+                bala.moverDerecha();
+                bala.caida();
+                if (bala.sprite.getX() > ANCHO) {
                     arrProyectil.removeIndex(i);
                 }
         }
@@ -499,12 +505,18 @@ public class PantallaLucha3 extends Pantalla {
     private void verificarChoquesAEnemigo() {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
         for (int i=arrProyectil.size-1; i>=0; i--) {
-            Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
+            Flecha bala = arrProyectil.get(i); //Proyectil atacante
             // COLISION!!!
-            if (proyectil.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
-                arrProyectil.removeIndex(i);
-                // Descontar puntos
-                vidaVillanoN3 -= 2;
+            Rectangle rectVillano = villano.sprite.getBoundingRectangle();
+            rectVillano.x += rectVillano.width/4;
+            if (bala.sprite.getBoundingRectangle().overlaps(rectVillano)) {
+                if(bala.getEstado()== EstadoObjeto.MOVIENDO) {
+                    // Descontar puntos
+                    vidaVillanoN3 -= 2;
+                    bala.setEstado(EstadoObjeto.EXPLOTANDO);
+                }else if(bala.getEstado()== EstadoObjeto.DESAPARECE){
+                    arrProyectil.removeIndex(i);
+                }
                 break;
             } else if (vidaVillanoN3 <= 0) {
                 estado = EstadoJuego.MURIENDO1;

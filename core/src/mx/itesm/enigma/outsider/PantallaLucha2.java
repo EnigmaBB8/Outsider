@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -35,8 +36,9 @@ public class PantallaLucha2 extends Pantalla {
     private Texture texturaVillano;
 
     // Proyectil
-    private Texture texturaProyectil;
-    private Array<BolasMagicas> arrBolasMagicas;
+    private Texture texturaBolaMagicaMoviendo;
+    private Texture texturaBolaMagicaExplotando;
+    private Array<Flecha> arrBolasMagicas;
 
     //Sonidos
     private Sound efectoSalto;
@@ -109,7 +111,7 @@ public class PantallaLucha2 extends Pantalla {
         crearNivel2();
         crearVillano();
         crearPersonaje();
-        crearBolaMagica();
+        arrBolasMagicas=new Array<>();
         crearSonido();
         crearTexto();
         crearLlamaradas();
@@ -188,10 +190,13 @@ public class PantallaLucha2 extends Pantalla {
 
     }
 
-    private void crearBolaMagica() {
-        //texturaProyectil = new Texture("Proyectiles/bolasMagicas.png");
-        texturaProyectil = juego.getManager().get("Proyectiles/bolasMagicas.png");
-        arrBolasMagicas = new Array<>();
+    private Flecha crearBolaMagica() {
+        texturaBolaMagicaMoviendo = new Texture("Proyectiles/flecha1.png");
+        texturaBolaMagicaExplotando=new Texture("Efectos/explosion.png");
+        Flecha flecha=new Flecha(texturaBolaMagicaMoviendo,texturaBolaMagicaExplotando,
+                personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
+                personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
+        return flecha;
     }
 
     private void crearPersonaje() {
@@ -315,12 +320,11 @@ public class PantallaLucha2 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if (personaje.getEstadoCaminando() == EstadoCaminando.QUIETO_DERECHA || personaje.getEstadoCaminando() == EstadoCaminando.DERECHA ||
-                        personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
+
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrBolasMagicas.size < 5) {
-                        BolasMagicas BolasMagicas = new BolasMagicas(texturaProyectil, personaje.sprite.getX(), personaje.sprite.getY() + personaje.sprite.getHeight() * 0.5f);
+                        Flecha BolasMagicas = crearBolaMagica();
                         arrBolasMagicas.add(BolasMagicas);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
                             personaje.setEstado(EstadoKAIM.DISPARANDO_BOLASMAGICAS);
@@ -329,7 +333,7 @@ public class PantallaLucha2 extends Pantalla {
                             efectoMagia.play();
                         }
                     }
-                }
+
             }
         });
         //Pausa
@@ -446,9 +450,9 @@ public class PantallaLucha2 extends Pantalla {
     }
 
     private void dibujarBolasMagicas() {
-        for (BolasMagicas proyectil :
+        for (Flecha BolasMagicas:
                 arrBolasMagicas) {
-            proyectil.render(batch);
+            BolasMagicas.render(batch);
         }
     }
 
@@ -469,7 +473,7 @@ public class PantallaLucha2 extends Pantalla {
 
     private void verificarChoquesBalasEspinas() {
         for (int i=arrBolasMagicas.size-1; i>=0; i--) {
-            BolasMagicas bolasMagicas = arrBolasMagicas.get(i); //Proyectil atacante
+            Flecha bolasMagicas = arrBolasMagicas.get(i); //Proyectil atacante
             for (int j=arrEspinas.size-1; j>=0; j--){
                 Espinas espinas = arrEspinas.get(j);
                 // COLISION!!!
@@ -600,12 +604,18 @@ public class PantallaLucha2 extends Pantalla {
     private void verificarChoquesAEnemigo() {
         for (int i=arrBolasMagicas.size-1; i>=0; i--) {
             Preferences preferences=Gdx.app.getPreferences("Nivel");
-            BolasMagicas bolasMagicas = arrBolasMagicas.get(i);
+            Flecha bolasMagicas = arrBolasMagicas.get(i);
             // COLISION!!!
-            if (bolasMagicas.sprite.getBoundingRectangle().overlaps(villano.sprite.getBoundingRectangle())) {
-                arrBolasMagicas.removeIndex(i);
-                // Descontar puntos
-                vidaVillano2 -= 2;
+            Rectangle rectVillano = villano.sprite.getBoundingRectangle();
+            rectVillano.x += rectVillano.width/3;
+            if (bolasMagicas.sprite.getBoundingRectangle().overlaps(rectVillano)) {
+                if(bolasMagicas.getEstado()== EstadoObjeto.MOVIENDO) {
+                    // Descontar puntos
+                    vidaVillano2 -= 2;
+                    bolasMagicas.setEstado(EstadoObjeto.EXPLOTANDO);
+                }else if(bolasMagicas.getEstado()== EstadoObjeto.DESAPARECE){
+                    arrBolasMagicas.removeIndex(i);
+                }
                 break;
             } else if (vidaVillano2 <= 0) {
                 estado = EstadoJuego.MURIENDO1;
@@ -623,7 +633,7 @@ public class PantallaLucha2 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i=arrBolasMagicas.size-1; i>=0; i--) {
-            BolasMagicas proyectil = arrBolasMagicas.get(i);
+            Flecha proyectil = arrBolasMagicas.get(i);
             proyectil.moverDerecha();
             if (proyectil.sprite.getX()>ANCHO) {
                 arrBolasMagicas.removeIndex(i);
