@@ -155,6 +155,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("Historieta/VNLvl4_2.PNG", Texture.class);
         manager.load("Historieta/VNLvl4_3.PNG", Texture.class);
         manager.load("Historieta/VNLvl4_4.PNG", Texture.class);
+        manager.load("Historieta/final1.png", Texture.class);
+        manager.load("Historieta/final2.png", Texture.class);
+        manager.load("Historieta/final3.png", Texture.class);
         manager.load("Historieta/perdistelvl4.PNG", Texture.class);
     }
 

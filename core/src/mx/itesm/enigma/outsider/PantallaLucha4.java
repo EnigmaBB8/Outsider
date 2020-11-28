@@ -219,10 +219,10 @@ public class PantallaLucha4 extends Pantalla {
         ImageButton bntDisparas = new ImageButton(trTirar,trBntDispararInv);
 
         btnNP.setPosition(ANCHO * .46f, ALTO * .96F, Align.topLeft);
-        btnIzquierda.setPosition(ANCHO*.05f,ALTO*.148f,Align.topLeft);
-        bntDerecha.setPosition(ANCHO*.15f,ALTO*.14f,Align.topLeft);
-        bntSalta.setPosition(ANCHO*.70f,ALTO*.15f, Align.topLeft);
-        bntDisparas.setPosition(ANCHO*.85f,ALTO*.15f,Align.topLeft);
+        btnIzquierda.setPosition(ANCHO*.05f,ALTO*.170f,Align.topLeft);
+        bntDerecha.setPosition(ANCHO*.15f,ALTO*.160f,Align.topLeft);
+        bntSalta.setPosition(ANCHO*.70f,ALTO*.165f, Align.topLeft);
+        bntDisparas.setPosition(ANCHO*.85f,ALTO*.165f,Align.topLeft);
 
         //Boton derecha
         bntDerecha.addListener(new ClickListener() {
@@ -638,6 +638,9 @@ public class PantallaLucha4 extends Pantalla {
         GANANDO2,
         GANANDO3,
         GANANDO4,
+        FINAL1,
+        FINAL2,
+        FINAL3,
         PERDIO
     }
     private class EscenaPausa extends Stage {
@@ -856,7 +859,7 @@ public class PantallaLucha4 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                         btnAvanza.toFront();
                     }
                 }
