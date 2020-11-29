@@ -49,7 +49,7 @@ public class PantallaLucha1 extends Pantalla {
     // Flechas
     private Texture texturaFlechaMoviendo;
     private Texture texturaFlechaExplotando;
-    private Array<Flecha> arrFlecha;
+    private Array<Proyectil> arrFlecha;
 
     // Piedra
     private Texture texturaPiedra;
@@ -158,10 +158,10 @@ public class PantallaLucha1 extends Pantalla {
         texto=new Texto("Texto/game.fnt");
     }
 
-    private Flecha crearProyectil() {
+    private Proyectil crearProyectil() {
         texturaFlechaMoviendo = juego.getManager().get("Proyectiles/flecha1.png");
        texturaFlechaExplotando = juego.getManager().get("Efectos/explosion.png");
-        Flecha flecha=new Flecha(texturaFlechaMoviendo,texturaFlechaExplotando,
+        Proyectil flecha=new Proyectil(texturaFlechaMoviendo,texturaFlechaExplotando,
                 personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
                 personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
         return flecha;
@@ -302,7 +302,7 @@ public class PantallaLucha1 extends Pantalla {
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferencias.getBoolean("GeneralSonido");
                 if (arrFlecha.size < 50) {
-                    Flecha flecha = crearProyectil();
+                    Proyectil flecha = crearProyectil();
                     arrFlecha.add(flecha);
                     if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_FLECHAS){
                         personaje.setEstado(EstadoKAIM.DISPARANDO_FLECHAS);
@@ -407,7 +407,7 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void dibujarProyectil() {
-        for (Flecha flecha :
+        for (Proyectil flecha :
                 arrFlecha) {
            flecha.render(batch);
         }
@@ -470,7 +470,7 @@ public class PantallaLucha1 extends Pantalla {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
         int Nivel=preferences.getInteger("NivelGeneral");
         for (int i=arrFlecha.size-1; i>=0; i--) {
-            Flecha flecha = arrFlecha.get(i);
+            Proyectil flecha = arrFlecha.get(i);
             // COLISION!!!
             Rectangle rectVillano = villano.sprite.getBoundingRectangle();
             rectVillano.x += rectVillano.width/3;
@@ -544,7 +544,7 @@ public class PantallaLucha1 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i=arrFlecha.size-1; i>=0; i--) {
-            Flecha flecha = arrFlecha.get(i);
+            Proyectil flecha = arrFlecha.get(i);
             flecha.moverDerecha();
             flecha.caida();
             if (flecha.sprite.getX() > ANCHO) {

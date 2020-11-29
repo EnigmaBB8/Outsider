@@ -40,7 +40,7 @@ public class PantallaLucha3 extends Pantalla {
     // Proyectil
     private Texture texturaProyectilMoviendose;
     private Texture texturaProyectilExplotando;
-    private Array<Flecha> arrProyectil;
+    private Array<Proyectil> arrProyectil;
 
     //Cerebros
     private Array<Cerebros> arrCerebros;
@@ -125,10 +125,10 @@ public class PantallaLucha3 extends Pantalla {
         villano=new Villano(texturaVillano);
     }
 
-    private Flecha crearProyectil() {
+    private Proyectil crearProyectil() {
        texturaProyectilMoviendose= new Texture("Proyectiles/bala.png");
        texturaProyectilExplotando=new Texture("Efectos/explosion3.png");
-        Flecha bala=new Flecha(texturaProyectilMoviendose,texturaProyectilExplotando,
+        Proyectil bala=new Proyectil(texturaProyectilMoviendose,texturaProyectilExplotando,
                 personaje.sprite.getX() + personaje.sprite.getWidth()*0.4f,
                 personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
         return bala;
@@ -289,7 +289,7 @@ public class PantallaLucha3 extends Pantalla {
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrProyectil.size < 5) {
-                        Flecha bala = crearProyectil();
+                        Proyectil bala = crearProyectil();
                         arrProyectil.add(bala);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BALAS){
                             personaje.setEstado(EstadoKAIM.DISPARANDO_BALAS);
@@ -388,7 +388,7 @@ public class PantallaLucha3 extends Pantalla {
     }
 
     private void dibujarProyectil() {
-        for (Flecha proyectil :
+        for (Proyectil proyectil :
                 arrProyectil) {
             proyectil.render(batch);
         }
@@ -427,7 +427,7 @@ public class PantallaLucha3 extends Pantalla {
 
     private void verificarChoquesBalasZombies() {
         for (int i=arrProyectil.size-1; i>=0; i--) {
-            Flecha bala = arrProyectil.get(i); //Proyectil atacante
+            Proyectil bala = arrProyectil.get(i); //Proyectil atacante
             for (int j=arrZombies.size-1; j>=0; j--){
                 Zombies zombies = arrZombies.get(j);
                 // COLISION!!!
@@ -501,7 +501,7 @@ public class PantallaLucha3 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i = arrProyectil.size - 1; i >= 0; i--) {
-                Flecha bala = arrProyectil.get(i);
+                Proyectil bala = arrProyectil.get(i);
                 bala.moverDerecha();
                 bala.caida();
                 if (bala.sprite.getX() > ANCHO) {
@@ -514,7 +514,7 @@ public class PantallaLucha3 extends Pantalla {
         Preferences preferences=Gdx.app.getPreferences("Nivel");
         int Nivel=preferences.getInteger("NivelGeneral");
         for (int i=arrProyectil.size-1; i>=0; i--) {
-            Flecha bala = arrProyectil.get(i); //Proyectil atacante
+            Proyectil bala = arrProyectil.get(i); //Proyectil atacante
             // COLISION!!!
             Rectangle rectVillano = villano.sprite.getBoundingRectangle();
             rectVillano.x += rectVillano.width/4;

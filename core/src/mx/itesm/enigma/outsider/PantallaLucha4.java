@@ -41,7 +41,7 @@ public class PantallaLucha4 extends Pantalla {
     // Proyectil
     private Texture texturaProyectilMoviendose;
     private Texture texturaProyectilExplotando;
-    private Array<Flecha> arrProyectil;
+    private Array<Proyectil> arrProyectil;
 
 
     //Sonidos
@@ -122,10 +122,10 @@ public class PantallaLucha4 extends Pantalla {
         arrMisiles = new Array<>();
     }
 
-    private Flecha crearProyectil() {
+    private Proyectil crearProyectil() {
         texturaProyectilMoviendose=new Texture("Proyectiles/rayos.png");
         texturaProyectilExplotando=new Texture("Efectos/explosion4.png");
-        Flecha proyectil=new Flecha(texturaProyectilMoviendose,texturaProyectilExplotando,
+        Proyectil proyectil=new Proyectil(texturaProyectilMoviendose,texturaProyectilExplotando,
                 personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
                 personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
         return proyectil;
@@ -300,7 +300,7 @@ public class PantallaLucha4 extends Pantalla {
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
                     if (arrProyectil.size < 5) {
-                        Flecha proyectil = crearProyectil();
+                        Proyectil proyectil = crearProyectil();
                         arrProyectil.add(proyectil);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_LASERS){
                             personaje.setEstado(EstadoKAIM.DISPARANDO_LASERS);
@@ -405,7 +405,7 @@ public class PantallaLucha4 extends Pantalla {
     }
 
     private void dibujarProyectil() {
-        for (Flecha proyectil :
+        for (Proyectil proyectil :
                 arrProyectil) {
             proyectil.render(batch);
         }
@@ -443,7 +443,7 @@ public class PantallaLucha4 extends Pantalla {
 
     private void verificarChoquesLaserDron() {
         for (int i=arrProyectil.size-1; i>=0; i--) {
-           Flecha proyectil = arrProyectil.get(i); //Proyectil atacante
+           Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
             for (int j=arrDrones.size-1; j>=0; j--){
                 Drones drones = arrDrones.get(j);
                 // COLISION!!!
@@ -511,7 +511,7 @@ public class PantallaLucha4 extends Pantalla {
 
     private void verificarChoquesAEnemigo() {
         for (int i=arrProyectil.size-1; i>=0; i--) {
-           Flecha proyectil = arrProyectil.get(i); //Proyectil atacante
+           Proyectil proyectil = arrProyectil.get(i); //Proyectil atacante
 
             // COLISION!!!
             Rectangle rectVillano = villano.sprite.getBoundingRectangle();
@@ -571,7 +571,7 @@ public class PantallaLucha4 extends Pantalla {
 
     private void actualizarProyectil() {
         for (int i=arrProyectil.size-1; i>=0; i--) {
-            Flecha proyectil = arrProyectil.get(i);
+            Proyectil proyectil = arrProyectil.get(i);
             proyectil.moverDerecha();
             proyectil.caida();
             if (proyectil.sprite.getX()>ANCHO) {
