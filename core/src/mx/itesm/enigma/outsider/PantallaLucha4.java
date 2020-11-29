@@ -67,6 +67,9 @@ public class PantallaLucha4 extends Pantalla {
     //Robot muriendo
     private  EscenaMuriendo escenaMuriendo;
 
+    //Escena Final
+    private  EscenaFinal escenaFinal;
+
     //Villano
     private Villano villano;
     private Texture texturaVillano;
@@ -121,7 +124,7 @@ public class PantallaLucha4 extends Pantalla {
 
     private Flecha crearProyectil() {
         texturaProyectilMoviendose=new Texture("Proyectiles/rayos.png");
-        texturaProyectilExplotando=new Texture("Efectos/explosion.png");
+        texturaProyectilExplotando=new Texture("Efectos/explosion4.png");
         Flecha proyectil=new Flecha(texturaProyectilMoviendose,texturaProyectilExplotando,
                 personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
                 personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
@@ -170,7 +173,7 @@ public class PantallaLucha4 extends Pantalla {
 
     private void crearPersonaje() {
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
-        personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
+        personaje=new Personaje(texturaPersonaje,ANCHO*0.13f,125);
     }
 
     private void crearNivel3() {
@@ -237,14 +240,18 @@ public class PantallaLucha4 extends Pantalla {
         bntDerecha.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstado(EstadoKAIM.CAMINANDO);
-                personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
+                if(personaje.getEstado() != EstadoKAIM.SALTANDO){
+                    personaje.setEstado(EstadoKAIM.CAMINANDO);
+                    personaje.setEstadoCaminando(EstadoCaminando.DERECHA);
+                }
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
-                personaje.setEstado(EstadoKAIM.QUIETO);
+                if(personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
+                    personaje.setEstado(EstadoKAIM.QUIETO);
+                }
             }
         });
 
@@ -252,14 +259,18 @@ public class PantallaLucha4 extends Pantalla {
         btnIzquierda.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstado(EstadoKAIM.CAMINANDO);
-                personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
+                if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.setEstado(EstadoKAIM.CAMINANDO);
+                    personaje.setEstadoCaminando(EstadoCaminando.IZQUIERDA);
+                }
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
-                personaje.setEstado(EstadoKAIM.QUIETO);
+                if(personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
+                    personaje.setEstado(EstadoKAIM.QUIETO);
+                }
             }
         });
 
@@ -337,13 +348,13 @@ public class PantallaLucha4 extends Pantalla {
     public void render(float delta) {
         borrarPantalla();
         batch.setProjectionMatrix(camara.combined);
-        if(estado == PantallaLucha4.EstadoJuego.JUGANDO) {
+        if (estado == PantallaLucha4.EstadoJuego.JUGANDO) {
             actualizar();
 
             batch.begin();
             batch.draw(fondoNivel4, 0, 0);
-            batch.draw(pilaP4,ANCHO*0.03f,ALTO*0.83f);
-            batch.draw(pilaV4,ANCHO*0.8f,ALTO*0.83f);
+            batch.draw(pilaP4, ANCHO * 0.03f, ALTO * 0.83f);
+            batch.draw(pilaV4, ANCHO * 0.8f, ALTO * 0.83f);
             personaje.render(batch);
             villano.render(batch);
             escenaNivel4.draw();
@@ -357,16 +368,20 @@ public class PantallaLucha4 extends Pantalla {
 
             batch.end();
 
-        }else if(estado == PantallaLucha4.EstadoJuego.PAUSADO){
+        } else if (estado == PantallaLucha4.EstadoJuego.PAUSADO) {
             escenaPausa.draw();
-        }  else if (estado == EstadoJuego.MURIENDO1 || estado == EstadoJuego.MURIENDO2 || estado == EstadoJuego.MURIENDO3){
+        } else if (estado == EstadoJuego.MURIENDO1) {
             escenaMuriendo.draw();
-        } else if (estado == EstadoJuego.GANANDO1|| estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
-                || estado == EstadoJuego.GANANDO4) {
+        } else if (estado == EstadoJuego.GANANDO1 || estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3 || estado == EstadoJuego.GANANDO4){
+            escenaGanando.draw();
+        }else if (estado == EstadoJuego.FINAL1 || estado == EstadoJuego.FINAL2 || estado == EstadoJuego.FINAL3){
+            escenaFinal.draw();
             batch.begin();
             batch.draw(fondoNivel4, 0, 0);
             batch.end();
             escenaGanando.draw();
+            escenaMuriendo.draw();
+            escenaFinal.draw();
         } else if (estado == EstadoJuego.PERDIO) {
             escenaPerdio.draw();
         }
@@ -469,7 +484,7 @@ public class PantallaLucha4 extends Pantalla {
             Misiles misiles = arrMisiles.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(misiles.sprite.getBoundingRectangle())) {
                 arrMisiles.removeIndex(i);
-                bateriaN4 -= 100;
+                bateriaN4 -= 10;
                 break;
             } else if (bateriaN4 <= 0) {
                 estado = PantallaLucha4.EstadoJuego.PERDIO;
@@ -489,7 +504,7 @@ public class PantallaLucha4 extends Pantalla {
             if (tiempoMisil>2) {
                 tiempoMisil -= 1;
             }
-            Misiles misiles = new Misiles(texturaMisil, 950, 400);
+            Misiles misiles = new Misiles(texturaMisil, 920 + MathUtils.random(1,3)*10, 100 + MathUtils.random(1,5)*100);
             arrMisiles.add(misiles);
         }
     }
@@ -593,14 +608,13 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("Efectos/salto.mp3");
         juego.getManager().unload("Efectos/laser.mp3");
         juego.getManager().unload("Efectos/pocima.mp3");
+        juego.getManager().unload("Efectos/explosion4.png");
 
         //Enemigos
         juego.getManager().unload("Enemigos/Robot1.png");
         juego.getManager().unload("Enemigos/misil.png");
         juego.getManager().unload("Enemigos/dron.png");
         juego.getManager().unload("MuerteVillanos/muerteR1.png");
-        juego.getManager().unload("MuerteVillanos/muerteR2.png");
-        juego.getManager().unload("MuerteVillanos/muerteR3.png");
 
         //Texto
         juego.getManager().unload("Texto/game.fnt");
@@ -630,6 +644,7 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("botones/avanzarN3.png");
         juego.getManager().unload("botones/omitirN4.png");
         juego.getManager().unload("botones/PlayAgainN4.png");
+        juego.getManager().unload("BtnGanar/final.png");
 
         //Historieta
         juego.getManager().unload("Historieta/VNLvl4_1.PNG");
@@ -647,8 +662,6 @@ public class PantallaLucha4 extends Pantalla {
         JUGANDO,
         PAUSADO,
         MURIENDO1,
-        MURIENDO2,
-        MURIENDO3,
         GANANDO1,
         GANANDO2,
         GANANDO3,
@@ -818,10 +831,9 @@ public class PantallaLucha4 extends Pantalla {
 
     private class EscenaGanando extends Stage{
         private Image imgGanando;
-        public EscenaGanando(Viewport vista, SpriteBatch batch){
+        public EscenaGanando(final Viewport vista, final SpriteBatch batch){
             super(vista, batch);
             if (estado == EstadoJuego.GANANDO1) {
-                //Texture textura1 = new Texture("Historieta/VNLvl1_1.PNG");
                 Texture textura1 = juego.getManager().get("Historieta/VNLvl4_1.PNG");
                 imgGanando = new Image(textura1);
                 imgGanando.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
@@ -874,13 +886,16 @@ public class PantallaLucha4 extends Pantalla {
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == EstadoJuego.GANANDO4) {
-                        juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
+                        estado = EstadoJuego.FINAL1;
+                        if (escenaFinal == null) {
+                            escenaFinal = new EscenaFinal(vista, batch);
+                        }
+                        Gdx.input.setInputProcessor(escenaFinal);
                         btnAvanza.toFront();
                     }
                 }
             });
             this.addActor(btnAvanza);
-
         }
     }
 
@@ -902,13 +917,12 @@ public class PantallaLucha4 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
                 }
             });
             this.addActor(btnJugarDeNuevoNivel);
 
             // Boton Avanzar
-            //Texture btnAvanzar = new Texture("botones/avanzar.png");
             Texture btnAvanzar = juego.getManager().get("botones/avanzarN3.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
@@ -928,12 +942,46 @@ public class PantallaLucha4 extends Pantalla {
         private Image imgMuriendo;
         public EscenaMuriendo(final Viewport vista, final SpriteBatch batch) {
             super(vista, batch);
-            if (estado == EstadoJuego.MURIENDO1) {
+            if (estado == PantallaLucha4.EstadoJuego.MURIENDO1) {
                 Texture textura1 = juego.getManager().get("MuerteVillanos/muerteR1.png");
                 imgMuriendo = new Image(textura1);
                 imgMuriendo.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
                 Gdx.app.log("Muriendo1", "Sí entra");
                 this.addActor(imgMuriendo);
+            }
+
+            // Boton final
+            Texture btnAvanzar = juego.getManager().get("BtnGanar/final.png");
+            TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
+            final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
+            btnAvanza.setPosition(ANCHO*.62f, ALTO * 0.4f, Align.topRight);
+            btnAvanza.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    if (estado == PantallaLucha4.EstadoJuego.MURIENDO1) {
+                        estado = PantallaLucha4.EstadoJuego.GANANDO1;
+                        if (escenaGanando == null) {
+                            escenaGanando = new PantallaLucha4.EscenaGanando(vista, batch);;
+                        }
+                        Gdx.input.setInputProcessor(escenaGanando);
+                        btnAvanza.toFront();
+                    }
+                }
+            });
+            this.addActor(btnAvanza);
+        }
+    }
+    private class EscenaFinal extends Stage{
+        private Image imgFinal;
+        public EscenaFinal(final Viewport vista, final SpriteBatch batch) {
+            super(vista, batch);
+            if (estado == EstadoJuego.FINAL1) {
+                Texture textura1 = juego.getManager().get("Historieta/final1.png");
+                imgFinal = new Image(textura1);
+                imgFinal.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
+                Gdx.app.log("Final 1", "Sí entra");
+                this.addActor(imgFinal);
             }
 
             //Boton Omitir
@@ -945,7 +993,7 @@ public class PantallaLucha4 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL4));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
             this.addActor(btnOmitirFinal);
@@ -959,26 +1007,22 @@ public class PantallaLucha4 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    if (estado == EstadoJuego.MURIENDO1) {
-                        estado = EstadoJuego.MURIENDO2;
+                    if (estado == EstadoJuego.FINAL1) {
+                        estado = EstadoJuego.FINAL2;
                         Gdx.app.log("Muriendo2", "Sí cambia");
-                        Texture textura2 = juego.getManager().get("MuerteVillanos/muerteR2.png");
+                        Texture textura2 = juego.getManager().get("Historieta/final2.png");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura2);
-                        imgMuriendo.setDrawable(nuevaImagen);
+                        imgFinal.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
-                    } else if (estado == EstadoJuego.MURIENDO2) {
-                        estado = EstadoJuego.MURIENDO3;
+                    } else if (estado == EstadoJuego.FINAL2) {
+                        estado = EstadoJuego.FINAL3;
                         Gdx.app.log("Muriendo3", "Sí cambia");
-                        Texture textura3 = juego.getManager().get("MuerteVillanos/muerteR3.png");
+                        Texture textura3 = juego.getManager().get("Historieta/final3.png");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura3);
-                        imgMuriendo.setDrawable(nuevaImagen);
+                        imgFinal.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
-                    } else if (estado == EstadoJuego.MURIENDO3) {
-                        estado = EstadoJuego.GANANDO1;
-                        if (escenaGanando == null) {
-                            escenaGanando = new EscenaGanando(vista, batch);;
-                        }
-                        Gdx.input.setInputProcessor(escenaGanando);
+                    } else if (estado == EstadoJuego.FINAL3) {
+                        juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                         btnAvanza.toFront();
                     }
                 }
@@ -986,4 +1030,5 @@ public class PantallaLucha4 extends Pantalla {
             this.addActor(btnAvanza);
         }
     }
+
 }

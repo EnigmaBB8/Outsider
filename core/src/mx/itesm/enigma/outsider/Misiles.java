@@ -30,7 +30,7 @@ public class Misiles extends Objeto {
     Método que hace que se muevan las bolas de fuego
      */
     public void atacar(){
-        sprite.setPosition(sprite.getX()- 7,sprite.getY() - 4);
+        sprite.setPosition(sprite.getX() - 12,sprite.getY() - 4);
     }
 
     /*

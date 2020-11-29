@@ -43,7 +43,7 @@ public class PantallaLucha1 extends Pantalla {
     private Array<BolasDeFuego> arrBolasFuego;
     private float timerCrearBola;
     private float TIEMPO_CREA_BOLA = 1;
-    private float tiempoBola = 3;
+    private float tiempoBola = 4;
     private Texture texturaBolas;
 
     // Flechas
@@ -72,8 +72,8 @@ public class PantallaLucha1 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 5;
-    private float tiempoPocima = 10;
+    private float TIEMPO_CREA_POCIMA = 4;
+    private float tiempoPocima = 15;
 
     //Pausa
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -112,8 +112,6 @@ public class PantallaLucha1 extends Pantalla {
         configurarMusica();
 
     }
-
-
 
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
@@ -163,7 +161,6 @@ public class PantallaLucha1 extends Pantalla {
     private Flecha crearProyectil() {
         texturaFlechaMoviendo = juego.getManager().get("Proyectiles/flecha1.png");
        texturaFlechaExplotando = juego.getManager().get("Efectos/explosion.png");
-
         Flecha flecha=new Flecha(texturaFlechaMoviendo,texturaFlechaExplotando,
                 personaje.sprite.getX() + personaje.sprite.getWidth()*0.6f,
                 personaje.sprite.getY() + personaje.sprite.getHeight()*0.12f);
@@ -231,7 +228,6 @@ public class PantallaLucha1 extends Pantalla {
         Texture bntDisparaIn = juego.getManager().get("botones/BotonDispararInv.png");
         TextureRegionDrawable trBntDispararInv = new TextureRegionDrawable(new TextureRegion(bntDisparaIn));
 
-
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
         ImageButton btnIzquierda = new ImageButton(trBntIz,trdBtnIzIn);
         ImageButton bntDerecha = new ImageButton(trBntDer,trdBtnDeIn);
@@ -256,8 +252,10 @@ public class PantallaLucha1 extends Pantalla {
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
-                personaje.setEstado(EstadoKAIM.QUIETO);
+                if(personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO_DERECHA);
+                    personaje.setEstado(EstadoKAIM.QUIETO);
+                }
             }
         });
 
@@ -273,8 +271,10 @@ public class PantallaLucha1 extends Pantalla {
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
-                personaje.setEstado(EstadoKAIM.QUIETO);
+                if(personaje.getEstado() != EstadoKAIM.SALTANDO) {
+                    personaje.setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
+                    personaje.setEstado(EstadoKAIM.QUIETO);
+                }
             }
         });
 
@@ -368,7 +368,7 @@ public class PantallaLucha1 extends Pantalla {
             batch.end();
         } else if(estado == EstadoJuego.PAUSADO){
             escenaPausa.draw();
-        } else if (estado == EstadoJuego.MURIENDO1 || estado == EstadoJuego.MURIENDO2 || estado == EstadoJuego.MURIENDO3){
+        } else if (estado == EstadoJuego.MURIENDO1){
             escenaMuriendo.draw();
         } else if (estado == EstadoJuego.GANANDO1 || estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3
                 || estado == EstadoJuego.GANANDO4) {
@@ -441,7 +441,7 @@ public class PantallaLucha1 extends Pantalla {
             if (piedra.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())){
                 arrPiedra.removeIndex(i);
                 // Aumentar puntos
-                bateria -= 9;
+                bateria -= 3;
                 break;
             }
         }
@@ -454,7 +454,7 @@ public class PantallaLucha1 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateria<90) {
+                    && bateria<93) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateria += 7;
@@ -477,7 +477,7 @@ public class PantallaLucha1 extends Pantalla {
             if (flecha.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(flecha.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillano -= 10;
+                    vidaVillano -= 20;
                     flecha.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(flecha.getEstado()== EstadoObjeto.DESAPARECE){
                     arrFlecha.removeIndex(i);
@@ -504,7 +504,7 @@ public class PantallaLucha1 extends Pantalla {
             BolasDeFuego bola = arrBolasFuego.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(bola.sprite.getBoundingRectangle())) {
                 arrBolasFuego.removeIndex(i);
-                bateria -= 10;
+                bateria -= 5;
                 break;
             } else if (bateria <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -602,8 +602,6 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("Enemigos/Titan1.PNG");
         juego.getManager().unload("Enemigos/BolaDeFuego.png");
         juego.getManager().unload("MuerteVillanos/muerteT1.png");
-        juego.getManager().unload("MuerteVillanos/muerteT2.png");
-        juego.getManager().unload("MuerteVillanos/muerteT3.png");
 
         //Texto
         juego.getManager().unload("Texto/game.fnt");
@@ -632,6 +630,9 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("botones/omitir.png");
         juego.getManager().unload("botones/PlayAgain.png");
 
+        juego.getManager().unload("BtnGanar/menu.png");
+        juego.getManager().unload("BtnGanar/continuar.png");
+
         //Historieta
         juego.getManager().unload("Historieta/VNLvl1_1.PNG");
         juego.getManager().unload("Historieta/VNLvl1_2.PNG");
@@ -648,8 +649,6 @@ public class PantallaLucha1 extends Pantalla {
         JUGANDO,
         PAUSADO,
         MURIENDO1,
-        MURIENDO2,
-        MURIENDO3,
         GANANDO1,
         GANANDO2,
         GANANDO3,
@@ -945,44 +944,30 @@ public class PantallaLucha1 extends Pantalla {
                 this.addActor(imgMuriendo);
             }
 
-            //Boton Omitir
-            Texture btnOmitir = juego.getManager().get("botones/omitir.png");
+            //Boton a menu
+            Texture btnOmitir = juego.getManager().get("BtnGanar/menu.png");
             TextureRegionDrawable trOmitir = new TextureRegionDrawable(new TextureRegion(btnOmitir));
             final ImageButton btnOmitirFinal = new ImageButton(trOmitir,trOmitir);
-            btnOmitirFinal.setPosition(ANCHO*0.2F,ALTO*0.98F, Align.topRight);
+            btnOmitirFinal.setPosition(ANCHO*.62f,ALTO*.53F, Align.topRight);
             btnOmitirFinal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    juego.setScreen(new PantallaCargando(juego, Pantallas.NIVEL2));
+                    juego.setScreen(new PantallaCargando(juego, Pantallas.MENU));
                 }
             });
             this.addActor(btnOmitirFinal);
 
-            // Boton Avanzar
-            Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
+            // Boton continuar
+            Texture btnAvanzar = juego.getManager().get("BtnGanar/continuar.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             final ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO * 0.2f, ALTO * 0.84f, Align.topRight);
+            btnAvanza.setPosition(ANCHO*.62f, ALTO * 0.3f, Align.topRight);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    if (estado == EstadoJuego.MURIENDO1) {
-                        estado = EstadoJuego.MURIENDO2;
-                        Gdx.app.log("Muriendo2", "Sí cambia");
-                        Texture textura2 = juego.getManager().get("MuerteVillanos/muerteT2.png");
-                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura2);
-                        imgMuriendo.setDrawable(nuevaImagen);
-                        btnAvanza.toFront();
-                    } else if (estado == EstadoJuego.MURIENDO2) {
-                        estado = EstadoJuego.MURIENDO3;
-                        Gdx.app.log("Muriendo3", "Sí cambia");
-                        Texture textura3 = juego.getManager().get("MuerteVillanos/muerteT3.png");
-                        TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura3);
-                        imgMuriendo.setDrawable(nuevaImagen);
-                        btnAvanza.toFront();
-                    } else if (estado == EstadoJuego.MURIENDO3) {
+                     if (estado == EstadoJuego.MURIENDO1) {
                         estado = EstadoJuego.GANANDO1;
                         if (escenaGanando == null) {
                             escenaGanando = new EscenaGanando(vista, batch);;

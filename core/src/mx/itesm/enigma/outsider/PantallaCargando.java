@@ -112,14 +112,13 @@ public class PantallaCargando extends Pantalla {
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/laser.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
+        manager.load("Efectos/explosion4.png", Texture.class);
 
         //Enemigos
         manager.load("Enemigos/Robot1.png", Texture.class);
         manager.load("Enemigos/misil.png", Texture.class);
         manager.load("Enemigos/dron.png", Texture.class);
         manager.load("MuerteVillanos/muerteR1.png", Texture.class);
-        manager.load("MuerteVillanos/muerteR2.png", Texture.class);
-        manager.load("MuerteVillanos/muerteR3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
@@ -149,6 +148,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/avanzarN4.png", Texture.class);
         manager.load("botones/avanzarN3.png", Texture.class);
         manager.load("botones/PlayAgainN4.png", Texture.class);
+        manager.load("BtnGanar/final.png", Texture.class);
 
         //Historieta
         manager.load("Historieta/VNLvl4_1.PNG", Texture.class);
@@ -172,10 +172,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("sprites/personaje.png", Texture.class);
 
         //Proyectiles
-        manager.load("Proyectiles/bolasMagicas.png", Texture.class);
         manager.load("Proyectiles/pocimaNivel3.png", Texture.class);
         manager.load("Proyectiles/bala.png", Texture.class);
-
+        manager.load("Efectos/explosion3.png", Texture.class);
 
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
@@ -187,8 +186,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/cerebro.png", Texture.class);
         manager.load("Enemigos/zombie.png", Texture.class);
         manager.load("MuerteVillanos/muerteZ1.png", Texture.class);
-        manager.load("MuerteVillanos/muerteZ2.png", Texture.class);
-        manager.load("MuerteVillanos/muerteZ3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
@@ -217,7 +214,11 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN3.png", Texture.class);
         manager.load("botones/avanzarN3.png", Texture.class);
+        manager.load("botones/avanzarN31.png", Texture.class);
         manager.load("botones/PlayAgainN3.png", Texture.class);
+
+        manager.load("BtnGanar/menu3.png", Texture.class);
+        manager.load("BtnGanar/continuar3.png", Texture.class);
 
         //Historieta
         manager.load("Historieta/VNLvl3_1.PNG", Texture.class);
@@ -238,13 +239,14 @@ public class PantallaCargando extends Pantalla {
         manager.load("sprites/personaje.png", Texture.class);
 
         //Proyectiles
-        manager.load("Proyectiles/bolasMagicas.png", Texture.class);
+        manager.load("Proyectiles/bolaMagica.png", Texture.class);
         manager.load("Proyectiles/pocimaNivel2.png", Texture.class);
 
         //Efectos
         manager.load("Efectos/salto.mp3", Sound.class);
         manager.load("Efectos/magia.mp3", Sound.class);
         manager.load("Efectos/pocima.mp3", Sound.class);
+        manager.load("Efectos/explosion2.png", Texture.class);
 
         //Enemigos
         manager.load("Enemigos/Dragon1.PNG", Texture.class);
@@ -252,8 +254,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/llamaradas.png", Texture.class);
         manager.load("Enemigos/Espinas.png", Texture.class);
         manager.load("MuerteVillanos/muerteD1.png", Texture.class);
-        manager.load("MuerteVillanos/muerteD2.png", Texture.class);
-        manager.load("MuerteVillanos/muerteD3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
@@ -281,6 +281,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/omitirN2.png", Texture.class);
         manager.load("botones/avanzarN2.png", Texture.class);
         manager.load("botones/PlayAgainN2.png", Texture.class);
+
+        manager.load("BtnGanar/menu2.png", Texture.class);
+        manager.load("BtnGanar/continuar2.png", Texture.class);
 
         //Historieta
         manager.load("Historieta/VNLvl2_1.PNG", Texture.class);
@@ -315,8 +318,6 @@ public class PantallaCargando extends Pantalla {
         manager.load("Enemigos/Titan1.PNG", Texture.class);
         manager.load("Enemigos/BolaDeFuego.png", Texture.class);
         manager.load("MuerteVillanos/muerteT1.png", Texture.class);
-        manager.load("MuerteVillanos/muerteT2.png", Texture.class);
-        manager.load("MuerteVillanos/muerteT3.png", Texture.class);
 
         //Texto
         manager.load("Texto/game.fnt", BitmapFont.class);
@@ -342,6 +343,9 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/avanzar.png", Texture.class);
         manager.load("botones/omitir.png", Texture.class);
         manager.load("botones/PlayAgain.png", Texture.class);
+
+        manager.load("BtnGanar/menu.png", Texture.class);
+        manager.load("BtnGanar/continuar.png", Texture.class);
 
         //Historieta
         manager.load("Historieta/VNLvl1_1.PNG", Texture.class);
