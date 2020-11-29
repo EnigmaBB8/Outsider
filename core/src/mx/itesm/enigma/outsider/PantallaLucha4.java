@@ -373,14 +373,11 @@ public class PantallaLucha4 extends Pantalla {
         } else if (estado == EstadoJuego.MURIENDO1) {
             escenaMuriendo.draw();
         } else if (estado == EstadoJuego.GANANDO1 || estado == EstadoJuego.GANANDO2 || estado == EstadoJuego.GANANDO3 || estado == EstadoJuego.GANANDO4){
-            escenaGanando.draw();
-        }else if (estado == EstadoJuego.FINAL1 || estado == EstadoJuego.FINAL2 || estado == EstadoJuego.FINAL3){
-            escenaFinal.draw();
             batch.begin();
-            batch.draw(fondoNivel4, 0, 0);
+            batch.draw(fondoNivel4, 0 , 0);
             batch.end();
             escenaGanando.draw();
-            escenaMuriendo.draw();
+        }else if (estado == EstadoJuego.FINAL1 || estado == EstadoJuego.FINAL2 || estado == EstadoJuego.FINAL3){
             escenaFinal.draw();
         } else if (estado == EstadoJuego.PERDIO) {
             escenaPerdio.draw();
@@ -962,7 +959,7 @@ public class PantallaLucha4 extends Pantalla {
                     if (estado == PantallaLucha4.EstadoJuego.MURIENDO1) {
                         estado = PantallaLucha4.EstadoJuego.GANANDO1;
                         if (escenaGanando == null) {
-                            escenaGanando = new PantallaLucha4.EscenaGanando(vista, batch);;
+                            escenaGanando = new EscenaGanando(vista, batch);;
                         }
                         Gdx.input.setInputProcessor(escenaGanando);
                         btnAvanza.toFront();
