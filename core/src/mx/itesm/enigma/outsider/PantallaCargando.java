@@ -80,6 +80,9 @@ public class PantallaCargando extends Pantalla {
             case ACERDA_DE_MANUEL:
                 cargarRecursosAcercaDeManuel();
                 break;
+            case CONTACTO:
+                cargarRecursosContacto();
+                break;
             case NIVEL1:
                 cargarRecursosNivel1();
                 break;
@@ -93,6 +96,15 @@ public class PantallaCargando extends Pantalla {
                 cargarRecursosNivel4();
                 break;
         }
+    }
+
+    private void cargarRecursosContacto() {
+        //Fondos
+        manager.load("fondos/fondoContacto.png", Texture.class);
+
+        //Botones
+        manager.load("botones/btnBack1.png", Texture.class);
+        manager.load("botones/btnBack.png", Texture.class);
     }
 
     private void cargarRecursosNivel4() {
@@ -408,6 +420,8 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/AD_Itzel.png", Texture.class);
         manager.load("botones/AD_Abraham.png", Texture.class);
         manager.load("botones/BtnHistory1.png", Texture.class);
+        manager.load("botones/BtnContacto.png", Texture.class);
+        manager.load("botones/BtnContacto1.png", Texture.class);
 
     }
 
@@ -528,6 +542,9 @@ public class PantallaCargando extends Pantalla {
                     break;
                 case ACERDA_DE_MANUEL:
                     juego.setScreen(new PantallaAcercaDeManuel(juego));
+                    break;
+                case CONTACTO:
+                    juego.setScreen(new PantallaContacto(juego));
                     break;
                 case NIVEL1:
                     juego.setScreen(new PantallaLucha1(juego));

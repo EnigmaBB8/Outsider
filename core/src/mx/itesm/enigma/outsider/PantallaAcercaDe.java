@@ -60,10 +60,15 @@ public class PantallaAcercaDe extends Pantalla {
         Texture btnADAbraham = juego.getManager().get("botones/AD_Abraham1.png");
         TextureRegionDrawable trdBtnAbraham = new TextureRegionDrawable(new TextureRegion(btnADAbraham));
 
-        ///Boton de Historia
+        //Boton de Historia
         //Texture btnHistoria = new Texture("botones/BtnHistory.png");
         Texture btnHistoria = juego.getManager().get("botones/BtnHistory.png");
         TextureRegionDrawable trdBtHistoria = new TextureRegionDrawable(new TextureRegion(btnHistoria));
+
+        //Boton de Historia
+        //Texture btnHistoria = new Texture("botones/BtnHistory.png");
+        Texture btnContacto = juego.getManager().get("botones/BtnContacto.png");
+        TextureRegionDrawable trdBtnContacto = new TextureRegionDrawable(new TextureRegion(btnContacto));
 
         /*
         Botones inversos de accion
@@ -99,6 +104,11 @@ public class PantallaAcercaDe extends Pantalla {
         Texture btnHistoriInv = juego.getManager().get("botones/BtnHistory1.png");
         TextureRegionDrawable trdBtHistoriaInv = new TextureRegionDrawable(new TextureRegion(btnHistoriInv ));
 
+        //Inverso de Historia
+        //Texture btnHistoriInv = new Texture("botones/BtnHistory1.png");
+        Texture btnContactoInv = juego.getManager().get("botones/BtnContacto1.png");
+        TextureRegionDrawable trdBtnContactoInv = new TextureRegionDrawable(new TextureRegion(btnContactoInv));
+
         /*
         Botones y su inicializacion
          */
@@ -109,17 +119,19 @@ public class PantallaAcercaDe extends Pantalla {
         ImageButton btnI = new ImageButton(trdBtnItzel, trdBtnItzelInv);
         ImageButton btnA = new ImageButton(trdBtnAbraham, trdBtnAbrahmInv);
         ImageButton btnH = new ImageButton(trdBtHistoria,trdBtHistoriaInv);
+        ImageButton btnC = new ImageButton(trdBtnContacto,trdBtnContactoInv);
 
         /*
         Posicion e inicializacion de los botones
          */
 
-        btnNP.setPosition(ANCHO * .83f, ALTO * .23F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .83f, ALTO * .25F, Align.topLeft);
         btnK.setPosition(ANCHO*.15f,ALTO*.55f, Align.center);
         btnM.setPosition(ANCHO*.45f,ALTO*.55f, Align.center);
         btnI.setPosition(ANCHO*.15f,ALTO*.15f, Align.center);
         btnA.setPosition(ANCHO*.45f,ALTO*.15f, Align.center);
-        btnH.setPosition(ANCHO * .84f, ALTO * .40F, Align.topLeft);
+        btnH.setPosition(ANCHO * .72f, ALTO * .23F, Align.topLeft);
+        btnC.setPosition(ANCHO * .6f, ALTO * .23F, Align.topLeft);
 
         /*
         Accion al darles click a los botones
@@ -173,6 +185,13 @@ public class PantallaAcercaDe extends Pantalla {
                 juego.setScreen(new PantallaCargando(juego, Pantallas.HISTORIA));
             }
         });
+        btnC.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaCargando(juego, Pantallas.CONTACTO));
+            }
+        });
 
         /*
         Representación en escena de los botones
@@ -184,6 +203,7 @@ public class PantallaAcercaDe extends Pantalla {
         escenaAcercaDe.addActor(btnI);
         escenaAcercaDe.addActor(btnA);
         escenaAcercaDe.addActor(btnH);
+        escenaAcercaDe.addActor(btnC);
         Gdx.input.setInputProcessor(escenaAcercaDe);
     }
 
@@ -222,6 +242,8 @@ public class PantallaAcercaDe extends Pantalla {
         juego.getManager().unload("botones/AD_Itzel.png");
         juego.getManager().unload("botones/AD_Abraham.png");
         juego.getManager().unload("botones/BtnHistory1.png");
+        juego.getManager().unload("botones/BtnContacto1.png");
+        juego.getManager().unload("botones/BtnContacto.png");
         batch.dispose();
     }
 }

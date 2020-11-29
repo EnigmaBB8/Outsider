@@ -14,5 +14,6 @@ public enum Pantallas {
     NIVEL1,
     NIVEL2,
     NIVEL3,
-    NIVEL4
+    NIVEL4,
+    CONTACTO
 }
