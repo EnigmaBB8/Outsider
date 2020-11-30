@@ -599,7 +599,7 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("Efectos/pocima.mp3");
 
         //Enemigos
-        juego.getManager().unload("Enemigos/Titan1.PNG");
+        juego.getManager().unload("Enemigos/Titan1.png");
         juego.getManager().unload("Enemigos/BolaDeFuego.png");
         juego.getManager().unload("MuerteVillanos/muerteT1.png");
 

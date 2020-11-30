@@ -327,7 +327,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("Efectos/explosion.png", Texture.class);
 
         //Enemigos
-        manager.load("Enemigos/Titan1.PNG", Texture.class);
+        manager.load("Enemigos/Titan1.png", Texture.class);
         manager.load("Enemigos/BolaDeFuego.png", Texture.class);
         manager.load("MuerteVillanos/muerteT1.png", Texture.class);
 
