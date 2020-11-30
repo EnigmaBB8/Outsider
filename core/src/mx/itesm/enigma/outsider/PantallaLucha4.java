@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -110,6 +111,7 @@ public class PantallaLucha4 extends Pantalla {
         crearPocima();
         crearMisiles();
         crearDrones();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
     }
 
     private void crearDrones() {

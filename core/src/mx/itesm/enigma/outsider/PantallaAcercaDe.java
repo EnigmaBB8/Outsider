@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.utils.TextureBinder;
@@ -26,6 +27,7 @@ public class PantallaAcercaDe extends Pantalla {
         //fondoAcercaDe = new Texture("fondos/fondoacercade.png");
         fondoAcercaDe = juego.getManager().get("fondos/fondoacercade.png");
         crearPantallaAD();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
     }
 
     private void crearPantallaAD() {

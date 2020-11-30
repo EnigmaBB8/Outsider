@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +28,7 @@ public class PantallaMenu extends Pantalla  {
         fondomenu = juego.getManager().get("fondos/fondomenu.jpeg");
         crearMenu();
         configurarMusica();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
     }
 
     private void configurarMusica() {

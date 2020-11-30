@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +24,7 @@ public class PantallaHistoria extends Pantalla {
     public void show() {
         fondoHistoria=new Texture("fondos/Historia.jpeg");
         crearHistoria();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
 
     }
 

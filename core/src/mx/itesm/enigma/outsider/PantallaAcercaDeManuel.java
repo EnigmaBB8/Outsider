@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,6 +26,7 @@ public class PantallaAcercaDeManuel extends Pantalla {
     public void show() {
         fondoAyuda = juego.getManager().get("fondos/fondoacercadeM.png");
         crearpantallaAyuda();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
     }
 
     private void crearpantallaAyuda() {

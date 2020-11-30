@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +29,7 @@ public class PantallaMapa extends Pantalla {
         fondoPantallaReanudar = new Texture("fondos/fondoMapa.png");
         crearReanudar();
         configurarMusica();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
 
     }
 

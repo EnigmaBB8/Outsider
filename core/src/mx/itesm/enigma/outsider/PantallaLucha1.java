@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
@@ -110,6 +111,7 @@ public class PantallaLucha1 extends Pantalla {
         crearSonido();
         crearPocima();
         configurarMusica();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
 
     }
 
@@ -150,7 +152,7 @@ public class PantallaLucha1 extends Pantalla {
     }
 
     private void crearVillano() {
-        texturaVillano = juego.getManager().get("Enemigos/Titan1.PNG");
+        texturaVillano = juego.getManager().get("Enemigos/Titan1.png");
         villano=new Villano(texturaVillano);
     }
 

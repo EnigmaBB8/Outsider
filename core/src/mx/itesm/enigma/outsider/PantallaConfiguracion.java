@@ -1,6 +1,7 @@
 package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +29,7 @@ public class PantallaConfiguracion extends Pantalla {
         fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
         configurarMusica();
+        Gdx.input.setCatchKey(Input.Keys.BACK,false);
     }
 
     private void configurarMusica() {
