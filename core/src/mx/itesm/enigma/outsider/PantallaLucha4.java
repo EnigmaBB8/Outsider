@@ -795,6 +795,7 @@ public class PantallaLucha4 extends Pantalla {
                     }else{
                         btnMusica.setStyle(ApagadoMusica);
                         juego.detenerMusicaN1();
+                        juego.detenerMusicaN4();
                         preferencias.putBoolean("General",false);
                     }
                 }
