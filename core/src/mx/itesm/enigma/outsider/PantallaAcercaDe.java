@@ -128,7 +128,7 @@ public class PantallaAcercaDe extends Pantalla {
         btnNP.setPosition(ANCHO * .83f, ALTO * .25F, Align.topLeft);
         btnK.setPosition(ANCHO*.15f,ALTO*.55f, Align.center);
         btnM.setPosition(ANCHO*.45f,ALTO*.55f, Align.center);
-        btnI.setPosition(ANCHO*.15f,ALTO*.15f, Align.center);
+        btnI.setPosition(ANCHO*.15f,ALTO*.16f, Align.center);
         btnA.setPosition(ANCHO*.45f,ALTO*.15f, Align.center);
         btnH.setPosition(ANCHO * .72f, ALTO * .23F, Align.topLeft);
         btnC.setPosition(ANCHO * .6f, ALTO * .23F, Align.topLeft);

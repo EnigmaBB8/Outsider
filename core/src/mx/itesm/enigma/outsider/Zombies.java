@@ -30,7 +30,7 @@ public class Zombies extends Objeto {
     Método que hace que se muevan los zombies
      */
     public void atacar(){
-        sprite.setX(sprite.getX()-6);
+        sprite.setX(sprite.getX()-8);
     }
 
     /*

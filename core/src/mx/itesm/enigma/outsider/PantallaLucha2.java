@@ -513,7 +513,9 @@ public class PantallaLucha2 extends Pantalla {
     private void verficarChoquesAspas() {
         for (int i = arrAspas.size-1; i>=0; i--) {
             Aspas aspas = arrAspas.get(i);
-            if (personaje.sprite.getBoundingRectangle().overlaps(aspas.sprite.getBoundingRectangle())) {
+            Rectangle rectAspas = aspas.sprite.getBoundingRectangle();
+            rectAspas.x -= rectAspas.width/2;
+            if (personaje.sprite.getBoundingRectangle().overlaps(rectAspas)) {
                 arrAspas.removeIndex(i);
                 bateriaN2 -= 10;
                 break;
@@ -584,10 +586,10 @@ public class PantallaLucha2 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN2<93) {
+                    && bateriaN2<91) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN2 += 7;
+                bateriaN2 += 10;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }
