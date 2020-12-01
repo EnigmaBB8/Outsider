@@ -1,5 +1,7 @@
 package mx.itesm.enigma.outsider;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -43,7 +45,22 @@ public class PantallaCargando extends Pantalla {
         spriteCargando = new Sprite(texturaCargando);
         spriteCargando.setPosition(ANCHO/2 - spriteCargando.getWidth()/2, ALTO/2 -spriteCargando.getHeight()/2);
         cargarRecursos(siguientePantalla);
+        configurarMusica();
         texto= new Texto("Texto/game.fnt");
+    }
+
+    private void configurarMusica() {
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("General");
+        Gdx.app.log("MUSICA 1", " " + musicaFondo);
+        if(musicaFondo==true) {
+            //Prender musica
+            juego.reproducirMusica();
+            juego.detenerMusicaN1();
+            juego.detenerMusicaN2();
+            juego.detenerMusicaN3();
+            juego.detenerMusicaN4();
+        }
     }
 
     private void cargarRecursos(Pantallas siguientePantalla) {

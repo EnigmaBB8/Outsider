@@ -23,18 +23,18 @@ public class Misiles extends Objeto {
         animacion=new Animation<TextureRegion>(0.1f,arrFrame);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion=0;
-        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de la bola de fuego
+        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de los misiles
         sprite.setPosition(x,y);
     }
     /*
-    Método que hace que se muevan las bolas de fuego
+    Método que hace que se muevan los misiles
      */
     public void atacar(){
-        sprite.setPosition(sprite.getX() - 12,sprite.getY() - 4);
+        sprite.setPosition(sprite.getX() - 13,sprite.getY() - 4);
     }
 
     /*
-    Método que hace que aparezcan las bolas de fuego como animación
+    Método que hace que aparezcan los misiles
      */
     public void render(SpriteBatch batch){
         timerAnimacion += Gdx.graphics.getDeltaTime();

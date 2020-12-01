@@ -35,7 +35,6 @@ public class PantallaConfiguracion extends Pantalla {
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 2"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusica();
@@ -76,8 +75,8 @@ public class PantallaConfiguracion extends Pantalla {
         //inverso boton musica
         Texture btnMusicaInv = new Texture("botones/btnconfiguracionMusicaInv.png");
         TextureRegionDrawable trdBtMusicaInv = new TextureRegionDrawable(new TextureRegion(btnMusicaInv));
-        //Boton Música (Efecto Apagado/Encendido)
 
+        //Boton Música (Efecto Apagado/Encendido)
         final Button.ButtonStyle estiloPrendido=new Button.ButtonStyle(trdBtMusica,trdBtMusicaInv,null);
         final Button.ButtonStyle estiloApagado=new Button.ButtonStyle(trdBtMusicaInv,trdBtMusica,null);
 
@@ -86,8 +85,6 @@ public class PantallaConfiguracion extends Pantalla {
 
         final ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
         btnM.setPosition(ANCHO * .53F, ALTO * .3F, Align.center);
-
-
 
         //Listener Música
         btnM.addListener(new ClickListener() {

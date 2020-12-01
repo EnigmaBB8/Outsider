@@ -24,7 +24,6 @@ public class PantallaMenu extends Pantalla  {
 
     @Override
     public void show() {
-        //fondomenu = new Texture("fondos/fondomenu.jpeg");
         fondomenu = juego.getManager().get("fondos/fondomenu.jpeg");
         crearMenu();
         configurarMusica();
@@ -48,27 +47,22 @@ public class PantallaMenu extends Pantalla  {
     private void crearMenu() {
         escenaMenu = new Stage(vista);
         //Logo
-        //Texture btnLogo = new Texture("botones/Logo.png");
         Texture btnLogo = juego.getManager().get("botones/Logo.png");
         TextureRegionDrawable trdBtnLogo = new TextureRegionDrawable(new TextureRegion(btnLogo));
 
         //Boton de Nueva Partida
-        //Texture btnNuevaPartida = new Texture("botones/botonNP.png");
         Texture btnNuevaPartida = juego.getManager().get("botones/botonNP.png");
         TextureRegionDrawable trdBtNuevaPartida = new TextureRegionDrawable(new TextureRegion(btnNuevaPartida));
 
         //Boton de Acerca De
-        //Texture btnAcercaDe = new Texture("botones/botonAD.png");
         Texture btnAcercaDe = juego.getManager().get("botones/botonAD.png");
         TextureRegionDrawable trdBtnAcercaDe = new TextureRegionDrawable(new TextureRegion(btnAcercaDe));
 
         //Boton de Ayuda
-        //Texture btnAyuda = new Texture("botones/botonAyuda.png");
         Texture btnAyuda = juego.getManager().get("botones/botonAyuda.png");
         TextureRegionDrawable trdBtnAyuda = new TextureRegionDrawable(new TextureRegion(btnAyuda));
 
         //Boton de Configuracion
-        //Texture btnConf = new Texture("botones/botonC.png");
         Texture btnConf = juego.getManager().get("botones/botonC.png");
         TextureRegionDrawable trdBtnConf = new TextureRegionDrawable(new TextureRegion(btnConf));
 
@@ -77,27 +71,22 @@ public class PantallaMenu extends Pantalla  {
          */
 
         //Logo
-        //Texture btnLogoInv = new Texture("botones/Logo.png");
         Texture btnLogoInv = juego.getManager().get("botones/Logo.png");
         TextureRegionDrawable trdBtnLogoInv = new TextureRegionDrawable(new TextureRegion(btnLogoInv));
 
         //Inverso de boton de Nueva Partida
-        //Texture btnNuevaPartidaInv = new Texture("botones/botonNPInv.png");
         Texture btnNuevaPartidaInv = juego.getManager().get("botones/botonNPInv.png");
         TextureRegionDrawable trdBtNuevaPartidaInv = new TextureRegionDrawable(new TextureRegion(btnNuevaPartidaInv));
 
         //Inverso de boton de Acerca De
-        //Texture btnAcercaDeInv = new Texture("botones/botonADInv.png");
         Texture btnAcercaDeInv = juego.getManager().get("botones/botonADInv.png");
         TextureRegionDrawable trdBtnAcercaDeInv = new TextureRegionDrawable(new TextureRegion(btnAcercaDeInv));
 
         //Inverso de boton de Acerca De
-        //Texture btnAyudaInv = new Texture("botones/botonAyudaInv.png");
         Texture btnAyudaInv = juego.getManager().get("botones/botonAyudaInv.png");
         TextureRegionDrawable trdBtnAyudaDeInv = new TextureRegionDrawable(new TextureRegion(btnAyudaInv));
 
         //Inverso de boton de Configuracion
-        //Texture btnConfInv = new Texture("botones/botonCInv.png");
         Texture btnConfInv = juego.getManager().get("botones/botonCInv.png");
         TextureRegionDrawable trdBtnConfInv = new TextureRegionDrawable(new TextureRegion(btnConfInv));
 
@@ -131,7 +120,6 @@ public class PantallaMenu extends Pantalla  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //juego.setScreen(new PantallaLucha1(juego));
                 juego.setScreen(new PantallaCargando(juego, Pantallas.MAPA));
             }
         });

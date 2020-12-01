@@ -2,6 +2,7 @@ package mx.itesm.enigma.outsider;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,8 +25,22 @@ public class PantallaContacto extends Pantalla {
     public void show() {
         fondoHistoria=new Texture("fondos/fondoContacto.png");
         crearHistoria();
+        configurarMusica();
         Gdx.input.setCatchKey(Input.Keys.BACK,false);
 
+    }
+
+    private void configurarMusica() {
+        Preferences preferencias = Gdx.app.getPreferences("Musica");
+        boolean musicaFondo = preferencias.getBoolean("General");
+        if(musicaFondo==true) {
+            //Prender musica
+            juego.reproducirMusica();
+            juego.detenerMusicaN1();
+            juego.detenerMusicaN2();
+            juego.detenerMusicaN3();
+            juego.detenerMusicaN4();
+        }
     }
 
     private void crearHistoria() {

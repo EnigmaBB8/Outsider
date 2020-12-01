@@ -657,8 +657,6 @@ public class PantallaLucha3 extends Pantalla {
         JUGANDO,
         PAUSADO,
         MURIENDO1,
-        MURIENDO2,
-        MURIENDO3,
         GANANDO1,
         GANANDO2,
         GANANDO3,
@@ -910,7 +908,6 @@ public class PantallaLucha3 extends Pantalla {
             this.addActor(btnJugarDeNuevoNivel);
 
             // Boton Avanzar
-            //Texture btnAvanzar = new Texture("botones/avanzar.png");
             Texture btnAvanzar = juego.getManager().get("botones/avanzarN31.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);

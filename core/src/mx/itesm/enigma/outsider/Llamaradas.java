@@ -23,14 +23,14 @@ public class Llamaradas extends Objeto {
         animacion1=new Animation<TextureRegion>(0.1f,arrFrame1);
         animacion1.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion1 = 0;
-        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de la bola de fuego
+        sprite = new Sprite(texturasFrame[0][0]); //Estado inicial de las llamaradas
         sprite.setPosition(x,y);
     }
     /*
     Método que hace que se muevan las llamaradas
      */
     public void atacar(){
-        sprite.setPosition(sprite.getX() - 8,sprite.getY() - 4);
+        sprite.setPosition(sprite.getX() - 9,sprite.getY() - 4);
     }
 
     /*

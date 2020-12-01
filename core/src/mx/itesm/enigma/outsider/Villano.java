@@ -1,12 +1,11 @@
 package mx.itesm.enigma.outsider;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-
 
 public class Villano extends Objeto{
     private Animation<TextureRegion> animacion;
@@ -23,6 +22,7 @@ public class Villano extends Objeto{
         sprite = new Sprite(texturasFrame[0][0]);
         estado = EstadoVillano.ATACANDO;
         sprite.setPosition(890,110);
+
         //Animación atacando (=‘ｘ‘=)
         TextureRegion[] arrFrame={texturasFrame[0][0],texturasFrame[0][1],texturasFrame[0][2],texturasFrame[0][3]};
         animacion=new Animation<TextureRegion>(0.3f,arrFrame);
@@ -35,12 +35,6 @@ public class Villano extends Objeto{
         animacionMuerte=new Animation<TextureRegion>(0.2f,arrFramemuerte);
         animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);
         timerAnimacionMuerte=0;
-
-
-        //Muerto OWO
-       // estado = EstadoVillano.MUERTO;
-
-
     }
 
     public void setEstado(EstadoVillano estado) {
@@ -66,8 +60,6 @@ public class Villano extends Objeto{
             batch.draw(frame, sprite.getX(), sprite.getY());
         }
     }
-//Well for now i have the class and it moves and everything,
-// next time will do the part where it dies =ටᆼට=
 
     private void actualizarVillano() {
         if(estado == EstadoVillano.MUERTO){
