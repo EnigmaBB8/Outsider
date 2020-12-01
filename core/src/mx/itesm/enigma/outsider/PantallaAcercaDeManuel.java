@@ -28,7 +28,7 @@ public class PantallaAcercaDeManuel extends Pantalla {
         fondoAyuda = juego.getManager().get("fondos/fondoacercadeM.png");
         crearpantallaAyuda();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void configurarMusica() {

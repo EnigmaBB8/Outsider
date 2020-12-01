@@ -29,7 +29,7 @@ public class PantallaMapa extends Pantalla {
         fondoPantallaReanudar = new Texture("fondos/fondoMapa.png");
         crearReanudar();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,true);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void configurarMusica() {

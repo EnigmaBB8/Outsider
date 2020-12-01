@@ -26,7 +26,7 @@ public class PantallaHistoria extends Pantalla {
         fondoHistoria=new Texture("fondos/Historia.jpeg");
         crearHistoria();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
 
     }
 

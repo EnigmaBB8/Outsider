@@ -26,7 +26,7 @@ public class PantallaContacto extends Pantalla {
         fondoHistoria=new Texture("fondos/fondoContacto.png");
         crearHistoria();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
 
     }
 

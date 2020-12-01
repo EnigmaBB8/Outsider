@@ -27,7 +27,6 @@ public class PantallaMenu extends Pantalla  {
         fondomenu = juego.getManager().get("fondos/fondomenu.jpeg");
         crearMenu();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
     }
 
     private void configurarMusica() {

@@ -118,7 +118,7 @@ public class PantallaLucha2 extends Pantalla {
         crearEspinas();
         ConfiguracionMusica();
         configuracionSonido();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
 
     }
 

@@ -29,7 +29,7 @@ public class PantallaConfiguracion extends Pantalla {
         fondoConf = new Texture("fondos/fondoconfiguracion.png");
         crearPantallaConf();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void configurarMusica() {

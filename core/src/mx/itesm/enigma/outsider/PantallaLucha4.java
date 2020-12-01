@@ -111,7 +111,7 @@ public class PantallaLucha4 extends Pantalla {
         crearPocima();
         crearMisiles();
         crearDrones();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void crearDrones() {

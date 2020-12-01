@@ -28,7 +28,7 @@ public class PantallaAyuda extends Pantalla {
         fondoAyuda = new Texture("fondos/fondoPantallaAyuda.png");
         crearPantallaAyuda();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void configurarMusica() {

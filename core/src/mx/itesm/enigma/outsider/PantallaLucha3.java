@@ -109,7 +109,7 @@ public class PantallaLucha3 extends Pantalla {
         crearVillano();
         crearCerebros();
         crearZombies();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void crearZombies() {

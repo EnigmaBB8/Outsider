@@ -28,7 +28,7 @@ public class PantallaAcercaDe extends Pantalla {
         fondoAcercaDe = juego.getManager().get("fondos/fondoacercade.png");
         crearPantallaAD();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     private void configurarMusica() {

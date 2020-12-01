@@ -111,7 +111,7 @@ public class PantallaLucha1 extends Pantalla {
         crearSonido();
         crearPocima();
         configurarMusica();
-        Gdx.input.setCatchKey(Input.Keys.BACK,false);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
 
     }
 
