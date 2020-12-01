@@ -54,8 +54,8 @@ public class PantallaLucha3 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 5;
-    private float tiempoPocima = 8;
+    private float TIEMPO_CREA_POCIMA = 8;
+    private float tiempoPocima = 18;
 
     //Sonidos
     private Sound efectoSalto;
@@ -70,8 +70,8 @@ public class PantallaLucha3 extends Pantalla {
     //Zombies
     private Array<Zombies> arrZombies;
     private float timerCrearZombies;
-    private float TIEMPO_CREA_ZOMBIE = 1;
-    private float tiempoZombie = 1;
+    private float TIEMPO_CREA_ZOMBIE = 0.01f;
+    private float tiempoZombie = 0.3f;
     private Texture texturaZombie;
 
     //Pausa
@@ -172,7 +172,7 @@ public class PantallaLucha3 extends Pantalla {
 
     private void crearPersonaje() {
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
-        personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
+        personaje=new Personaje(texturaPersonaje,ANCHO*0.12f,125);
     }
 
     private void crearNivel3() {
@@ -446,7 +446,7 @@ public class PantallaLucha3 extends Pantalla {
             Zombies zombies = arrZombies.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
                 arrZombies.removeIndex(i);
-                bateriaN3 -= 10;
+                bateriaN3 -= 7;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -462,8 +462,8 @@ public class PantallaLucha3 extends Pantalla {
         timerCrearZombies += Gdx.graphics.getDeltaTime();
         if (timerCrearZombies>=TIEMPO_CREA_ZOMBIE) {
             timerCrearZombies = 0;
-            TIEMPO_CREA_ZOMBIE = tiempoZombie + MathUtils.random()*.4f;
-            if (tiempoZombie>4) {
+            TIEMPO_CREA_ZOMBIE = tiempoZombie + MathUtils.random()*0.00000005f;
+            if (tiempoZombie>1) {
                 tiempoZombie -= 1;
             }
             Zombies zombies = new Zombies(texturaZombie, ANCHO*.9f, 120);
@@ -476,7 +476,7 @@ public class PantallaLucha3 extends Pantalla {
             Cerebros cerebros = arrCerebros.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(cerebros.sprite.getBoundingRectangle())) {
                 arrCerebros.removeIndex(i);
-                bateriaN3 -= 10;
+                bateriaN3 -= 8;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -523,13 +523,13 @@ public class PantallaLucha3 extends Pantalla {
             if (bala.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(bala.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillanoN3 -= 20;
+                    vidaVillanoN3 -= 3;
                     bala.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(bala.getEstado()== EstadoObjeto.DESAPARECE){
                     arrProyectil.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillanoN3 <= 0) {
+            } else if (vidaVillanoN3 < 4) {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=4;
                 villano.setEstado(EstadoVillano.MUERTO);
@@ -553,10 +553,10 @@ public class PantallaLucha3 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN3<90) {
+                    && bateriaN3<93) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN3 += 5;
+                bateriaN3 += 7;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }

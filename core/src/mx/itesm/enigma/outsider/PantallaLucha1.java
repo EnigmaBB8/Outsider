@@ -176,7 +176,7 @@ public class PantallaLucha1 extends Pantalla {
 
     private void crearPersonaje() {
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
-        personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
+        personaje=new Personaje(texturaPersonaje,ANCHO*0.12f,125);
     }
 
     private void crearNivel1() {
@@ -479,13 +479,13 @@ public class PantallaLucha1 extends Pantalla {
             if (flecha.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(flecha.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillano -= 20;
+                    vidaVillano -= 5;
                     flecha.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(flecha.getEstado()== EstadoObjeto.DESAPARECE){
                     arrFlecha.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillano <= 0) {
+            } else if (vidaVillano < 6) {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=2;
                 villano.setEstado(EstadoVillano.MUERTO);

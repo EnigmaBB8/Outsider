@@ -63,7 +63,7 @@ public class PantallaLucha2 extends Pantalla {
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
     private float TIEMPO_CREA_POCIMA = 6;
-    private float tiempoPocima = 7;
+    private float tiempoPocima = 17;
     
     //Espinas
     private Array<Espinas> arrEspinas;
@@ -200,7 +200,7 @@ public class PantallaLucha2 extends Pantalla {
 
     private void crearPersonaje() {
         texturaPersonaje = juego.getManager().get("sprites/personaje.png");
-        personaje=new Personaje(texturaPersonaje,ANCHO*0.05f,125);
+        personaje=new Personaje(texturaPersonaje,ANCHO*0.12f,125);
     }
 
     private void crearNivel2() {
@@ -486,7 +486,7 @@ public class PantallaLucha2 extends Pantalla {
             Espinas espinas = arrEspinas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(espinas.sprite.getBoundingRectangle())) {
                 arrEspinas.removeIndex(i);
-                bateriaN2 -= 5;
+                bateriaN2 -= 8;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -502,11 +502,11 @@ public class PantallaLucha2 extends Pantalla {
         timerCrearEspinas += Gdx.graphics.getDeltaTime();
         if (timerCrearEspinas >= TIEMPO_CREA_ESPINAS) {
             timerCrearEspinas = 0;
-            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*30;
+            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*20;
             if (tiempoEspinas > 2) {
                 tiempoEspinas -= 1;
             }
-            Espinas espinas = new Espinas(texturaEspinas, 300, 125);
+            Espinas espinas = new Espinas(texturaEspinas, 300 + MathUtils.random(0,5)*15, 125);
             arrEspinas.add(espinas);
         }
     }
@@ -516,7 +516,7 @@ public class PantallaLucha2 extends Pantalla {
             Aspas aspas = arrAspas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(aspas.sprite.getBoundingRectangle())) {
                 arrAspas.removeIndex(i);
-                bateriaN2 -= 8;
+                bateriaN2 -= 10;
                 break;
             }
         }
@@ -530,7 +530,7 @@ public class PantallaLucha2 extends Pantalla {
             if (tiempoAspas>2) {
                 tiempoAspas -= 1;
             }
-            Aspas aspas = new Aspas(texturaAspas, 0, 120);
+            Aspas aspas = new Aspas(texturaAspas, -15, 120);
             arrAspas.add(aspas);
         }
     }
@@ -540,7 +540,7 @@ public class PantallaLucha2 extends Pantalla {
             Llamaradas llamaradas = arrLlamaradas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(llamaradas.sprite.getBoundingRectangle())) {
                 arrLlamaradas.removeIndex(i);
-                bateriaN2 -= 10;
+                bateriaN2 -= 6;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -585,10 +585,10 @@ public class PantallaLucha2 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN2<90) {
+                    && bateriaN2<93) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN2 += 6;
+                bateriaN2 += 7;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }
@@ -608,13 +608,13 @@ public class PantallaLucha2 extends Pantalla {
             if (bolasMagicas.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(bolasMagicas.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillano2 -= 20;
+                    vidaVillano2 -= 4;
                     bolasMagicas.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(bolasMagicas.getEstado()== EstadoObjeto.DESAPARECE){
                     arrBolasMagicas.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillano2 <= 0) {
+            } else if (vidaVillano2 < 5) {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=3;
                 villano.setEstado(EstadoVillano.MUERTO);

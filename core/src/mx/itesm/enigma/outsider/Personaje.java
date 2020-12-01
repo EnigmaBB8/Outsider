@@ -160,7 +160,7 @@ public class Personaje extends Objeto{
             mover(-Dx);
 
         }
-        if (sprite.getX()>=ANCHO - 600 || sprite.getX()<=0) {
+        if (sprite.getX()>=ANCHO - 600 || sprite.getX()<=ANCHO*.01f + 100) {
             if(sprite.getX() == ANCHO -sprite.getWidth()) {
                 setEstadoCaminando(EstadoCaminando.QUIETO_IZQUIERDA);
             }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Aspas extends Objeto {
-    private final float VX = 300;
+    private final float VX = 280;
 
     public Aspas(Texture textura, float x, float y) {
         super(textura, x, y);

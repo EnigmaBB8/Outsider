@@ -459,7 +459,7 @@ public class PantallaLucha4 extends Pantalla {
             Drones drones = arrDrones.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(drones.sprite.getBoundingRectangle())) {
                 arrDrones.removeIndex(i);
-                bateriaN4 -= 8;
+                bateriaN4 -= 10;
                 break;
             }
         }
@@ -483,7 +483,7 @@ public class PantallaLucha4 extends Pantalla {
             Misiles misiles = arrMisiles.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(misiles.sprite.getBoundingRectangle())) {
                 arrMisiles.removeIndex(i);
-                bateriaN4 -= 10;
+                bateriaN4 -= 15;
                 break;
             } else if (bateriaN4 <= 0) {
                 estado = PantallaLucha4.EstadoJuego.PERDIO;
@@ -518,13 +518,13 @@ public class PantallaLucha4 extends Pantalla {
             if (proyectil.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(proyectil.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillanoN4 -= 10;
+                    vidaVillanoN4 -= 2;
                     proyectil.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(proyectil.getEstado()== EstadoObjeto.DESAPARECE){
                     arrProyectil.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillanoN4 == 0) {
+            } else if (vidaVillanoN4 < 3) {
                 estado = EstadoJuego.MURIENDO1;
                 villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaMuriendo == null) {
@@ -543,10 +543,10 @@ public class PantallaLucha4 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN4<90) {
+                    && bateriaN4<95) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN4 += 10;
+                bateriaN4 += 5;
                 if(Sonido==true) {
                     efectoPocima.play();
                 }
