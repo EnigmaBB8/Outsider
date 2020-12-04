@@ -290,7 +290,7 @@ public class PantallaLucha3 extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                    if (arrProyectil.size < 5) {
+                    if (arrProyectil.size < 10) {
                         Proyectil bala = crearProyectil();
                         arrProyectil.add(bala);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BALAS){
@@ -446,7 +446,7 @@ public class PantallaLucha3 extends Pantalla {
             Zombies zombies = arrZombies.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
                 arrZombies.removeIndex(i);
-                bateriaN3 -= 7;
+                bateriaN3 -= 5;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -476,7 +476,7 @@ public class PantallaLucha3 extends Pantalla {
             Cerebros cerebros = arrCerebros.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(cerebros.sprite.getBoundingRectangle())) {
                 arrCerebros.removeIndex(i);
-                bateriaN3 -= 8;
+                bateriaN3 -= 6;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -523,13 +523,13 @@ public class PantallaLucha3 extends Pantalla {
             if (bala.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(bala.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillanoN3 -= 3;
+                    vidaVillanoN3 -= .2;
                     bala.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(bala.getEstado()== EstadoObjeto.DESAPARECE){
                     arrProyectil.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillanoN3 < 4) {
+            } else if (vidaVillanoN3 < 1) {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=4;
                 villano.setEstado(EstadoVillano.MUERTO);
@@ -553,10 +553,10 @@ public class PantallaLucha3 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN3<93) {
+                    && bateriaN3<95) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN3 += 7;
+                bateriaN3 += 5;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }
@@ -663,7 +663,7 @@ public class PantallaLucha3 extends Pantalla {
         GANANDO4,
         PERDIO
     }
-    private class EscenaPausa extends Stage {
+    public class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch){
             super(vista,batch);
             Texture textura = juego.getManager().get("fondos/PausaN3.png");
@@ -774,18 +774,13 @@ public class PantallaLucha3 extends Pantalla {
                         //Prender musica
                         btnMusica.setStyle(PrendidoMusica);
                         juego.reproducirMusicaNivel3();
-                        juego.detenerMusicaN2();
-                        juego.detenerMusicaN1();
-                        juego.detenerMusica();
                         preferencias.putBoolean("General",true);
                     }else{
                         btnMusica.setStyle(ApagadoMusica);
-                        juego.detenerMusicaN1();
-                        juego.detenerMusicaN2();
                         juego.detenerMusicaN3();
-                        juego.detenerMusica();
                         preferencias.putBoolean("General",false);
                     }
+                    preferencias.flush();
                 }
             });
             //Listener Sonido
@@ -793,20 +788,19 @@ public class PantallaLucha3 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);
                     if(Sonido==false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        preferencias.putBoolean("GeneralSonido",true);
-                        preferences.flush();
+                        preferenciasSonido.putBoolean("GeneralSonido",true);
                     }else{
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        preferencias.putBoolean("GeneralSonido",false);
-                        preferences.flush();
+                        preferenciasSonido.putBoolean("GeneralSonido",false);
                     }
+                    preferenciasSonido.flush();
                 }
             });
 

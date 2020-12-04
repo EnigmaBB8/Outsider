@@ -316,20 +316,18 @@ public class PantallaLucha2 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
-                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                    if (arrBolasMagicas.size < 5) {
-                        Proyectil BolasMagicas = crearBolaMagica();
-                        arrBolasMagicas.add(BolasMagicas);
-                        if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
-                            personaje.setEstado(EstadoKAIM.DISPARANDO_BOLASMAGICAS);
-                        }
-                        if (Sonido == true) {
-                            efectoMagia.play();
-                        }
+                Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                if (arrBolasMagicas.size < 10) {
+                    Proyectil BolasMagicas = crearBolaMagica();
+                    arrBolasMagicas.add(BolasMagicas);
+                    if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
+                        personaje.setEstado(EstadoKAIM.DISPARANDO_BOLASMAGICAS);
                     }
-
+                    if (Sonido == true) {
+                        efectoMagia.play();
+                    }
+                }
             }
         });
         //Pausa
@@ -462,7 +460,7 @@ public class PantallaLucha2 extends Pantalla {
         verificarChoquesAEnemigo();
         verificarPocimaTomada();
         verificarChoquesLlamaradaPersonaje();
-        verficarChoquesAspas();
+        verificarChoquesAspas();
         verificarChoquesEspinas();
         verificarChoquesBalasEspinas();
     }
@@ -485,7 +483,7 @@ public class PantallaLucha2 extends Pantalla {
             Espinas espinas = arrEspinas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(espinas.sprite.getBoundingRectangle())) {
                 arrEspinas.removeIndex(i);
-                bateriaN2 -= 8;
+                bateriaN2 -= 3;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -501,7 +499,7 @@ public class PantallaLucha2 extends Pantalla {
         timerCrearEspinas += Gdx.graphics.getDeltaTime();
         if (timerCrearEspinas >= TIEMPO_CREA_ESPINAS) {
             timerCrearEspinas = 0;
-            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*20;
+            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*14;
             if (tiempoEspinas > 2) {
                 tiempoEspinas -= 1;
             }
@@ -510,14 +508,14 @@ public class PantallaLucha2 extends Pantalla {
         }
     }
 
-    private void verficarChoquesAspas() {
+    private void verificarChoquesAspas() {
         for (int i = arrAspas.size-1; i>=0; i--) {
             Aspas aspas = arrAspas.get(i);
             Rectangle rectAspas = aspas.sprite.getBoundingRectangle();
             rectAspas.x -= rectAspas.width/2;
             if (personaje.sprite.getBoundingRectangle().overlaps(rectAspas)) {
                 arrAspas.removeIndex(i);
-                bateriaN2 -= 10;
+                bateriaN2 -= 2;
                 break;
             }
         }
@@ -541,7 +539,7 @@ public class PantallaLucha2 extends Pantalla {
             Llamaradas llamaradas = arrLlamaradas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(llamaradas.sprite.getBoundingRectangle())) {
                 arrLlamaradas.removeIndex(i);
-                bateriaN2 -= 6;
+                bateriaN2 -= 3;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -586,10 +584,10 @@ public class PantallaLucha2 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN2<91) {
+                    && bateriaN2<95) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN2 += 10;
+                bateriaN2 += 5;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }
@@ -609,13 +607,13 @@ public class PantallaLucha2 extends Pantalla {
             if (bolasMagicas.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(bolasMagicas.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillano2 -= 4;
+                    vidaVillano2 -= .3;
                     bolasMagicas.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(bolasMagicas.getEstado()== EstadoObjeto.DESAPARECE){
                     arrBolasMagicas.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillano2 < 5) {
+            } else if (vidaVillano2 < 1) {
                 estado = EstadoJuego.MURIENDO1;
                 NivelDisponible=3;
                 villano.setEstado(EstadoVillano.MUERTO);
@@ -853,6 +851,7 @@ public class PantallaLucha2 extends Pantalla {
                         juego.detenerMusica();
                         preferencias.putBoolean("General",false);
                     }
+                    preferencias.flush();
                 }
             });
             //Listener Sonido
@@ -860,20 +859,19 @@ public class PantallaLucha2 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);
                     if (Sonido == false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        preferencias.putBoolean("GeneralSonido", true);
-                        preferences.flush();
+                        preferenciasSonido.putBoolean("GeneralSonido", true);
                     } else {
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        preferencias.putBoolean("GeneralSonido", false);
-                        preferences.flush();
+                        preferenciasSonido.putBoolean("GeneralSonido", false);
                     }
+                    preferenciasSonido.flush();
                 }
             });
 

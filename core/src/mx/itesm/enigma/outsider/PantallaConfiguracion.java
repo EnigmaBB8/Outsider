@@ -145,21 +145,21 @@ public class PantallaConfiguracion extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
+                boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
                 Gdx.app.log("SonidoB", " " + Sonido);
                 if(Sonido==false) {
                     //Prender Sonido
                     btnS.setStyle(PrendidoSonido);
-                    preferencias.putBoolean("GeneralSonido",true);
-                    preferences.flush();
+                    preferenciasSonido.putBoolean("GeneralSonido",true);
+                    //preferences.flush();
                 }else{
                     //Apagar Sonido
                     btnS.setStyle(ApagadoSonido);
-                    preferencias.putBoolean("GeneralSonido",false);
-                    preferences.flush();
+                    preferenciasSonido.putBoolean("GeneralSonido",false);
+                    //preferences.flush();
                 }
-
+                preferenciasSonido.flush();
             }
         });
 

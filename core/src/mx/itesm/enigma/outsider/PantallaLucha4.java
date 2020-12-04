@@ -296,7 +296,7 @@ public class PantallaLucha4 extends Pantalla {
                         personaje.getEstadoCaminando() == EstadoCaminando.SALTA_DERECHA) {
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                    if (arrProyectil.size < 5) {
+                    if (arrProyectil.size < 10) {
                         Proyectil proyectil = crearProyectil();
                         arrProyectil.add(proyectil);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_LASERS){
@@ -454,7 +454,7 @@ public class PantallaLucha4 extends Pantalla {
             Drones drones = arrDrones.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(drones.sprite.getBoundingRectangle())) {
                 arrDrones.removeIndex(i);
-                bateriaN4 -= 10;
+                bateriaN4 -= 4;
                 break;
             }
         }
@@ -478,7 +478,7 @@ public class PantallaLucha4 extends Pantalla {
             Misiles misiles = arrMisiles.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(misiles.sprite.getBoundingRectangle())) {
                 arrMisiles.removeIndex(i);
-                bateriaN4 -= 15;
+                bateriaN4 -= 4;
                 break;
             } else if (bateriaN4 <= 0) {
                 estado = PantallaLucha4.EstadoJuego.PERDIO;
@@ -513,13 +513,13 @@ public class PantallaLucha4 extends Pantalla {
             if (proyectil.sprite.getBoundingRectangle().overlaps(rectVillano)) {
                 if(proyectil.getEstado()== EstadoObjeto.MOVIENDO) {
                     // Descontar puntos
-                    vidaVillanoN4 -= 2;
+                    vidaVillanoN4 -= 0.2;
                     proyectil.setEstado(EstadoObjeto.EXPLOTANDO);
                 }else if(proyectil.getEstado()== EstadoObjeto.DESAPARECE){
                     arrProyectil.removeIndex(i);
                 }
                 break;
-            } else if (vidaVillanoN4 < 3) {
+            } else if (vidaVillanoN4 < 1) {
                 estado = EstadoJuego.MURIENDO1;
                 villano.setEstado(EstadoVillano.MUERTO);
                 if (escenaMuriendo == null) {
@@ -538,10 +538,10 @@ public class PantallaLucha4 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN4<95) {
+                    && bateriaN4<90) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN4 += 5;
+                bateriaN4 += 10;
                 if(Sonido==true) {
                     efectoPocima.play();
                 }
@@ -784,6 +784,7 @@ public class PantallaLucha4 extends Pantalla {
                         juego.detenerMusicaN4();
                         preferencias.putBoolean("General",false);
                     }
+                    preferencias.flush();
                 }
             });
             //Listener Sonido
@@ -791,20 +792,19 @@ public class PantallaLucha4 extends Pantalla {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);
                     if (Sonido == false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        preferencias.putBoolean("GeneralSonido", true);
-                        preferences.flush();
+                        preferenciasSonido.putBoolean("GeneralSonido", true);
                     } else {
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        preferencias.putBoolean("GeneralSonido", false);
-                        preferences.flush();
+                        preferenciasSonido.putBoolean("GeneralSonido", false);
                     }
+                    preferenciasSonido.flush();
                 }
             });
 
@@ -1016,5 +1016,4 @@ public class PantallaLucha4 extends Pantalla {
             this.addActor(btnAvanza);
         }
     }
-
 }

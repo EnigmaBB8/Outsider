@@ -12,11 +12,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Juego extends Game {
 
 	private AssetManager manager;
-	protected Music musicaFondo;
-	protected Music musicaNivel1;
-	protected Music musicaNivel2;
-	protected Music musicaNivel3;
-	protected Music musicaNivel4;
+	public Music musicaFondo;
+	public Music musicaNivel1;
+	public Music musicaNivel2;
+	public Music musicaNivel3;
+	public Music musicaNivel4;
 
 	@Override
 	public void create() {
