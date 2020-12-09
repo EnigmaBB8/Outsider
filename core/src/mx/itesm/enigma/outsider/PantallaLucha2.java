@@ -319,7 +319,7 @@ public class PantallaLucha2 extends Pantalla {
 
                     Preferences preferencias = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                    if (arrBolasMagicas.size < 5) {
+                    if (arrBolasMagicas.size < 50) {
                         Proyectil BolasMagicas = crearBolaMagica();
                         arrBolasMagicas.add(BolasMagicas);
                         if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
@@ -485,7 +485,7 @@ public class PantallaLucha2 extends Pantalla {
             Espinas espinas = arrEspinas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(espinas.sprite.getBoundingRectangle())) {
                 arrEspinas.removeIndex(i);
-                bateriaN2 -= 8;
+                bateriaN2 -= 5;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -517,7 +517,7 @@ public class PantallaLucha2 extends Pantalla {
             rectAspas.x -= rectAspas.width/2;
             if (personaje.sprite.getBoundingRectangle().overlaps(rectAspas)) {
                 arrAspas.removeIndex(i);
-                bateriaN2 -= 5;
+                bateriaN2 -= 4;
                 break;
             }
         }
@@ -586,10 +586,10 @@ public class PantallaLucha2 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN2<96) {
+                    && bateriaN2<91) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN2 += 5;
+                bateriaN2 += 10;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }

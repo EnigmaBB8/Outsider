@@ -538,10 +538,10 @@ public class PantallaLucha4 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN4<96) {
+                    && bateriaN4<91) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN4 += 5;
+                bateriaN4 += 10;
                 if(Sonido==true) {
                     efectoPocima.play();
                 }

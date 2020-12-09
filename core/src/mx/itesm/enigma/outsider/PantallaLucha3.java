@@ -553,10 +553,10 @@ public class PantallaLucha3 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN3<96) {
+                    && bateriaN3<91) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN3 += 5;
+                bateriaN3 += 10;
                 if (Sonido == true) {
                     efectoPocima.play();
                 }

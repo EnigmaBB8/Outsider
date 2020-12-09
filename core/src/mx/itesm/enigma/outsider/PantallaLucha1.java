@@ -303,7 +303,7 @@ public class PantallaLucha1 extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
-                if (arrFlecha.size < 10) {
+                if (arrFlecha.size < 50) {
                     Proyectil flecha = crearProyectil();
                     arrFlecha.add(flecha);
                     if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_FLECHAS){
