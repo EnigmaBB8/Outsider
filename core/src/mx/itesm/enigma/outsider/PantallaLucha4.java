@@ -79,7 +79,7 @@ public class PantallaLucha4 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 6;
+    private float TIEMPO_CREA_POCIMA = 3;
     private float tiempoPocima = 10;
 
     //Drones
@@ -538,10 +538,10 @@ public class PantallaLucha4 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN4<90) {
+                    && bateriaN4<96) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
-                bateriaN4 += 10;
+                bateriaN4 += 5;
                 if(Sonido==true) {
                     efectoPocima.play();
                 }
@@ -635,7 +635,7 @@ public class PantallaLucha4 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN4Inv.png");
 
         juego.getManager().unload("botones/avanzarN4.png");
-        juego.getManager().unload("botones/avanzarN3.png");
+        juego.getManager().unload("botones/avanzarN4P.png");
         juego.getManager().unload("botones/omitirN4.png");
         juego.getManager().unload("botones/PlayAgainN4.png");
         juego.getManager().unload("BtnGanar/final.png");
@@ -898,7 +898,7 @@ public class PantallaLucha4 extends Pantalla {
             Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgainN4.png");
             TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
             final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
-            btnJugarDeNuevoNivel.setPosition(ANCHO*.8f,ALTO*0.4F, Align.topRight);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.9f,ALTO*0.34F, Align.topRight);
             btnJugarDeNuevoNivel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -909,7 +909,7 @@ public class PantallaLucha4 extends Pantalla {
             this.addActor(btnJugarDeNuevoNivel);
 
             // Boton Avanzar
-            Texture btnAvanzar = juego.getManager().get("botones/avanzarN3.png");
+            Texture btnAvanzar = juego.getManager().get("botones/avanzarN4P.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
             btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);

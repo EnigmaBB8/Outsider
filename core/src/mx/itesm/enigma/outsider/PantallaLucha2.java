@@ -62,8 +62,8 @@ public class PantallaLucha2 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 6;
-    private float tiempoPocima = 17;
+    private float TIEMPO_CREA_POCIMA = 3;
+    private float tiempoPocima = 10;
     
     //Espinas
     private Array<Espinas> arrEspinas;
@@ -316,18 +316,20 @@ public class PantallaLucha2 extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Preferences preferencias = Gdx.app.getPreferences("Sonido");
-                boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                if (arrBolasMagicas.size < 10) {
-                    Proyectil BolasMagicas = crearBolaMagica();
-                    arrBolasMagicas.add(BolasMagicas);
-                    if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
-                        personaje.setEstado(EstadoKAIM.DISPARANDO_BOLASMAGICAS);
+
+                    Preferences preferencias = Gdx.app.getPreferences("Sonido");
+                    boolean Sonido = preferencias.getBoolean("GeneralSonido");
+                    if (arrBolasMagicas.size < 5) {
+                        Proyectil BolasMagicas = crearBolaMagica();
+                        arrBolasMagicas.add(BolasMagicas);
+                        if(personaje.getEstado()!=EstadoKAIM.DISPARANDO_BOLASMAGICAS){
+                            personaje.setEstado(EstadoKAIM.DISPARANDO_BOLASMAGICAS);
+                        }
+                        if (Sonido == true) {
+                            efectoMagia.play();
+                        }
                     }
-                    if (Sonido == true) {
-                        efectoMagia.play();
-                    }
-                }
+
             }
         });
         //Pausa
@@ -460,7 +462,7 @@ public class PantallaLucha2 extends Pantalla {
         verificarChoquesAEnemigo();
         verificarPocimaTomada();
         verificarChoquesLlamaradaPersonaje();
-        verificarChoquesAspas();
+        verficarChoquesAspas();
         verificarChoquesEspinas();
         verificarChoquesBalasEspinas();
     }
@@ -483,7 +485,7 @@ public class PantallaLucha2 extends Pantalla {
             Espinas espinas = arrEspinas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(espinas.sprite.getBoundingRectangle())) {
                 arrEspinas.removeIndex(i);
-                bateriaN2 -= 3;
+                bateriaN2 -= 8;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -499,7 +501,7 @@ public class PantallaLucha2 extends Pantalla {
         timerCrearEspinas += Gdx.graphics.getDeltaTime();
         if (timerCrearEspinas >= TIEMPO_CREA_ESPINAS) {
             timerCrearEspinas = 0;
-            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*14;
+            TIEMPO_CREA_ESPINAS = tiempoEspinas + MathUtils.random()*20;
             if (tiempoEspinas > 2) {
                 tiempoEspinas -= 1;
             }
@@ -508,14 +510,14 @@ public class PantallaLucha2 extends Pantalla {
         }
     }
 
-    private void verificarChoquesAspas() {
+    private void verficarChoquesAspas() {
         for (int i = arrAspas.size-1; i>=0; i--) {
             Aspas aspas = arrAspas.get(i);
             Rectangle rectAspas = aspas.sprite.getBoundingRectangle();
             rectAspas.x -= rectAspas.width/2;
             if (personaje.sprite.getBoundingRectangle().overlaps(rectAspas)) {
                 arrAspas.removeIndex(i);
-                bateriaN2 -= 2;
+                bateriaN2 -= 5;
                 break;
             }
         }
@@ -539,7 +541,7 @@ public class PantallaLucha2 extends Pantalla {
             Llamaradas llamaradas = arrLlamaradas.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(llamaradas.sprite.getBoundingRectangle())) {
                 arrLlamaradas.removeIndex(i);
-                bateriaN2 -= 3;
+                bateriaN2 -= 4;
                 break;
             } else if (bateriaN2 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -584,7 +586,7 @@ public class PantallaLucha2 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN2<95) {
+                    && bateriaN2<96) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateriaN2 += 5;
@@ -692,6 +694,7 @@ public class PantallaLucha2 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN2Inv.png");
 
         juego.getManager().unload("botones/avanzarN2.png");
+        juego.getManager().unload("botones/avanzarN2P.png");
         juego.getManager().unload("botones/omitirN2.png");
         juego.getManager().unload("botones/PlayAgainN2.png");
 
@@ -862,16 +865,17 @@ public class PantallaLucha2 extends Pantalla {
                     Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
                     Gdx.app.log("SonidoB", " " + Sonido);
-                    if (Sonido == false) {
+                    if(Sonido==false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
-                        preferenciasSonido.putBoolean("GeneralSonido", true);
-                    } else {
+                        preferenciasSonido.putBoolean("GeneralSonido",true);
+                    }else{
                         //Apagar Sonido
                         btnSonido.setStyle(ApagadoSonido);
-                        preferenciasSonido.putBoolean("GeneralSonido", false);
+                        preferenciasSonido.putBoolean("GeneralSonido",false);
                     }
                     preferenciasSonido.flush();
+
                 }
             });
 
@@ -962,7 +966,7 @@ public class PantallaLucha2 extends Pantalla {
             Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgainN2.png");
             TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
             final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
-            btnJugarDeNuevoNivel.setPosition(ANCHO*.8f,ALTO*0.4F, Align.topRight);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.9f,ALTO*0.34F, Align.topRight);
             btnJugarDeNuevoNivel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -973,7 +977,7 @@ public class PantallaLucha2 extends Pantalla {
             this.addActor(btnJugarDeNuevoNivel);
 
             // Boton Avanzar
-            Texture btnAvanzar = juego.getManager().get("botones/avanzarN2.png");
+            Texture btnAvanzar = juego.getManager().get("botones/avanzarN2P.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
             btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);

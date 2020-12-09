@@ -73,8 +73,8 @@ public class PantallaLucha1 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 4;
-    private float tiempoPocima = 15;
+    private float TIEMPO_CREA_POCIMA = 3;
+    private float tiempoPocima = 10;
 
     //Pausa
     private EstadoJuego estado=EstadoJuego.JUGANDO; // Jugando, Perdiendo, Ganar y Perder
@@ -287,13 +287,13 @@ public class PantallaLucha1 extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferencias.getBoolean("GeneralSonido");
-                if (personaje.getEstado() != EstadoKAIM.SALTANDO ) {
+                if (personaje.getEstado() != EstadoKAIM.SALTANDO) {
                     personaje.saltar();
                     if(Sonido==true) {
                         efectoSalto.play();
                     }
                 }
-                }
+            }
         });
 
         // Disparo
@@ -443,7 +443,7 @@ public class PantallaLucha1 extends Pantalla {
             if (piedra.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())){
                 arrPiedra.removeIndex(i);
                 // Quitar puntos
-                bateria -= 3;
+                bateria -= 5;
                 break;
             }
         }
@@ -456,7 +456,7 @@ public class PantallaLucha1 extends Pantalla {
             Pocimas pocima = arrPocimas.get(i); //Pocima
             // COLISION!!!
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateria<95) {
+                    && bateria<96) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateria += 5;
@@ -506,7 +506,7 @@ public class PantallaLucha1 extends Pantalla {
             BolasDeFuego bola = arrBolasFuego.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(bola.sprite.getBoundingRectangle())) {
                 arrBolasFuego.removeIndex(i);
-                bateria -= 1;
+                bateria -= 4;
                 break;
             } else if (bateria <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -629,6 +629,7 @@ public class PantallaLucha1 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN1Inv.png");
 
         juego.getManager().unload("botones/avanzar.png");
+        juego.getManager().unload("botones/avanzarP.png");
         juego.getManager().unload("botones/omitir.png");
         juego.getManager().unload("botones/PlayAgain.png");
 
@@ -893,7 +894,7 @@ public class PantallaLucha1 extends Pantalla {
             Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgain.png");
             TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
             final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
-            btnJugarDeNuevoNivel.setPosition(ANCHO*.8f,ALTO*0.4F, Align.topRight);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.9f,ALTO*0.34F, Align.topRight);
             btnJugarDeNuevoNivel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -904,10 +905,10 @@ public class PantallaLucha1 extends Pantalla {
             this.addActor(btnJugarDeNuevoNivel);
 
             // Boton Avanzar
-            Texture btnAvanzar = juego.getManager().get("botones/avanzar.png");
+            Texture btnAvanzar = juego.getManager().get("botones/avanzarP.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
+            btnAvanza.setPosition(ANCHO*.5f, ALTO * 0.2f, Align.bottom);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

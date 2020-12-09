@@ -175,7 +175,7 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN4.png", Texture.class);
         manager.load("botones/avanzarN4.png", Texture.class);
-        manager.load("botones/avanzarN3.png", Texture.class);
+        manager.load("botones/avanzarN4P.png", Texture.class);
         manager.load("botones/PlayAgainN4.png", Texture.class);
         manager.load("BtnGanar/final.png", Texture.class);
 
@@ -243,7 +243,7 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN3.png", Texture.class);
         manager.load("botones/avanzarN3.png", Texture.class);
-        manager.load("botones/avanzarN31.png", Texture.class);
+        manager.load("botones/avanzarN3P.png", Texture.class);
         manager.load("botones/PlayAgainN3.png", Texture.class);
 
         manager.load("BtnGanar/menu3.png", Texture.class);
@@ -309,6 +309,7 @@ public class PantallaCargando extends Pantalla {
 
         manager.load("botones/omitirN2.png", Texture.class);
         manager.load("botones/avanzarN2.png", Texture.class);
+        manager.load("botones/avanzarN2P.png", Texture.class);
         manager.load("botones/PlayAgainN2.png", Texture.class);
 
         manager.load("BtnGanar/menu2.png", Texture.class);
@@ -370,6 +371,7 @@ public class PantallaCargando extends Pantalla {
         manager.load("botones/BtnMusicN1Inv.png", Texture.class);
         manager.load("botones/BtnSonidoN1Inv.png", Texture.class);
         manager.load("botones/avanzar.png", Texture.class);
+        manager.load("botones/avanzarP.png", Texture.class);
         manager.load("botones/omitir.png", Texture.class);
         manager.load("botones/PlayAgain.png", Texture.class);
 

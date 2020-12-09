@@ -54,8 +54,8 @@ public class PantallaLucha3 extends Pantalla {
     private Texture texturaPocima;
     private Array<Pocimas> arrPocimas;
     private float timerCrearPocima;
-    private float TIEMPO_CREA_POCIMA = 8;
-    private float tiempoPocima = 18;
+    private float TIEMPO_CREA_POCIMA = 3;
+    private float tiempoPocima = 10;
 
     //Sonidos
     private Sound efectoSalto;
@@ -446,7 +446,7 @@ public class PantallaLucha3 extends Pantalla {
             Zombies zombies = arrZombies.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(zombies.sprite.getBoundingRectangle())) {
                 arrZombies.removeIndex(i);
-                bateriaN3 -= 5;
+                bateriaN3 -= 3;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -476,7 +476,7 @@ public class PantallaLucha3 extends Pantalla {
             Cerebros cerebros = arrCerebros.get(i);
             if (personaje.sprite.getBoundingRectangle().overlaps(cerebros.sprite.getBoundingRectangle())) {
                 arrCerebros.removeIndex(i);
-                bateriaN3 -= 6;
+                bateriaN3 -= 3;
                 break;
             } else if (bateriaN3 <= 0) {
                 estado = EstadoJuego.PERDIO;
@@ -553,7 +553,7 @@ public class PantallaLucha3 extends Pantalla {
             Preferences preferencias = Gdx.app.getPreferences("Sonido");
             boolean Sonido = preferencias.getBoolean("GeneralSonido");
             if (pocima.sprite.getBoundingRectangle().overlaps(personaje.sprite.getBoundingRectangle())
-                    && bateriaN3<95) {
+                    && bateriaN3<96) {
                 arrPocimas.removeIndex(i);
                 // Aumentar puntos
                 bateriaN3 += 5;
@@ -636,7 +636,7 @@ public class PantallaLucha3 extends Pantalla {
         juego.getManager().unload("botones/BtnSonidoN3Inv.png");
 
         juego.getManager().unload("botones/omitirN3.png");
-        juego.getManager().unload("botones/avanzarN3.png");
+        juego.getManager().unload("botones/avanzarN3P.png");
         juego.getManager().unload("botones/PlayAgainN3.png");
 
         juego.getManager().unload("BtnGanar/menu3.png");
@@ -891,7 +891,7 @@ public class PantallaLucha3 extends Pantalla {
             Texture btnJugarDeNuevo = juego.getManager().get("botones/PlayAgainN3.png");
             TextureRegionDrawable trJugarDeNuevo = new TextureRegionDrawable(new TextureRegion(btnJugarDeNuevo));
             final ImageButton btnJugarDeNuevoNivel = new ImageButton(trJugarDeNuevo,trJugarDeNuevo);
-            btnJugarDeNuevoNivel.setPosition(ANCHO*.8f,ALTO*0.4F, Align.topRight);
+            btnJugarDeNuevoNivel.setPosition(ANCHO*.9f,ALTO*0.345F, Align.topRight);
             btnJugarDeNuevoNivel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -902,10 +902,10 @@ public class PantallaLucha3 extends Pantalla {
             this.addActor(btnJugarDeNuevoNivel);
 
             // Boton Avanzar
-            Texture btnAvanzar = juego.getManager().get("botones/avanzarN31.png");
+            Texture btnAvanzar = juego.getManager().get("botones/avanzarN3P.png");
             TextureRegionDrawable trAvanzar = new TextureRegionDrawable(new TextureRegion(btnAvanzar));
             ImageButton btnAvanza = new ImageButton(trAvanzar, trAvanzar);
-            btnAvanza.setPosition(ANCHO/2, ALTO * 0.2f, Align.bottom);
+            btnAvanza.setPosition(ANCHO*.47f, ALTO * 0.2f, Align.bottom);
             btnAvanza.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
