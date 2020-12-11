@@ -56,7 +56,7 @@ public class PantallaHistoria extends Pantalla {
 
         ImageButton btnH = new ImageButton(trdBtconf,trdBtConfInv);
 
-        btnH.setPosition(ANCHO * .8f, ALTO * .18F, Align.topLeft);
+        btnH.setPosition(ANCHO * .08f, ALTO * .95F, Align.topLeft);
 
         btnH.addListener(new ClickListener() {
             @Override

@@ -125,7 +125,7 @@ public class PantallaAcercaDe extends Pantalla {
         Posicion e inicializacion de los botones
          */
 
-        btnNP.setPosition(ANCHO * .83f, ALTO * .25F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .01f, ALTO * .97F, Align.topLeft);
         btnK.setPosition(ANCHO*.15f,ALTO*.55f, Align.center);
         btnM.setPosition(ANCHO*.45f,ALTO*.55f, Align.center);
         btnI.setPosition(ANCHO*.15f,ALTO*.16f, Align.center);

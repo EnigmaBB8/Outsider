@@ -55,7 +55,7 @@ public class PantallaContacto extends Pantalla {
 
         ImageButton btnH = new ImageButton(trdBtconf,trdBtConfInv);
 
-        btnH.setPosition(ANCHO * .8f, ALTO * .8F, Align.topLeft);
+        btnH.setPosition(ANCHO * .03f, ALTO * .3F, Align.topLeft);
 
         btnH.addListener(new ClickListener() {
             @Override

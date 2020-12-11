@@ -55,7 +55,7 @@ public class PantallaConfiguracion extends Pantalla {
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
-        btnNP.setPosition(ANCHO * .8f, ALTO * .39F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .48f, ALTO * .39F, Align.topLeft);
 
         btnNP.addListener(new ClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class PantallaConfiguracion extends Pantalla {
         final ImageButton.ImageButtonStyle Apagado=new ImageButton.ImageButtonStyle(estiloApagado);
 
         final ImageButton btnM = new ImageButton(trdBtMusica, trdBtMusicaInv);
-        btnM.setPosition(ANCHO * .53F, ALTO * .3F, Align.center);
+        btnM.setPosition(ANCHO * .7F, ALTO * .3F, Align.center);
 
         //Listener Música
         btnM.addListener(new ClickListener() {
@@ -130,7 +130,7 @@ public class PantallaConfiguracion extends Pantalla {
         final ImageButton.ImageButtonStyle ApagadoSonido =new ImageButton.ImageButtonStyle(estiloApagadosonido);
 
         final ImageButton btnS = new ImageButton(trdBtnSonido, trdBtnSonidoInv);
-        btnS.setPosition(ANCHO * .7F, ALTO * .3F, Align.center);
+        btnS.setPosition(ANCHO * .86F, ALTO * .3F, Align.center);
 
         //Leer preferencias
         final Preferences preferences=Gdx.app.getPreferences("Sonido");

@@ -56,7 +56,7 @@ public class PantallaAyuda extends Pantalla {
 
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
-        btnNP.setPosition(ANCHO * .8f, ALTO * .25F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .06f, ALTO * .2F, Align.topLeft);
 
         btnNP.addListener(new ClickListener() {
             @Override

@@ -108,7 +108,7 @@ public class PantallaMapa extends Pantalla {
         ImageButton btnNP = new ImageButton(trdBtNuevaPartida, trdBtNuevaPartidaInv);
 
 
-        btnNP.setPosition(ANCHO * .85f, ALTO * .23F, Align.topLeft);
+        btnNP.setPosition(ANCHO * .01f, ALTO * .97F, Align.topLeft);
         btnNivel1.setPosition(ANCHO * .42f, ALTO * .32F, Align.topLeft);
         btnNivel2.setPosition(ANCHO * .7f, ALTO * .62F, Align.topLeft);
         btnNivel3.setPosition(ANCHO * .38f, ALTO * .77F, Align.topLeft);
