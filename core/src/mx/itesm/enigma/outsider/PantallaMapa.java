@@ -35,7 +35,6 @@ public class PantallaMapa extends Pantalla {
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA Mapa", " " + musicaFondo);
         if (musicaFondo == true) {
             //Prender musica
             juego.reproducirMusica();

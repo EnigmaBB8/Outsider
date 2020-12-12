@@ -155,7 +155,6 @@ public class PantallaLucha3 extends Pantalla {
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA NIVEL 3"," "+musicaFondo);
         if(musicaFondo==true){
             //Prender musica
             juego.reproducirMusicaNivel3();
@@ -312,11 +311,9 @@ public class PantallaLucha3 extends Pantalla {
                         escenaPausa=new PantallaLucha3.EscenaPausa(vista,batch);
                     }
                     Gdx.input.setInputProcessor(escenaPausa);
-                    Gdx.app.log("Pausa","Cambia a Pausa");
 
                 }else if (estado== PantallaLucha3.EstadoJuego.PAUSADO){
                     estado= PantallaLucha3.EstadoJuego.JUGANDO;
-                    Gdx.app.log("Pausa","Cambia a Jugando");
 
                 }
                 return true;
@@ -749,7 +746,6 @@ public class PantallaLucha3 extends Pantalla {
                     super.clicked(event, x, y);
                     estado = PantallaLucha3.EstadoJuego.JUGANDO;
                     Gdx.input.setInputProcessor(escenaNivel3);
-                    Gdx.app.log("Pausa","Reanuda");
                 }
             });
 
@@ -769,7 +765,6 @@ public class PantallaLucha3 extends Pantalla {
                 public void clicked(InputEvent event, float x, float y) {
                     Preferences preferencias = Gdx.app.getPreferences("Musica");
                     boolean musicaFondo = preferencias.getBoolean("General");
-                    Gdx.app.log("MUSICA 3", " " + musicaFondo);
                     if(musicaFondo==false) {
                         //Prender musica
                         btnMusica.setStyle(PrendidoMusica);
@@ -790,7 +785,6 @@ public class PantallaLucha3 extends Pantalla {
                     super.clicked(event, x, y);
                     Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
                     boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
-                    Gdx.app.log("SonidoB", " " + Sonido);
                     if(Sonido==false) {
                         //Prender Sonido
                         btnSonido.setStyle(PrendidoSonido);
@@ -819,7 +813,6 @@ public class PantallaLucha3 extends Pantalla {
                 Texture textura1 = juego.getManager().get("Historieta/VNLvl3_1.PNG");
                 imgGanando = new Image(textura1);
                 imgGanando.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
-                Gdx.app.log("Ganando1", "Sí entra");
                 this.addActor(imgGanando);
             }
 
@@ -848,21 +841,18 @@ public class PantallaLucha3 extends Pantalla {
                     super.clicked(event, x, y);
                     if (estado == PantallaLucha3.EstadoJuego.GANANDO1) {
                         estado = PantallaLucha3.EstadoJuego.GANANDO2;
-                        Gdx.app.log("Ganando2", "Sí cambia");
                         Texture textura2 = juego.getManager().get("Historieta/VNLvl3_2.PNG");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura2);
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == PantallaLucha3.EstadoJuego.GANANDO2) {
                         estado = PantallaLucha3.EstadoJuego.GANANDO3;
-                        Gdx.app.log("Ganando3", "Sí cambia");
                         Texture textura3 = juego.getManager().get("Historieta/VNLvl3_3.PNG");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura3);
                         imgGanando.setDrawable(nuevaImagen);
                         btnAvanza.toFront();
                     } else if (estado == PantallaLucha3.EstadoJuego.GANANDO3) {
                         estado = PantallaLucha3.EstadoJuego. GANANDO4;
-                        Gdx.app.log("Ganando4", "Sí cambia");
                         Texture textura4 = juego.getManager().get("Historieta/VNLvl3_4.PNG");
                         TextureRegionDrawable nuevaImagen = new TextureRegionDrawable(textura4);
                         imgGanando.setDrawable(nuevaImagen);
@@ -926,7 +916,6 @@ public class PantallaLucha3 extends Pantalla {
                 Texture textura1 = juego.getManager().get("MuerteVillanos/muerteZ1.png");
                 imgMuriendo = new Image(textura1);
                 imgMuriendo.setPosition(ANCHO/2-textura1.getWidth()/2, ALTO/2-textura1.getHeight()/2);
-                Gdx.app.log("Muriendo1", "Sí entra");
                 this.addActor(imgMuriendo);
             }
 

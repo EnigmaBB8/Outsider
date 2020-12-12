@@ -33,7 +33,6 @@ public class PantallaHistoria extends Pantalla {
     private void configurarMusica() {
         Preferences preferencias = Gdx.app.getPreferences("Musica");
         boolean musicaFondo = preferencias.getBoolean("General");
-        Gdx.app.log("MUSICA 1", " " + musicaFondo);
         if(musicaFondo==true) {
             //Prender musica
             juego.reproducirMusica();

@@ -94,7 +94,6 @@ public class PantallaConfiguracion extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferencias = Gdx.app.getPreferences("Musica");
                 boolean musicaFondo = preferencias.getBoolean("General");
-                Gdx.app.log("MUSICA"," "+musicaFondo);
                 if(musicaFondo==false){
                     //Prender musica
                     btnM.setStyle(Prendido);
@@ -110,7 +109,6 @@ public class PantallaConfiguracion extends Pantalla {
                     preferencias.putBoolean("General",false);
                 }
                 preferencias.flush();
-                Gdx.app.log("MUSICA VALOR FINAL"," "+musicaFondo);
 
             }
         });
@@ -147,7 +145,6 @@ public class PantallaConfiguracion extends Pantalla {
                 super.clicked(event, x, y);
                 Preferences preferenciasSonido = Gdx.app.getPreferences("Sonido");
                 boolean Sonido = preferenciasSonido.getBoolean("GeneralSonido");
-                Gdx.app.log("SonidoB", " " + Sonido);
                 if(Sonido==false) {
                     //Prender Sonido
                     btnS.setStyle(PrendidoSonido);
